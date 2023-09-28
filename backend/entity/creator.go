@@ -7,4 +7,7 @@ type Creator struct {
 	Username	string	`gorm:"uniqueIndex"`
 	Password	string
 	Email		string	`gorm:"uniqueIndex"`
+
+
+	Cartoons	[]Cartoon	`gorm:"foreignKey:CreatorID"`
 }

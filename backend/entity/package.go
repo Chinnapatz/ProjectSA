@@ -7,4 +7,5 @@ type Package struct {
 	Price	int 
 	Coin	int
 
+	PaymentCoin		[]PaymentCoin	`gorm:"foreignKey:PackageID"`
 }

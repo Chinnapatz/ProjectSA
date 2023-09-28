@@ -8,4 +8,11 @@ type Member struct {
 	Password	string
 	Email		string	`gorm:"uniqueIndex"`
 	Coins		int
+
+	PaymentCoins	[]PaymentCoin	`gorm:"foreignKey:MemberID"`
+	PaymentEpisodes	[]PaymentEpisode `gorm:"foreignKey:MemberID"`
+	Comments		[]Comment	`gorm:"foreignKey:MemberID"`
+	Historys		[]History	`gorm:"foreignKey:MemberID"`
+	Ratings			[]Rating	`gorm:"foreignKey:MemberID"`
+	Follows			[]Follow	`gorm:"foreignKey:MemberID"`
 }

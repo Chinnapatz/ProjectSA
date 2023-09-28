@@ -6,15 +6,15 @@ import (
 	"gorm.io/gorm"
 )
 
-type PaymentEpisode struct {
+type Comment struct {
 	gorm.Model
-	Datetime	time.Time
-	
+	message		string
+	datetime	time.Time
 
-	EpisodesID	*uint
-	Episodes	Episodes `gorm:"foreignKey:EpisodesID"`
 
 	MemberID	*uint
 	Member	Member `gorm:"foreignKey:MemberID"`
 
+	EpisodesID	*uint
+	Episodes	Episodes `gorm:"foreignKey:EpisodesID"`
 }

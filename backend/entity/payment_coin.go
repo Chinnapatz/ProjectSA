@@ -11,4 +11,12 @@ type PaymentCoin struct {
 	Datetime	time.Time
 
 
+
+
+	PackageID	*uint
+	Package 	Package 	`gorm:"foreignKey:PackageID"`
+
+	MemberID	*uint
+	Member		Member 		`gorm:"foreignKey:MemberID"`
+
 }
