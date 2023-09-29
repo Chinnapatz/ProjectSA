@@ -48,4 +48,10 @@ database.AutoMigrate(
 
 db = database
 
+member := Member{
+	Username: "Chinnpatz",
+	Password: "1234",
+	Email: "test@gmail.com",
+}
+db.Model(&Member{}).Create(&member)
 }

@@ -8,8 +8,8 @@ import (
 
 type Comment struct {
 	gorm.Model
-	message		string
-	datetime	time.Time
+	Message		string
+	Datetime	time.Time
 
 
 	MemberID	*uint
