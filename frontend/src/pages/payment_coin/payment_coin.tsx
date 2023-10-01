@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
-import './style/header.css';
-import './style/content.css';
-import './style/header';
+import '../../index.css';
+import './styles/header.css';
+import './styles/content.css';
+import './styles/header';
 
 
 import { Layout, theme, ConfigProvider, Button } from 'antd';
@@ -74,12 +74,12 @@ const headerStyle: React.CSSProperties = {
 }
 
 
-function Payment() {
+function Buycoin() {
   const [products, setProducts] = useState<Product[]>(data);
 
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = './styles/header';
+    script.src = '../styles/header';
     script.async = true;
   }
   )
@@ -87,7 +87,7 @@ function Payment() {
     token: { colorBgContainer },
   } = theme.useToken();
   const [size, setSize] = useState<SizeType>('large');
-  const handleClick = (p:Product) => {
+  const handleClick = (p: Product) => {
     Swal.fire({
       title: 'คุณต้องการชำระเงิน?',
       text: `คุณต้องการจ่ายชำระจำนวน ${p.price}`,
@@ -110,77 +110,78 @@ function Payment() {
 
   return (
 
-    <Router>
-      <ConfigProvider
-        theme={{
-          components: {
-            Layout: {
-              colorBgHeader: "#0C134F",
 
-            }
-          },
-          token: {
-            "colorText": "#FFFFFF",
-            "colorPrimary": "#5C469C",
+    <ConfigProvider
+      theme={{
+        components: {
+          Layout: {
+            colorBgHeader: "#0C134F",
 
-          },
-        }}>
+          }
+        },
+        token: {
+          "colorText": "#FFFFFF",
+          "colorPrimary": "#5C469C",
 
-        <Layout className="layout">
+        },
+      }}>
 
-          <Header style={headerStyle}>
+      <Layout className="layout">
 
-            <div className='header-left-side'>
-              <div className='satoon'>
-                <img className='satoon-img' src={require("./pictures/logo.png")} />
-              </div>
-              <div className='search-input-on-top'>
+        <Header style={headerStyle}>
 
-                <form action="">
-                  <div className='search-input'>
-                    <input type="search" required />
-                    <i className="fa fa-search">
-                      <img className="search-icon" src="https://img.icons8.com/ios-filled/50/search--v1.png" alt="search--v1" />
-                    </i>
-                  </div>
-
-                </form>
-              </div>
-              <div className='text-on-top'>HOME</div>
-              <div className='text-on-top'>Categories</div>
-              <div className='text-on-top'>Following</div>
-              <div className='text-on-top'>History</div>
+          <div className='header-left-side'>
+            <div className='satoon'>
+              <img className='satoon-img' src={require("./pictures/logo.png")} />
             </div>
+            <div className='search-input-on-top'>
 
-            <div className='header-right-side'>
-              <div className="box">
-                <div className="my-coin">
-                  <div className="overlap-group">
-                    <p className="element">
-                      <span className="text-wrapper">0</span>
-                      <span className="span"> 🪙</span>
-                    </p>
-                  </div>
+              <form action="">
+                <div className='search-input'>
+                  <input type="search" required />
+                  <i className="fa fa-search">
+                    <img className="search-icon" src="https://img.icons8.com/ios-filled/50/search--v1.png" alt="search--v1" />
+                  </i>
                 </div>
-              </div>
-              <div className="image">
-                <img className="profile" alt="Profile" src={require("./pictures/profile.png")} />
-              </div>
-              <div className='button-on-top' >
-                <Button type="primary" shape="round" size={size}>
-                  Publish
-                </Button>
-                <div className="box2">
-                  <div className="burger">
-                    <div className="rectangle" />
-                    <div className="div" />
-                    <div className="rectangle-2" />
-                  </div>
+
+              </form>
+            </div>
+            <div className='text-on-top'>HOME</div>
+            <div className='text-on-top'>Categories</div>
+            <div className='text-on-top'>Following</div>
+            <div className='text-on-top'>History</div>
+          </div>
+
+          <div className='header-right-side'>
+            <div className="box">
+              <div className="my-coin">
+                <div className="overlap-group">
+                  <p className="element">
+                    <span className="text-wrapper">0</span>
+                    <span className="span"> 🪙</span>
+                  </p>
                 </div>
               </div>
             </div>
-          </Header>
-          <div id="grad1">
+            <div className="image">
+              <img className="profile" alt="Profile" src={require("./pictures/profile.png")} />
+            </div>
+            <div className='button-on-top' >
+              <Button type="primary" shape="round" size={size}>
+                Publish
+              </Button>
+              <div className="box2">
+                <div className="burger">
+                  <div className="rectangle" />
+                  <div className="div" />
+                  <div className="rectangle-2" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </Header>
+        <div id="grad1">
+          <div className='box3-4'>
             <div className="box3">
               <div className="group">
                 <div className="overlap">
@@ -219,11 +220,13 @@ function Payment() {
               <img className='satoon-img2' src={require("./pictures/logo.png")} />
             </div>
           </div>
-        </Layout>
+        </div>
 
-      </ConfigProvider>
-    </Router >
+      </Layout>
+
+    </ConfigProvider>
+
   );
 }
 
-export default Payment;
+export default Buycoin;
