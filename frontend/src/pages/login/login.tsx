@@ -4,7 +4,6 @@ import { Layout, theme, ConfigProvider, Button } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { useNavigate } from "react-router-dom";
 
-
 function Login() {
   const {
     token: { colorBgContainer },
@@ -15,7 +14,6 @@ function Login() {
   const signupButton = () => navigate('/register');
   const buycoinButton = () => navigate('/buycoin');
 
-  
 
   return (
     <ConfigProvider
@@ -27,6 +25,7 @@ function Login() {
 
       },
     }}>
+    
     <div id='grad2'>
       <div className='page'>
         <div className="box-login">
