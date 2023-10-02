@@ -11,8 +11,8 @@ function Login() {
   const [size, setSize] = useState<SizeType>('large');
 
   const navigate = useNavigate();
-  const signupButton = () => navigate('/register');
-  const buycoinButton = () => navigate('/buycoin');
+  const signupButton = () => navigate('/Register');
+  const buycoinButton = () => navigate('/Buycoin');
 
 
   return (
