@@ -7,6 +7,7 @@ import './App.css';
 import Payment from './pages/payment_coin/payment_coin';
 import Login  from './pages/login/login';
 import Register from "./pages/register/register";
+// import Dashboard from './pages/dashboard/index';
 
 import {
   BrowserRouter,
@@ -22,6 +23,7 @@ function App() {
         <Route path='/' element={<Login />}/>
         <Route path='/Buycoin' element={<Payment />}/>
         <Route path='/Register' element={<Register/>}/>
+        {/* <Route path='/Home' element={<Dashboard/>}/> */}
       </Routes >
     </BrowserRouter>
     
