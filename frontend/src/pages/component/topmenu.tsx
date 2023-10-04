@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../../index.css';
 import './styles/header1.css';
 import './styles/header1';
-import { Link } from 'react-router-dom';
+
+import { useNavigate } from "react-router-dom";
 
 import { Layout, theme, ConfigProvider, Button } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
@@ -25,7 +26,14 @@ const headerStyle: React.CSSProperties = {
 
 
 function Topmenu() {
- 
+  const navigate = useNavigate();
+  const homeButton = () => navigate('/Home');
+  const categories = () => navigate('/Categories');
+  const following = () => navigate('/Following');
+  const bookshelf = () => navigate('/Bookshelf');
+  const publish =() => navigate('/Publish')
+
+  
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -75,10 +83,10 @@ function Topmenu() {
               </form>
             </div>
            
-            <div className='text-on-top'>Home</div>
-            <div className='text-on-top'>Categories</div>
-            <div className='text-on-top'>Following</div>
-            <div className='text-on-top'>Bookshelf</div>
+            <div className='text-on-top' onClick={homeButton} >Home</div>
+            <div className='text-on-top' onClick={categories}>Categories</div>
+            <div className='text-on-top' onClick={following}>Following</div>
+            <div className='text-on-top' onClick={bookshelf}>Bookshelf</div>
           </div>
 
           <div className='header-right-side'>
@@ -96,7 +104,7 @@ function Topmenu() {
               <img className="profile" alt="Profile" src={require("./pictures/profile.png")} />
             </div>
             <div className='button-on-top' >
-              <Button type="primary" shape="round" size={size}>
+              <Button type="primary" shape="round" size={size} onClick={publish}>
                 Publish
               </Button>
               <div className="box2">
