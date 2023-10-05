@@ -31,7 +31,8 @@ function Topmenu() {
   const categories = () => navigate('/Categories');
   const following = () => navigate('/Following');
   const bookshelf = () => navigate('/Bookshelf');
-  const publish =() => navigate('/Publish')
+  const publish =() => navigate('/Publish_Se');
+  
 
   
 

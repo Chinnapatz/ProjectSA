@@ -130,6 +130,7 @@ function Buycoin() {
 
         <Header style={headerStyle}>
           <Topmenu/>
+          
         </Header>
         <div id="grad1">
           <div className='box3-4'>

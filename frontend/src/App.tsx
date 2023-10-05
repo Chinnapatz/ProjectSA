@@ -7,7 +7,8 @@ import './App.css';
 import Payment from './pages/payment_coin/payment_coin';
 import Login  from './pages/login/login';
 import Register from "./pages/register/register";
-import Publish_Ep from "./pages/publish_episodes/publish_ep";
+import Publish_Se from "./pages/publish_episodes/publish_se";
+import Publish_Ep from "./pages/publish_series/publish_ep";
 import {
   BrowserRouter,
   Route,
@@ -22,8 +23,8 @@ function App() {
         <Route path='/' element={<Login />}/>
         <Route path='/Buycoin' element={<Payment />}/>
         <Route path='/Register' element={<Register/>}/>
-        <Route path='/Publish_Ep' element={<Publish_Ep/>}/>
-        
+        <Route path='/Publish_Se' element={<Publish_Se/>}/> 
+        <Route path='/Publish_Ep' element={<Publish_Ep/>}/>            
       </Routes >
     </BrowserRouter>
     
