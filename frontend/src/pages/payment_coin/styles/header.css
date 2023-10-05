@@ -190,6 +190,7 @@ display: block;
   height: 38px;
   left: 0;
   position: absolute;
+  cursor: pointer;
   top: 0;
   width: 122px;
   }

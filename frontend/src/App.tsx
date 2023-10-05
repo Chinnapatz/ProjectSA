@@ -8,6 +8,8 @@ import Payment from './pages/payment_coin/payment_coin';
 import Login  from './pages/login/login';
 import Register from "./pages/register/register";
 // import Dashboard from './pages/dashboard/index';
+import Bookshelf from "./pages/bookshelf/bookshelf";
+import Publish from "./pages/publish/publish";
 
 import {
   BrowserRouter,
@@ -24,6 +26,8 @@ function App() {
         <Route path='/Buycoin' element={<Payment />}/>
         <Route path='/Register' element={<Register/>}/>
         {/* <Route path='/Home' element={<Dashboard/>}/> */}
+        <Route path='/Bookshelf' element={<Bookshelf/>}/>
+        <Route path='/Publish' element={<Publish/>}/>
       </Routes >
     </BrowserRouter>
     
