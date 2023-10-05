@@ -31,6 +31,8 @@ function Topmenu() {
   const homeButton = () => navigate('/Home');
   const categories = () => navigate('/Categories');
   const bookshelf = () => navigate('/Bookshelf');
+  const publish =() => navigate('/Publish');
+  const buycoin = () => navigate('/Buycoin');
   const publish =() => navigate('/Publish_Se');
   
   useEffect(() => {
@@ -87,7 +89,7 @@ function Topmenu() {
 
           <div className='header-right-side'>
             <div className="box">
-              <div className="my-coin">
+              <div className="my-coin" onClick={buycoin}>
                 <div className="overlap-group">
                   <p className="element">
                     <span className="text-wrapper">0</span>

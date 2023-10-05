@@ -22,6 +22,9 @@ function App() {
         <Route path='/' element={<Login />}/>
         <Route path='/Buycoin' element={<Payment />}/>
         <Route path='/Register' element={<Register/>}/>
+        {/* <Route path='/Home' element={<Dashboard/>}/> */}
+        {/* <Route path='/Bookshelf' element={<Bookshelf/>}/>
+        <Route path='/Publish' element={<Publish/>}/> */}
         <Route path='/Publish_Se' element={<Publish_Se/>}/> 
         <Route path='/Publish_Ep' element={<Publish_Ep/>}/>            
         <Route path='/Bookshelf' element={<Bookshelf_followed/>}/>            
