@@ -20,7 +20,7 @@
   align-items: center;
 }
 .satoon{
-  margin-right:40px;
+  margin-right:10px;
   display: flex;
 }
 .satoon-img{
@@ -29,20 +29,12 @@
   cursor: pointer;
 }
 
-Link {
-  color: #f4f4f4;
-  font-size: 20px;
-  margin-right:40px ;
-  cursor: pointer;
-  user-select: none;
-}
-
 .text-on-top Link{
   display: flex;
   width: 2px;
   height: 2vh;
   z-index: 999;
-  /* position: fixed; */
+ 
   color: #f4f4f4;
   font-size: 20px;
   margin-right:40px ;
@@ -85,7 +77,7 @@ Link {
 }
 
 
-/*Search bar*/
+
 form{
   top: 50%;
   left: 50%;

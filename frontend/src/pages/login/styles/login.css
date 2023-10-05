@@ -1,4 +1,4 @@
-
+/* 
 #grad2 {
   position: fixed;
   top: 0;
@@ -6,7 +6,7 @@
   right: 0;
   bottom: 0;
   overflow: auto;
-  background: linear-gradient(rgb(212,173,252),rgb(92, 70, 156), rgb(	24, 24, 24)); /* Standard syntax (must be last) */
+  background: linear-gradient(rgb(212,173,252),rgb(92, 70, 156), rgb(	24, 24, 24)); 
   font-family: 'JejuGothic';
 }
 
@@ -108,4 +108,4 @@ span {
 }
 .enter-login:hover{
   opacity: 0.8;
-}
+} */
