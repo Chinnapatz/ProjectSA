@@ -1,0 +1,8 @@
+.bg_btn_thumbnail{
+  background-color: aliceblue;
+  height: 180px;
+  width: 180px;
+  border-radius: 8px;
+  position: absolute;
+  margin-left: 100px;
+}
