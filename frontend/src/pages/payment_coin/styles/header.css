@@ -152,18 +152,7 @@ input{
 }
 
 
-a {
-display: none;
-position: absolute;
-top: 70px;
-bottom:0;
-left: 0;
-right: 0;
-font-size: 20px;
-color: white;
-text-align: center; 
-width: 100%;
-}
+
 
 #form-header:valid a {
 display: block;

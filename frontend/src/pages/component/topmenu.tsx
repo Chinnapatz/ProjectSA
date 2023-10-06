@@ -22,6 +22,7 @@ const headerStyle: React.CSSProperties = {
   alignItems: 'center',
   borderBottom: '1px solid',
   borderBottomColor: '#0C134F',
+  padding:"0px 0px 0px 10px"
 }
 
 
@@ -29,15 +30,11 @@ function Topmenu() {
   const navigate = useNavigate();
   const homeButton = () => navigate('/Home');
   const categories = () => navigate('/Categories');
-  const following = () => navigate('/Following');
   const bookshelf = () => navigate('/Bookshelf');
   const publish =() => navigate('/Publish');
   const buycoin = () => navigate('/Buycoin');
   const publishSe =() => navigate('/Publish_Se');
   
-
-  
-
   useEffect(() => {
     const script = document.createElement('script');
     script.src = './styles/header';
@@ -49,8 +46,6 @@ function Topmenu() {
   } = theme.useToken();
   const [size, setSize] = useState<SizeType>('large');
  
-
-
   return (
     <ConfigProvider
       theme={{
@@ -88,7 +83,7 @@ function Topmenu() {
            
             <div className='text-on-top' onClick={homeButton} >Home</div>
             <div className='text-on-top' onClick={categories}>Categories</div>
-            <div className='text-on-top' onClick={following}>Following</div>
+            
             <div className='text-on-top' onClick={bookshelf}>Bookshelf</div>
           </div>
 
