@@ -86,7 +86,7 @@ Link {
 
 
 /*Search bar*/
-form{
+form-header{
   top: 50%;
   left: 50%;
   transform: translate(-50%,-5%);

@@ -59,18 +59,17 @@
   color: white;
   font-size: 50px;
   margin-left: 34%;
+  margin-bottom: 20px;
 }
 .group input {
   display:block;
   width:80%;
-  margin-left:60px;
-  margin-top: 30px;
-  padding:10px;
   transition: width 0.4s ease-in-out;
 }
 
-.type-1-login{
+.type-1-register1{
   box-sizing: border-box;
+  margin-left: 60px;
   border-radius:20px;
   border: 1px solid #eee;
   transition: .3s border-color;
@@ -110,3 +109,25 @@ span {
 .enter-login:hover{
   opacity: 0.8;
 }
+#register{
+  display: flex;
+  flex-direction: column;
+}
+.type-1-register{
+  box-sizing: border-box;
+  margin-left: 60px;
+  
+  border-radius:20px;
+  width: 80%;
+  border: 1px solid #eee;
+  transition: .3s border-color;
+}
+
+.ant-form-item-explain-error{
+  margin-left: 70px;
+}
+.ant-input-affix-wrapper{
+  justify-content: space-between;
+  
+}
+

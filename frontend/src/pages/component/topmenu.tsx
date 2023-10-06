@@ -33,7 +33,7 @@ function Topmenu() {
   const bookshelf = () => navigate('/Bookshelf');
   const publish =() => navigate('/Publish');
   const buycoin = () => navigate('/Buycoin');
-  const publish =() => navigate('/Publish_Se');
+  const publishSe =() => navigate('/Publish_Se');
   
 
   
@@ -75,7 +75,7 @@ function Topmenu() {
             </div>
             <div className='search-input-on-top'>
 
-              <form action="">
+              <form id='form-header' action="">
                 <div className='search-input'>
                   <input type="search" required />
                   <i className="fa fa-search">

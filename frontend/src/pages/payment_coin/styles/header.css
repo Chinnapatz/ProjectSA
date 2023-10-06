@@ -82,7 +82,7 @@
 
 
 /*Search bar*/
-form{
+#form-header{
   top: 50%;
   left: 50%;
   transform: translate(-50%,-5%);
@@ -134,19 +134,19 @@ input{
   
 }
 
-form:hover,
-form:valid{
+#form-header:hover,
+#form-header:valid{
   width: 200px;
   cursor: pointer;
 }
 
-form:hover input,
-form:valid input{
+#form-header:hover input,
+#form-header:valid input{
   display: block;
 }
 
-form:hover .fa,
-form:valid .fa{
+#form-header:hover .fa,
+#form-header:valid .fa{
   background: #5C469C;
   color: white;
 }
@@ -165,7 +165,7 @@ text-align: center;
 width: 100%;
 }
 
-form:valid a {
+#form-header:valid a {
 display: block;
 }
 .search-input{
