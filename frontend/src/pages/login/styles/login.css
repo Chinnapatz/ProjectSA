@@ -53,14 +53,20 @@
   -webkit-filter: drop-shadow(5px 5px 5px #222);
   filter: drop-shadow(5px 5px 5px #222);
   
-}
+}*/
 .text-login{
 
   color: white;
   font-size: 50px;
   margin-left: 39%;
 }
-.group input {
+#login{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+/* .group input {
   display:block;
   width:80%;
   
@@ -108,4 +114,4 @@ span {
 }
 .enter-login:hover{
   opacity: 0.8;
-} */
+}  */
