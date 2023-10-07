@@ -8,6 +8,7 @@ import {
 //page
 import Login  from './pages/login/login';
 import Register from "./pages/register/register";
+import Payment from './pages/payment_coin/payment_coin'
 import Publish_Se from "./pages/publish_episodes/publish_se";
 import Publish_Ep from "./pages/publish_series/publish_ep";
 import Bookshelf_followed from "./pages/bookshelf/bookshelf_followed";
