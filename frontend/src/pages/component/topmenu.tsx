@@ -33,7 +33,6 @@ function Topmenu() {
   const bookshelf = () => navigate('/Bookshelf');
   const publish =() => navigate('/Publish');
   const buycoin = () => navigate('/Buycoin');
-  const publishSe =() => navigate('/Publish_Se');
   
   useEffect(() => {
     const script = document.createElement('script');

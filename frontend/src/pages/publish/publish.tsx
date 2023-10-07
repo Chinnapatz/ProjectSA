@@ -3,6 +3,7 @@ import Topmenu from '../component/topmenu';
 import { Layout, theme, ConfigProvider, Button } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import './styles/publish.css';
+import { useNavigate } from "react-router-dom";
 
 interface Toon {
   id: number;
@@ -51,6 +52,8 @@ const data: Toon[] = [
 ]
 
 function Publish() {
+  const navigate = useNavigate();
+  const publishSe =() => navigate('/Publish_Se');
   const [size, setSize] = useState<SizeType>('large');
   const [products, setProducts] = useState<Toon[]>(data);
 
@@ -77,7 +80,7 @@ function Publish() {
               Choose Series
             </div>
             <div>
-              <Button type="primary" style={{backgroundColor:'#997FE1'}} shape="round" size={size}>
+              <Button type="primary" style={{backgroundColor:'#997FE1'}} shape="round" size={size} onClick={publishSe}>
                 + Create Series
               </Button>
             </div>
