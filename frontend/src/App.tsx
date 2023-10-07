@@ -8,6 +8,7 @@ import {
 //page
 import Login  from './pages/login/login';
 import Register from "./pages/register/register";
+import Dashboard from "./pages/dashboard/dashboard";
 import Payment from './pages/payment_coin/payment_coin'
 import Publish_Se from "./pages/publish_episodes/publish_se";
 import Publish_Ep from "./pages/publish_series/publish_ep";
@@ -22,7 +23,7 @@ function App() {
         <Route path='/' element={<Login />}/>
         <Route path='/Buycoin' element={<Payment />}/>
         <Route path='/Register' element={<Register/>}/>
-        {/* <Route path='/Home' element={<Dashboard/>}/> */}
+        <Route path='/Home' element={<Dashboard/>}/>
         {/* <Route path='/Bookshelf' element={<Bookshelf/>}/>
         <Route path='/Publish' element={<Publish/>}/> */}
         <Route path='/Publish_Se' element={<Publish_Se/>}/> 
