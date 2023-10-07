@@ -5,7 +5,7 @@ import Topmenu from "../component/topmenu";
 import './style/style.css'
 //import Menubookshelf from "./component/menubookshelf";
 const { Header, Footer, Sider, Content } = Layout;
-function Home() {
+function Dashboard() {
   return (
     <>
       <Layout>
@@ -734,4 +734,4 @@ function Home() {
     </>
   );
 }
-export default Home;
+export default Dashboard;
