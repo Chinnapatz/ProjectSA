@@ -10,7 +10,7 @@ import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import '../component/topmenu';
 
 import { UsersInterface } from '../../interfaces/IUser';
-import { GetUsersByUsernameAPI } from "../../services/https";
+import { GetUsersByUsernameAPI, PackageCoin } from "../../services/https";
 import Cookies from 'js-cookie'; //npm install js-cookie
 
 /* Confirmation  */
@@ -31,42 +31,42 @@ const { Header } = Layout;
 
 interface Product {
   id: number;
-  price: string;
-  coin: string;
+  Price: number;
+  Coin: number;
 }
-const data: Product[] = [
-  {
-    id: 1,
-    price: "THB 40",
-    coin: "185"
-  },
-  {
-    id: 2,
-    price: "THB 100",
-    coin: "470"
-  },
-  {
-    id: 3,
-    price: "THB 200",
-    coin: "960"
-  },
-  {
-    id: 4,
-    price: "THB 350",
-    coin: "1750"
-  },
-  {
-    id: 5,
-    price: "THB 1000",
-    coin: "5100"
-  },
-  {
-    id: 6,
-    price: "THB 1200",
-    coin: "6300"
-  },
+// const data: Product[] = [
+//   {
+//     id: 1,
+//     price: "THB 40",
+//     coin: "185"
+//   },
+//   {
+//     id: 2,
+//     price: "THB 100",
+//     coin: "470"
+//   },
+//   {
+//     id: 3,
+//     price: "THB 200",
+//     coin: "960"
+//   },
+//   {
+//     id: 4,
+//     price: "THB 350",
+//     coin: "1750"
+//   },
+//   {
+//     id: 5,
+//     price: "THB 1000",
+//     coin: "5100"
+//   },
+//   {
+//     id: 6,
+//     price: "THB 1200",
+//     coin: "6300"
+//   },
 
-]
+// ]
 
 
 const headerStyle: React.CSSProperties = {
@@ -83,13 +83,14 @@ const headerStyle: React.CSSProperties = {
 
 function Buycoin() {
 
-  const [products, setProducts] = useState<Product[]>(data);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const script = document.createElement('script');
     script.src = '../styles/header';
     script.async = true;
     GetUsersByUsername();
+    packageCoin();
   }
   )
   const {
@@ -99,7 +100,7 @@ function Buycoin() {
   const handleClick = (p: Product) => {
     Swal.fire({
       title: 'คุณต้องการชำระเงิน?',
-      text: `คุณต้องการจ่ายชำระจำนวน ${p.price}`,
+      text: `คุณต้องการจ่ายชำระจำนวน THB ${p.Price}`,
       icon: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -109,7 +110,7 @@ function Buycoin() {
       if (result.isConfirmed) {
         Swal.fire(
           'ชำระสำเร็จ!',
-          `คุณได้รับ coin จำนวน ${p.coin}`,
+          `คุณได้รับ coin จำนวน ${p.Coin}`,
           'success'
         )
       }
@@ -126,6 +127,14 @@ function Buycoin() {
       const userCoin = res.Coins;
       console.log(userCoin);
       setCoin(userCoin);
+    }
+  };
+  const packageCoin = async () => {
+
+    let res = await PackageCoin();
+    if(res){
+      console.log(res)
+      setProducts(res)
     }
   };
 
@@ -179,9 +188,9 @@ function Buycoin() {
                     <div className="box">
                       <div className="group">
                         <div className="overlap-group">
-                          <div className="rectangle"><div className='box4-text'>{p.price}</div></div>
+                          <div className="rectangle"><div className='box4-text'>THB {p.Price}</div></div>
                           <div className="overlap">
-                            <div className="text-wrapper">{p.coin}</div>
+                            <div className="text-wrapper">{p.Coin}</div>
                             <img className="image" alt="Image" src={require("./pictures/image-4.png")} />
                           </div>
                         </div>

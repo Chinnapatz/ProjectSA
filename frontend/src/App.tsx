@@ -12,7 +12,7 @@ import Dashboard from "./pages/dashboard/dashboard";
 import Payment from './pages/payment_coin/payment_coin'
 import Publish from "./pages/publish/publish";
 import Publish_Se from "./pages/publish_episodes/publish_se";
-import Dashboard from "./pages/dashboard/dashboard";
+
 import Publish_Ep from "./pages/publish_series/publish_ep";
 import Bookshelf_followed from "./pages/bookshelf/bookshelf_followed";
 import Bookshelf_bought from "./pages/bookshelf/bookshelf_bought";

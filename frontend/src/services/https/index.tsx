@@ -60,10 +60,32 @@ async function GetUsersByUsernameAPI(username: string | undefined) {
   return res;
 }
 
+async function PackageCoin() {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/package`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
+
 export {
  
   CreateMember,
   LoginByUsername,
   GetUsersByUsernameAPI,
+  PackageCoin,
   
 };
