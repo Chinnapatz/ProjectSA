@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 import { Layout, theme, ConfigProvider, Button } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
+import { GetUsersByUsernameAPI } from "../../services/https";
+import Cookies from 'js-cookie'; //npm install js-cookie
 
 
 const { Header } = Layout;
@@ -38,14 +40,31 @@ function Topmenu() {
     const script = document.createElement('script');
     script.src = './styles/header';
     script.async = true;
+    GetUsersByUsername();
   }
   )
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [size, setSize] = useState<SizeType>('large');
+
+  // const [users, setUsers] = useState<UsersInterface[]>([]);
+  
+  const username = Cookies.get('username');
+  const [coin, setCoin] = useState<number | null>(null); // Initialize coin state
+  const GetUsersByUsername = async () => {
+    
+    let res = await GetUsersByUsernameAPI(username);
+    if (res) {
+      console.log(res)
+      const userCoin = res.Coins;
+      console.log(userCoin);
+      setCoin(userCoin);
+    }
+  };
  
   return (
+    
     <ConfigProvider
       theme={{
         components: {
@@ -91,7 +110,7 @@ function Topmenu() {
               <div className="my-coin" onClick={buycoin}>
                 <div className="overlap-group">
                   <p className="element">
-                    <span className="text-wrapper">0</span>
+                    <span className="text-wrapper">{coin}</span>
                     <span className="span"> 🪙</span>
                   </p>
                 </div>
@@ -118,5 +137,6 @@ function Topmenu() {
     </ConfigProvider>
   );
 }
+
 
 export default Topmenu;

@@ -24,22 +24,17 @@ func CreateMember(c *gin.Context) {
 // GET /member/:id
 
 func GetMember(c *gin.Context) {
-
 	var member entity.Member
-
 	id := c.Param("id")
-
 	if err := entity.DB().Raw("SELECT * FROM users WHERE id = ?", id).Scan(&member).Error; err != nil {
-
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-
 		return
-
 	}
-
 	c.JSON(http.StatusOK, gin.H{"data": member})
 
 }
+
+
 
 // GET /users
 
