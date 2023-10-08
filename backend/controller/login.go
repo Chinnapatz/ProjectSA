@@ -35,3 +35,16 @@ func LoginByUsername(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": memberResponse})
 }
+
+// GET /member/:username
+
+func GetMemberByUsername(c *gin.Context) {
+	var member entity.Member
+	username := c.Param("username")
+	if err := entity.DB().Raw("SELECT * FROM members WHERE Username = ?", username).Scan(&member).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": member})
+
+}

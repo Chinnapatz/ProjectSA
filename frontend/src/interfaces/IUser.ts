@@ -3,4 +3,6 @@ export interface UsersInterface {
   Username?: string;
   Password?:	string;
 	Email?:	string;
+  Coins?: number;
+
 }

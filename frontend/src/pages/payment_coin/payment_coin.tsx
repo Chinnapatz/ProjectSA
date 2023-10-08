@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 import '../../index.css';
 import './styles/header.css';
 import './styles/content.css';
@@ -7,6 +7,11 @@ import './styles/header';
 import Topmenu from '../component/topmenu';
 import { Layout, theme, ConfigProvider, Button } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
+import '../component/topmenu';
+
+import { UsersInterface } from '../../interfaces/IUser';
+import { GetUsersByUsernameAPI } from "../../services/https";
+import Cookies from 'js-cookie'; //npm install js-cookie
 
 /* Confirmation  */
 import Swal from 'sweetalert2';
@@ -18,7 +23,9 @@ import {
   Routes,
   NavLink,
 
+
 } from "react-router-dom";
+import { count } from 'console';
 
 const { Header } = Layout;
 
@@ -75,12 +82,14 @@ const headerStyle: React.CSSProperties = {
 
 
 function Buycoin() {
+
   const [products, setProducts] = useState<Product[]>(data);
 
   useEffect(() => {
     const script = document.createElement('script');
     script.src = '../styles/header';
     script.async = true;
+    GetUsersByUsername();
   }
   )
   const {
@@ -107,6 +116,20 @@ function Buycoin() {
     })
   }
 
+  const username = Cookies.get('username');
+  const [coin, setCoin] = useState<number | null>(null); // Initialize coin state
+  const GetUsersByUsername = async () => {
+
+    let res = await GetUsersByUsernameAPI(username);
+    if (res) {
+      console.log(res)
+      const userCoin = res.Coins;
+      console.log(userCoin);
+      setCoin(userCoin);
+    }
+  };
+
+
 
   return (
 
@@ -129,8 +152,8 @@ function Buycoin() {
       <Layout className="layout">
 
         <Header style={headerStyle}>
-          <Topmenu/>
-          
+          <Topmenu />
+
         </Header>
         <div id="grad1">
           <div className='box3-4'>
@@ -141,7 +164,7 @@ function Buycoin() {
                     <div className="text-wrapper">เหรียญของฉัน</div>
                     <div className="my-coin">
                       <div className="div-wrapper">
-                        <div className="div">0</div>
+                        <div className="div">{coin}</div>
                       </div>
                     </div>
                   </div>

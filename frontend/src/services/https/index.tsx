@@ -43,10 +43,27 @@ async function LoginByUsername(data: UsersInterface) {
   return res;
 }
 
+async function GetUsersByUsernameAPI(username: string | undefined) {
+  const requestOptions = {
+    method: "GET",
+    
+  };
+  let res = await fetch(`${apiUrl}/login/${username}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+  return res;
+}
 
 export {
  
   CreateMember,
   LoginByUsername,
+  GetUsersByUsernameAPI,
   
 };
