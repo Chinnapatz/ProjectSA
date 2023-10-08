@@ -91,7 +91,7 @@ function Dashboard() {
                   <div className="remforslidebar">
                     <div className="listcartooncontinueread">
 
-                      <div className="listbox">
+                      <div className="listboxcn">
                         <div className="onelist">
                           <div className="coverpage1">
                             {/* <Image
@@ -112,7 +112,7 @@ function Dashboard() {
                       </div>
 
 
-                      <div className="listbox">
+                      <div className="listboxcn">
                         <div className="onelist">
                           <div className="coverpage1">
                             {/* <Image
@@ -132,7 +132,7 @@ function Dashboard() {
                         </div>
                       </div>
 
-                      <div className="listbox">
+                      <div className="listboxcn">
                         <div className="onelist">
                           <div className="coverpage1">
                             {/* <Image
@@ -152,7 +152,7 @@ function Dashboard() {
                         </div>
                       </div>
 
-                      <div className="listbox">
+                      <div className="listboxcn">
                         <div className="onelist">
                           <div className="coverpage1">
                             {/* <Image
@@ -172,7 +172,7 @@ function Dashboard() {
                         </div>
                       </div>
 
-                      <div className="listbox">
+                      <div className="listboxcn">
                         <div className="onelist">
                           <div className="coverpage1">
                             {/* <Image
@@ -192,7 +192,7 @@ function Dashboard() {
                         </div>
                       </div>
 
-                      <div className="listbox">
+                      <div className="listboxcn">
                         <div className="onelist">
                           <div className="coverpage1">
                             {/* <Image
@@ -212,7 +212,7 @@ function Dashboard() {
                         </div>
                       </div>
 
-                      <div className="listbox">
+                      <div className="listboxcn">
                         <div className="onelist">
                           <div className="coverpage1">
                             {/* <Image

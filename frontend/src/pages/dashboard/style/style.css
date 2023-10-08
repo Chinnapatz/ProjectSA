@@ -177,13 +177,11 @@
 
 /* continue read */
 
-.continueread {
+.continueread{
 
     display: flex;
     justify-content: center;
-    padding-top: 40px;
-    
-
+    padding-top: 40px; 
 }
 
 .continuereadhead {
@@ -199,6 +197,7 @@
     width: 180px;
     height: 180px;
     border-radius: 10px;
+    
 }
 
 .onelist {
@@ -209,11 +208,13 @@
     background-color: rgba(24, 24, 24, 1);
     border-radius: 20px;
     transition: 0.3s;
+    
 
 }
 
 .onelist:hover {
   background-color: #54347e;
+  
 }
 
 .infotoonlist1 {
@@ -234,23 +235,25 @@
 
 .boxcontinueread {
     width: 94%;
+    height: 250px;
     padding: 1rem;
     background-color: rgba(24, 24, 24, 0.6);
     border-radius: 20px;
-
+    
 
 }
 
 .listcartooncontinueread {
     display: flex;
     width: 1820px;
-    
-    padding-bottom: 25px;
+
     
     
 }
 
-.listbox {
+.listboxcn {
+
+    background-color: none;
     padding-right: 13px;
     transition: 0.2s;
 }
@@ -260,6 +263,8 @@
 }
 
 .remforslidebar {
+    width: 100%;
+    height: 175px;
     overflow-x: auto;
     position: relative;
     top: -15px;

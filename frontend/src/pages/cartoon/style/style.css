@@ -1,0 +1,177 @@
+.dashboardbackgroud{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    
+
+
+    
+    background-attachment: fixed;
+    background: linear-gradient(170deg, #D4ADFC -0.89%, #5C469C 87.43%, #181818 157.59%);
+}
+
+
+.top{
+    height: 450px;
+    
+}
+
+.below{
+    
+    height: 100%;
+    min-height: 400px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.eplist{
+    display: flex;
+    position: relative;
+    min-width: 350px;
+    width: 40%;
+    
+    
+}
+
+.blankspaceep{
+    position: relative;
+    width: 45px;
+    height: 100%;
+    
+} 
+
+.listzone{
+    position: relative;
+    width: 100%;
+}
+
+.list{
+    padding-bottom: 20px;
+}
+
+.listbox{
+        
+    background-color: #181818;
+    width: 100%;
+    height: 120px;
+    border-radius: 15px;
+}
+
+
+
+.infobox{
+    top: 20px;
+    position: sticky;
+    min-width: 200px;
+    width: 15%;
+    height: 460px;
+    background-color: #181818;
+    border-radius: 15px;
+    
+    
+    
+    
+
+    
+}
+
+
+.info{
+    position: relative;
+    
+    left: 20px;
+    width: 90%;
+    
+
+}
+
+.infotop {
+    position: relative;
+    width: 40%;
+    height: 100%;
+    left: 20px;
+    
+}
+
+.toonname {
+    transition: 0.3s;
+    color: #ebebeb;
+}
+
+.toonname:hover {
+    transform: scale(1.03);
+    color: #B276FF;
+
+}
+.detailinfo {
+    position: relative;
+    height: 290px;
+    color: aliceblue;
+    overflow-x: auto;
+}
+
+
+/* like */
+
+.like {
+    
+    position: relative;
+    width: 30px;
+    height: 30px;
+    bottom: 10px;
+    top: -3px;
+    right: 0px;
+    
+    
+}
+
+.likeicontop {
+    top: 10px;
+    position: relative;
+    height: 40px;
+    width: 100px;
+    padding: 0.5rem;
+    background-color: #ff5076;
+    border-radius: 100px;
+    display: flex;
+    transition: 0.3s;
+    
+}
+
+.sumlike{
+    color: #ebebeb;
+}
+
+.blankspace {
+    width: 70%;
+
+}
+
+.showlike {
+    position: relative;
+    display: flex;
+
+}
+
+.sumlike {
+    position: relative;
+    top: -17px;
+    font-size: large;
+    padding-right: 8px;
+    padding-left: 5px;
+    
+}
+
+.likeicontop:hover {
+    background-color: #ff93b7;
+    scale: 1.05;
+}
+
+.likeicontop:active{
+    background-color: #000000;
+}
