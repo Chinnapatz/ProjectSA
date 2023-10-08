@@ -34,15 +34,20 @@ function Login() {
       console.log('Cookies : '+username)
       messageApi.open({
         type: "success",
-        content: "บันทึกข้อมูลสำเร็จ",
+        content: <span style={{ color: 'green' }}>
+        เข้าสู่ระบบสำเร็จ
+      </span>,
       });
+
       setTimeout(function () {
         navigate("/Home");
       }, 2000);
     } else {
       messageApi.open({
         type: "error",
-        content: "บันทึกข้อมูลไม่สำเร็จ",
+        content: <span style={{ color: 'red' }}>
+          ข้อมูลไม่ถูกต้อง
+          </span>,
       });
     }
   };
