@@ -72,7 +72,7 @@ function Register() {
                  
                   rules={[{ required: true, message: 'Please input your Username!', whitespace: true }]}
                 >
-                  <Input className="type-1-register1" placeholder="USER NAME" />
+                  <Input className="type-1-register1" placeholder="USERNAME" />
                 </Form.Item>
                 {/* <input type="text" className="type-1-login" placeholder="USER NAME" />
                 <input type="text" className="type-1-login" placeholder="EMAIL" /> */}

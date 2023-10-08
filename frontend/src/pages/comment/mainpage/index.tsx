@@ -23,7 +23,10 @@ function Mainpage() {
           <div style={{ justifyContent: "center", padding: "100px 300px" }}>
             <TextArea showCount maxLength={500} style={{ height: 120, width: "100%", resize: 'none' }} onChange={onChange} placeholder="Input allowed up to 500 characters" />
             <div>
-              <Button style={{ backgroundColor: "#5C469C", height: 50, width: 150, justifyContent: "center", marginTop: "10px" }} type="primary">Post</Button>
+              <Button style={{ backgroundColor: "#5C469C", height: 50, width: 150, justifyContent: "center", marginTop: "10px" }}
+               type="primary"
+               >Post
+               </Button>
             </div>
             <div>
                 <div>
@@ -53,7 +56,6 @@ function Mainpage() {
                 <h4 style={{ color: "#6844F8" }}>Username</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam quo rerum ratione eaque commodi dolore temporibus labore. Placeat animi aliquam commodi omnis, quis ratione! Cum ea quod odio voluptates quis?</p>
               </Card> */}
-              <Divider><Button type="link">SEE MORE</Button></Divider>
             </div>
           </div>
 

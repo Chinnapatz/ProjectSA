@@ -72,8 +72,7 @@ function Publish_Se() {
         file.preview = await getBase641(file.originFileObj as RcFile);
       }
     };
-    const handleChange1: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-      setFileList1(newFileList);
+    const handleChange1: UploadProps['onChange'] = ({ fileList: newFileList }) => setFileList1(newFileList);
     const uploadButton1 = (
       <div>
         <PlusOutlined className='text-btn-upload-square' />
