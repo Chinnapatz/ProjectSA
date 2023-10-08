@@ -10,7 +10,7 @@ import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import '../component/topmenu';
 
 import { UsersInterface } from '../../interfaces/IUser';
-import { GetUsersByUsernameAPI, PackageCoin } from "../../services/https";
+import { GetUsersByUsernameAPI, PackageCoin ,UpdateCoin} from "../../services/https";
 import Cookies from 'js-cookie'; //npm install js-cookie
 
 /* Confirmation  */
@@ -30,7 +30,7 @@ import { count } from 'console';
 const { Header } = Layout;
 
 interface Product {
-  id: number;
+  ID: number;
   Price: number;
   Coin: number;
 }
@@ -84,20 +84,24 @@ const headerStyle: React.CSSProperties = {
 function Buycoin() {
 
   const [products, setProducts] = useState<Product[]>([]);
-
+  const [member, setMember] = useState<UsersInterface | undefined>(undefined);
+  const [coin, setCoin] = useState<number | null>(null); // Initialize coin state
+  
   useEffect(() => {
     const script = document.createElement('script');
     script.src = '../styles/header';
     script.async = true;
     GetUsersByUsername();
     packageCoin();
-  }
-  )
+    
+  },[]);
+  
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [size, setSize] = useState<SizeType>('large');
   const handleClick = (p: Product) => {
+    
     Swal.fire({
       title: 'คุณต้องการชำระเงิน?',
       text: `คุณต้องการจ่ายชำระจำนวน THB ${p.Price}`,
@@ -108,24 +112,32 @@ function Buycoin() {
       confirmButtonText: 'Confirm'
     }).then((result) => {
       if (result.isConfirmed) {
+        console.log(member?.ID);
+        console.log(p.ID);
+        Updatecoin(member?.ID, p.ID);
+        
+        
+        
         Swal.fire(
           'ชำระสำเร็จ!',
           `คุณได้รับ coin จำนวน ${p.Coin}`,
           'success'
+          
         )
-      }
+        
+        setTimeout(() => window.location.reload(), 800);
+        }
     })
   }
 
   const username = Cookies.get('username');
-  const [coin, setCoin] = useState<number | null>(null); // Initialize coin state
+  
   const GetUsersByUsername = async () => {
-
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
-      console.log(res)
+      
+      setMember(res);
       const userCoin = res.Coins;
-      console.log(userCoin);
       setCoin(userCoin);
     }
   };
@@ -138,17 +150,21 @@ function Buycoin() {
     }
   };
 
-
+  const Updatecoin= async (ID: Number | undefined, ID_package: Number) => {
+    if (ID !== undefined && ID_package !== undefined) {
+      let res = await UpdateCoin(ID, ID_package);
+      if(res){
+        console.log(res)
+    }
+  }
+  };
 
   return (
-
-
     <ConfigProvider
       theme={{
         components: {
           Layout: {
             colorBgHeader: "#0C134F",
-
           }
         },
         token: {

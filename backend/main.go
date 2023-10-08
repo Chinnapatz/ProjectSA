@@ -19,6 +19,7 @@ func main() {
 	r.GET("/member/:id", controller.GetMember)
 	r.GET("/login/:username", controller.GetMemberByUsername)
 	r.GET("/package", controller.PackageCoin)
+	r.GET("/package/:ID/:ID_package", controller.UpdateCoin)
 	r.POST("/members", controller.CreateMember)
 	r.PATCH("/members", controller.UpdateMember)
 	r.DELETE("/members/:id", controller.DeleteMember)

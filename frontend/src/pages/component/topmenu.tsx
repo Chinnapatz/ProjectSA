@@ -56,9 +56,7 @@ function Topmenu() {
     
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
-      console.log(res)
       const userCoin = res.Coins;
-      console.log(userCoin);
       setCoin(userCoin);
     }
   };
