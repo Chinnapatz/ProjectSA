@@ -143,7 +143,7 @@ function Publish_Ep() {
                                 </div>
                             </Sider>
                             <Content style={{ width: '50vw', }} className='bg-from' >
-                                <Form style={{ paddingLeft: '30px', width: '48vw', height: '60vh', marginTop: '-200px', backgroundColor: 'transparent', borderColor: 'transparent', fontSize: '40px', color: 'white' }}
+                                <Form style={{ paddingLeft: '30px', width: '48vw', height: '60vh', marginTop: '30px', backgroundColor: 'transparent', borderColor: 'transparent', fontSize: '40px', color: 'white' }}
                                     layout="vertical"
                                     labelCol={{ span: 10 }}
                                     wrapperCol={{ span: 10 }}
@@ -168,7 +168,7 @@ function Publish_Ep() {
                                         </p>
                                     </Dragger>
                                     <Form.Item >
-                                        <Button type="primary" htmlType="submit" style={{ marginLeft:'730px',marginTop: '50px',borderRadius:'20px',width:'120px',height:'40px' }}>
+                                        <Button type="primary" htmlType="submit" style={{ marginLeft:'590px',marginTop: '50px',borderRadius:'20px',width:'120px',height:'40px' }}>
                                             Create Series
                                         </Button>
                                     </Form.Item>
