@@ -28,7 +28,9 @@ function Register() {
     if (res.status) {
       messageApi.open({
         type: "success",
-        content: "บันทึกข้อมูลสำเร็จ",
+        content: <span style={{ color: 'green' }}>
+        บันทึกข้อมูลสำเร็จ
+      </span>,
       });
       setTimeout(function () {
         navigate("/");
@@ -36,7 +38,9 @@ function Register() {
     } else {
       messageApi.open({
         type: "error",
-        content: "บันทึกข้อมูลไม่สำเร็จ",
+        content:  <span style={{ color: 'red' }}>
+        บันทึกข้อมูลไม่สำเร็จ
+      </span>,
       });
     }
   };
@@ -72,7 +76,7 @@ function Register() {
                  
                   rules={[{ required: true, message: 'Please input your Username!', whitespace: true }]}
                 >
-                  <Input className="type-1-register1" placeholder="USER NAME" />
+                  <Input className="type-1-register1" placeholder="USERNAME" />
                 </Form.Item>
                 {/* <input type="text" className="type-1-login" placeholder="USER NAME" />
                 <input type="text" className="type-1-login" placeholder="EMAIL" /> */}
@@ -137,6 +141,7 @@ function Register() {
                     Login
                   </Button>
                   {/* <span className='enter-login' onClick={loginButton}>&#8594;</span > */}
+                  {contextHolder}
                   <Button className='button-login-1' type="primary" htmlType="submit" shape="round" style={{backgroundColor:'#5ECC8A'}}>
                     Register
                   </Button>

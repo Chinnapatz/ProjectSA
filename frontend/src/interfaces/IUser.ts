@@ -1,6 +1,8 @@
 export interface UsersInterface {
-  MemberID?: number;
+  ID?: number;
   Username?: string;
   Password?:	string;
 	Email?:	string;
+  Coins?: number;
+
 }

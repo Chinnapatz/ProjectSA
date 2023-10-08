@@ -1,57 +1,45 @@
 package entity
 
-
 import (
+	"gorm.io/driver/sqlite"
 
-"gorm.io/driver/sqlite"
-
-"gorm.io/gorm"
-
+	"gorm.io/gorm"
 )
-
 
 var db *gorm.DB
 
-
 func DB() *gorm.DB {
 
-return db
+	return db
 
 }
-
 
 func SetupDatabase() {
 
-database, err := gorm.Open(sqlite.Open("ProjectSA.db"), &gorm.Config{})
+	database, err := gorm.Open(sqlite.Open("ProjectSA.db"), &gorm.Config{})
 
-if err != nil {
+	if err != nil {
 
-panic("failed to connect database")
+		panic("failed to connect database")
 
-}
+	}
 
-// Migrate the schema
+	// Migrate the schema
 
-database.AutoMigrate(
-	&Member{},
-	&Creator{},
-	&Cartoon{},
-	&Episodes{},
-	&Package{},
-	&PaymentCoin{},
-	&PaymentEpisode{},
-	&History{},
-	&Rating{},
-	&Comment{},
+	database.AutoMigrate(
+		&Member{},
+		&Creator{},
+		&Cartoon{},
+		&Episodes{},
+		&Package{},
+		&PaymentCoin{},
+		&PaymentEpisode{},
+		&History{},
+		&Rating{},
+		&Comment{},
+	)
 
-)
+	db = database
 
-db = database
-
-member := Member{
-	Username: "Chinnpatz",
-	Password: "1234",
-	Email: "test@gmail.com",
-}
-db.Model(&Member{}).Create(&member)
+	
 }

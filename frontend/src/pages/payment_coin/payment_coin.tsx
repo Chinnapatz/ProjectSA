@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 import '../../index.css';
 import './styles/header.css';
 import './styles/content.css';
@@ -7,6 +7,11 @@ import './styles/header';
 import Topmenu from '../component/topmenu';
 import { Layout, theme, ConfigProvider, Button } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
+import '../component/topmenu';
+
+import { UsersInterface } from '../../interfaces/IUser';
+import { GetUsersByUsernameAPI, PackageCoin ,UpdateCoin} from "../../services/https";
+import Cookies from 'js-cookie'; //npm install js-cookie
 
 /* Confirmation  */
 import Swal from 'sweetalert2';
@@ -18,48 +23,50 @@ import {
   Routes,
   NavLink,
 
+
 } from "react-router-dom";
+import { count } from 'console';
 
 const { Header } = Layout;
 
 interface Product {
-  id: number;
-  price: string;
-  coin: string;
+  ID: number;
+  Price: number;
+  Coin: number;
 }
-const data: Product[] = [
-  {
-    id: 1,
-    price: "THB 40",
-    coin: "185"
-  },
-  {
-    id: 2,
-    price: "THB 100",
-    coin: "470"
-  },
-  {
-    id: 3,
-    price: "THB 200",
-    coin: "960"
-  },
-  {
-    id: 4,
-    price: "THB 350",
-    coin: "1750"
-  },
-  {
-    id: 5,
-    price: "THB 1000",
-    coin: "5100"
-  },
-  {
-    id: 6,
-    price: "THB 1200",
-    coin: "6300"
-  },
+// const data: Product[] = [
+//   {
+//     id: 1,
+//     price: "THB 40",
+//     coin: "185"
+//   },
+//   {
+//     id: 2,
+//     price: "THB 100",
+//     coin: "470"
+//   },
+//   {
+//     id: 3,
+//     price: "THB 200",
+//     coin: "960"
+//   },
+//   {
+//     id: 4,
+//     price: "THB 350",
+//     coin: "1750"
+//   },
+//   {
+//     id: 5,
+//     price: "THB 1000",
+//     coin: "5100"
+//   },
+//   {
+//     id: 6,
+//     price: "THB 1200",
+//     coin: "6300"
+//   },
 
-]
+// ]
 
 
 const headerStyle: React.CSSProperties = {
@@ -75,22 +82,29 @@ const headerStyle: React.CSSProperties = {
 
 
 function Buycoin() {
-  const [products, setProducts] = useState<Product[]>(data);
 
+  const [products, setProducts] = useState<Product[]>([]);
+  const [member, setMember] = useState<UsersInterface | undefined>(undefined);
+  const [coin, setCoin] = useState<number | null>(null); // Initialize coin state
+  
   useEffect(() => {
     const script = document.createElement('script');
     script.src = '../styles/header';
     script.async = true;
-  }
-  )
+    GetUsersByUsername();
+    packageCoin();
+    
+  },[]);
+  
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [size, setSize] = useState<SizeType>('large');
   const handleClick = (p: Product) => {
+    
     Swal.fire({
       title: 'คุณต้องการชำระเงิน?',
-      text: `คุณต้องการจ่ายชำระจำนวน ${p.price}`,
+      text: `คุณต้องการจ่ายชำระจำนวน THB ${p.Price}`,
       icon: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -98,25 +112,59 @@ function Buycoin() {
       confirmButtonText: 'Confirm'
     }).then((result) => {
       if (result.isConfirmed) {
+        console.log(member?.ID);
+        console.log(p.ID);
+        Updatecoin(member?.ID, p.ID);
+        
+        
+        
         Swal.fire(
           'ชำระสำเร็จ!',
-          `คุณได้รับ coin จำนวน ${p.coin}`,
+          `คุณได้รับ coin จำนวน ${p.Coin}`,
           'success'
+          
         )
-      }
+        
+        setTimeout(() => window.location.reload(), 800);
+        }
     })
   }
 
+  const username = Cookies.get('username');
+  
+  const GetUsersByUsername = async () => {
+    let res = await GetUsersByUsernameAPI(username);
+    if (res) {
+      
+      setMember(res);
+      const userCoin = res.Coins;
+      setCoin(userCoin);
+    }
+  };
+  const packageCoin = async () => {
+
+    let res = await PackageCoin();
+    if(res){
+      console.log(res)
+      setProducts(res)
+    }
+  };
+
+  const Updatecoin= async (ID: Number | undefined, ID_package: Number) => {
+    if (ID !== undefined && ID_package !== undefined) {
+      let res = await UpdateCoin(ID, ID_package);
+      if(res){
+        console.log(res)
+    }
+  }
+  };
 
   return (
-
-
     <ConfigProvider
       theme={{
         components: {
           Layout: {
             colorBgHeader: "#0C134F",
-
           }
         },
         token: {
@@ -129,8 +177,8 @@ function Buycoin() {
       <Layout className="layout">
 
         <Header style={headerStyle}>
-          <Topmenu/>
-          
+          <Topmenu />
+
         </Header>
         <div id="grad1">
           <div className='box3-4'>
@@ -141,7 +189,7 @@ function Buycoin() {
                     <div className="text-wrapper">เหรียญของฉัน</div>
                     <div className="my-coin">
                       <div className="div-wrapper">
-                        <div className="div">0</div>
+                        <div className="div">{coin}</div>
                       </div>
                     </div>
                   </div>
@@ -156,9 +204,9 @@ function Buycoin() {
                     <div className="box">
                       <div className="group">
                         <div className="overlap-group">
-                          <div className="rectangle"><div className='box4-text'>{p.price}</div></div>
+                          <div className="rectangle"><div className='box4-text'>THB {p.Price}</div></div>
                           <div className="overlap">
-                            <div className="text-wrapper">{p.coin}</div>
+                            <div className="text-wrapper">{p.Coin}</div>
                             <img className="image" alt="Image" src={require("./pictures/image-4.png")} />
                           </div>
                         </div>

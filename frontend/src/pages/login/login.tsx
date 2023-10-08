@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { UsersInterface } from '../../interfaces/IUser';
 import { LoginByUsername } from '../../services/https';
 
+import Cookies from 'js-cookie'; //npm install js-cookie
+
 function Login() {
   const {
     token: { colorBgContainer },
@@ -22,19 +24,30 @@ function Login() {
 
   const onFinish = async (values: UsersInterface) => {
     let res = await LoginByUsername(values);
+    console.log(values.Username)
     console.log(res.status)
+    
     if (res.status) {
+      const usernameValues = values.Username as string;
+      Cookies.set('username',usernameValues,{ expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+      const username = Cookies.get('username');
+      console.log('Cookies : '+username)
       messageApi.open({
         type: "success",
-        content: "บันทึกข้อมูลสำเร็จ",
+        content: <span style={{ color: 'green' }}>
+        เข้าสู่ระบบสำเร็จ
+      </span>,
       });
+
       setTimeout(function () {
-        navigate("/Buycoin");
+        navigate("/Home");
       }, 2000);
     } else {
       messageApi.open({
         type: "error",
-        content: "บันทึกข้อมูลไม่สำเร็จ",
+        content: <span style={{ color: 'red' }}>
+          ข้อมูลไม่ถูกต้อง
+          </span>,
       });
     }
   };
