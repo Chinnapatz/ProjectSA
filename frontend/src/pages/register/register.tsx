@@ -28,7 +28,9 @@ function Register() {
     if (res.status) {
       messageApi.open({
         type: "success",
-        content: "บันทึกข้อมูลสำเร็จ",
+        content: <span style={{ color: 'green' }}>
+        บันทึกข้อมูลสำเร็จ
+      </span>,
       });
       setTimeout(function () {
         navigate("/");
@@ -36,7 +38,9 @@ function Register() {
     } else {
       messageApi.open({
         type: "error",
-        content: "บันทึกข้อมูลไม่สำเร็จ",
+        content:  <span style={{ color: 'red' }}>
+        บันทึกข้อมูลไม่สำเร็จ
+      </span>,
       });
     }
   };
@@ -137,6 +141,7 @@ function Register() {
                     Login
                   </Button>
                   {/* <span className='enter-login' onClick={loginButton}>&#8594;</span > */}
+                  {contextHolder}
                   <Button className='button-login-1' type="primary" htmlType="submit" shape="round" style={{backgroundColor:'#5ECC8A'}}>
                     Register
                   </Button>
