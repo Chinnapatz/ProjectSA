@@ -88,7 +88,7 @@ function Topmenu() {
 
               <form id='form-header' action="">
                 <div className='search-input'>
-                  <input type="search" required />
+                  <input type="search" required className='input-search-bar'/>
                   <i className="fa fa-search">
                     <img className="search-icon" src="https://img.icons8.com/ios-filled/50/search--v1.png" alt="search--v1" />
                   </i>
