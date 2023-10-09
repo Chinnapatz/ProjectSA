@@ -28,6 +28,7 @@ func main() {
 	r.DELETE("/members/:id", controller.DeleteMember)
 
 	r.POST("/login", controller.LoginByUsername)
+	r.POST("/comments",controller.CreateComment)
 
 	// Run the server
 
