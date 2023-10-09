@@ -24,14 +24,14 @@ async function CreateMember(data: UsersInterface) {
   return res;
 }
 
-async function CreateSeries(data: SeriesInterface) {
+async function CreateSeries(ID: Number | undefined,data: SeriesInterface):Promise<any> {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/cartoons`, requestOptions)
+  let res = await fetch(`${apiUrl}/cartoons/${ID}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -83,6 +83,27 @@ async function GetUsersByUsernameAPI(username: string | undefined) {
   return res;
 }
 
+async function GetCartoon(ID: Number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/cartoons/${ID}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
+
 async function PackageCoin() {
   const requestOptions ={
     medthod: "GET",
@@ -91,6 +112,27 @@ async function PackageCoin() {
     },
   };
   let res = await fetch(`${apiUrl}/package`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
+
+async function GetCategories() {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/categories`, requestOptions)
   .then((response) => response.json())
   .then((res) =>{
     if(res.data){
@@ -152,6 +194,8 @@ export {
   PackageCoin,
   CreateSeries,
   UpdateCoin,
+  GetCategories,
+  GetCartoon,
   CreateComment
   
 };
