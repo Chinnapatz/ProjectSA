@@ -10,8 +10,8 @@ type Cartoon struct {
 	Title				string	`gorm:"uniqueIndex"`
 	Catagories			string
 	Summary				string
-	Square_Thumbnail	[]uint8
-	Vertical_Thumbnail	[]uint8
+	Square_Thumbnail	string
+	Vertical_Thumbnail	string
 	Datetime			time.Time
 
 
@@ -19,6 +19,10 @@ type Cartoon struct {
 	Historys	[]History	`gorm:"foreignKey:CartoonID"`
 	Ratings		[]Rating	`gorm:"foreignKey:CartoonID"`
 	
-	CreatorID	*uint
-	Creator		Creator		`gorm:"foreignKey:CreatorID"`
+	CategoriesID	*uint
+	Categories		Categories		`gorm:"foreignKey:CategoriesID"`
+
+	MemberID	*uint
+	Member		Member 		`gorm:"foreignKey:MemberID"`
+
 }

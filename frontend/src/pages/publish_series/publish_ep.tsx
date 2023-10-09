@@ -142,8 +142,8 @@ function Publish_Ep() {
                                     </Upload>
                                 </div>
                             </Sider>
-                            <Content style={{ width: '50vw', }} className='bg-from' >
-                                <Form style={{ paddingLeft: '30px', width: '48vw', height: '60vh', marginTop: '30px', backgroundColor: 'transparent', borderColor: 'transparent', fontSize: '40px', color: 'white' }}
+                            <Content style={{ width: '50vw', marginTop: '200px' }} className='bg-from' >
+                                <Form style={{ paddingLeft: '30px', width: '48vw', height: '60vh', marginTop: '100px', backgroundColor: 'transparent', borderColor: 'transparent', fontSize: '40px', color: 'white' }}
                                     layout="vertical"
                                     labelCol={{ span: 10 }}
                                     wrapperCol={{ span: 10 }}

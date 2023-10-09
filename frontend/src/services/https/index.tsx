@@ -1,5 +1,6 @@
 import { SeriesInterface } from "../../interfaces/ISeries";
 import { UsersInterface } from "../../interfaces/IUser";
+import { CommentInterface } from "../../interfaces/IComment";
 
 const apiUrl = "http://localhost:8080";
 
@@ -23,14 +24,14 @@ async function CreateMember(data: UsersInterface) {
   return res;
 }
 
-async function CreateSeries(data: SeriesInterface) {
+async function CreateSeries(ID: Number | undefined,data: SeriesInterface):Promise<any> {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/cartoons`, requestOptions)
+  let res = await fetch(`${apiUrl}/cartoons/${ID}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -82,6 +83,27 @@ async function GetUsersByUsernameAPI(username: string | undefined) {
   return res;
 }
 
+async function GetCartoon(ID: Number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/cartoons/${ID}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
+
 async function PackageCoin() {
   const requestOptions ={
     medthod: "GET",
@@ -90,6 +112,27 @@ async function PackageCoin() {
     },
   };
   let res = await fetch(`${apiUrl}/package`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
+
+async function GetCategories() {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/categories`, requestOptions)
   .then((response) => response.json())
   .then((res) =>{
     if(res.data){
@@ -124,6 +167,25 @@ async function UpdateCoin(ID: Number | undefined, ID_package: Number | undefined
   return res;
 }
 
+async function CreateComment(data: CommentInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/comments`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
 export {
  
   CreateMember,
@@ -132,5 +194,8 @@ export {
   PackageCoin,
   CreateSeries,
   UpdateCoin,
+  GetCategories,
+  GetCartoon,
+  CreateComment
   
 };

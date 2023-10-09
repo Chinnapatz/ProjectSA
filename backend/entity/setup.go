@@ -28,7 +28,7 @@ func SetupDatabase() {
 
 	database.AutoMigrate(
 		&Member{},
-		&Creator{},
+		&Categories{},
 		&Cartoon{},
 		&Episodes{},
 		&Package{},
@@ -37,6 +37,7 @@ func SetupDatabase() {
 		&History{},
 		&Rating{},
 		&Comment{},
+		&Follow{},
 	)
 
 	db = database
