@@ -4,58 +4,102 @@ import { Layout, theme, ConfigProvider, Button } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import './styles/publish.css';
 import { useNavigate } from "react-router-dom";
-
+import Cookies from 'js-cookie'; //npm install js-cookie
+import { GetCartoon, GetUsersByUsernameAPI } from '../../services/https';
+import { UsersInterface } from '../../interfaces/IUser';
 interface Toon {
-  id: number;
-  thumbnail: string;
-  toonname: string;
-  date:string;
+  ID:               number;
+  Square_Thumbnail: string;
+  Title:            string;
+  Datetime:         string;
 }
-const data: Toon[] = [
-  {
-    id: 1,
-    thumbnail:'./pictures/p1.png',
-    toonname: "Toonname1",
-    date:"date dd-mm-yyyy"
-  },
-  {
-    id: 2,
-    thumbnail:'./pictures/p2.png',
-    toonname: "Toonname2",
-    date:"date dd-mm-yyyy"
-  },
-  {
-    id: 3,
-    thumbnail:'./pictures/p3.jpg',
-    toonname: "Toonname3",
-    date:"date dd-mm-yyyy"
-  },
-  {
-    id: 1,
-    thumbnail:'./pictures/p1.png',
-    toonname: "Toonname1",
-    date:"date dd-mm-yyyy"
-  },
-  {
-    id: 2,
-    thumbnail:'./pictures/p2.png',
-    toonname: "Toonname2",
-    date:"date dd-mm-yyyy"
-  },
-  {
-    id: 3,
-    thumbnail:'./pictures/p3.jpg',
-    toonname: "Toonname3",
-    date:"date dd-mm-yyyy"
-  },
+// const data: Toon[] = [
+//   {
+//     id: 1,
+//     thumbnail:'./pictures/p1.png',
+//     toonname: "Toonname1",
+//     date:"date dd-mm-yyyy"
+//   },
+//   {
+//     id: 2,
+//     thumbnail:'./pictures/p2.png',
+//     toonname: "Toonname2",
+//     date:"date dd-mm-yyyy"
+//   },
+//   {
+//     id: 3,
+//     thumbnail:'./pictures/p3.jpg',
+//     toonname: "Toonname3",
+//     date:"date dd-mm-yyyy"
+//   },
+//   {
+//     id: 1,
+//     thumbnail:'./pictures/p1.png',
+//     toonname: "Toonname1",
+//     date:"date dd-mm-yyyy"
+//   },
+//   {
+//     id: 2,
+//     thumbnail:'./pictures/p2.png',
+//     toonname: "Toonname2",
+//     date:"date dd-mm-yyyy"
+//   },
+//   {
+//     id: 3,
+//     thumbnail:'./pictures/p3.jpg',
+//     toonname: "Toonname3",
+//     date:"date dd-mm-yyyy"
+//   },
   
-]
+// ]
 
 function Publish() {
+
+
+
   const navigate = useNavigate();
   const publishSe =() => navigate('/Publish_Se');
+  const publishEp = () => navigate('/Publish_Ep')
   const [size, setSize] = useState<SizeType>('large');
-  const [products, setProducts] = useState<Toon[]>(data);
+  const [member, setMember] = useState<UsersInterface | undefined>(undefined);
+  const [products, setProducts] = useState<Toon[]>([]);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = '../styles/header';
+    script.async = true;
+    GetUsersByUsername();
+  },[]);
+
+  useEffect(() => {
+    if (member?.ID) {
+      Get_Cartoon(member.ID);
+    }
+  }, [member]);
+
+
+
+
+  const username = Cookies.get('username');
+  
+  const GetUsersByUsername = async () => {
+    let res = await GetUsersByUsernameAPI(username);
+    if (res) {
+      
+      setMember(res);
+      
+      
+    }
+  };
+  const Get_Cartoon = async (ID: Number | undefined) => {
+    let res = await GetCartoon(ID);
+    if(res){
+      console.log(res)
+      setProducts(res)
+    }
+  };
+
+
 
   return (
     <ConfigProvider
@@ -91,20 +135,20 @@ function Publish() {
               
                 
                 <div className='Publish-set1'>
-                  <img className='Publish-series-thumbnail-png' src={require (`${t.thumbnail}`)} alt={`Thumbnail for ${t.toonname}`}  />
+                  <img className='Publish-series-thumbnail-png' src={t.Square_Thumbnail} alt={`Thumbnail for ${t.Title}`}  />
 
                   <div className='Publish-text'>
                     <div className='Publish-text-name'>
-                      {t.toonname}
+                      {t.Title}
                     </div>
                     <div className='Publish-text-date'>
-                      {t.date}
+                      {t.Datetime}
                     </div>
                   </div>
 
                 </div>
                 <div className='Publish-button'>
-                    <Button style={{ backgroundColor: '#997FE1' }} type="primary" shape="round" size={size}>
+                    <Button style={{ backgroundColor: '#997FE1' }} type="primary" shape="round" size={size} onClick={publishEp}>
                       + Create Episodes
                     </Button>
                   </div>

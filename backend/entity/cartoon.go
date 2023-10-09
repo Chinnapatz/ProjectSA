@@ -21,4 +21,8 @@ type Cartoon struct {
 	
 	CategoriesID	*uint
 	Categories		Categories		`gorm:"foreignKey:CategoriesID"`
+
+	MemberID	*uint
+	Member		Member 		`gorm:"foreignKey:MemberID"`
+
 }

@@ -15,4 +15,5 @@ type Member struct {
 	Historys		[]History	`gorm:"foreignKey:MemberID"`
 	Ratings			[]Rating	`gorm:"foreignKey:MemberID"`
 	Follows			[]Follow	`gorm:"foreignKey:MemberID"`
+	Cartoons		[]Cartoon	`gorm:"foreignKey:MemberID"`
 }

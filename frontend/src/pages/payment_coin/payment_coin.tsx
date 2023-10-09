@@ -34,39 +34,7 @@ interface Product {
   Price: number;
   Coin: number;
 }
-// const data: Product[] = [
-//   {
-//     id: 1,
-//     price: "THB 40",
-//     coin: "185"
-//   },
-//   {
-//     id: 2,
-//     price: "THB 100",
-//     coin: "470"
-//   },
-//   {
-//     id: 3,
-//     price: "THB 200",
-//     coin: "960"
-//   },
-//   {
-//     id: 4,
-//     price: "THB 350",
-//     coin: "1750"
-//   },
-//   {
-//     id: 5,
-//     price: "THB 1000",
-//     coin: "5100"
-//   },
-//   {
-//     id: 6,
-//     price: "THB 1200",
-//     coin: "6300"
-//   },
 
-// ]
 
 
 const headerStyle: React.CSSProperties = {
