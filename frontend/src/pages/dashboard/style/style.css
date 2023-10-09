@@ -244,27 +244,33 @@
 }
 
 .listcartooncontinueread {
+    
     display: flex;
     width: 1820px;
+    
+    
 
     
     
 }
 
 .listboxcn {
-
+    position: relative;
+    left: 5px;
+    top: 3px;
     background-color: none;
     padding-right: 13px;
     transition: 0.2s;
+    
 }
 
-.listbox:hover {
+.listboxcn:hover {
     transform: scale(1.03);
 }
 
 .remforslidebar {
     width: 100%;
-    height: 175px;
+    height: 178px;
     overflow-x: auto;
     position: relative;
     top: -15px;
@@ -296,11 +302,14 @@
     border-radius: 20px;
     transition: 0.3s;
     height: 150px;
+    filter: drop-shadow(0px 0px 5px #7b6da1);
+    
 
 }
 
 .ratingtoptoon1:hover {
     background-color: #fff0b8;
+    filter: drop-shadow(0px 0px 5px #ffd900);
 }
 
 .ratingtoptoon2 {
@@ -312,11 +321,14 @@
     border-radius: 20px;
     transition: 0.3s;
     height: 150px;
+    filter: drop-shadow(0px 0px 5px #5b4d80);
+    
 
 }
 
 .ratingtoptoon2:hover {
     background-color: #eaebec;
+    filter: drop-shadow(0px 0px 5px rgb(75, 213, 255));
 }
 
 .ratingtoptoon3 {
@@ -328,11 +340,14 @@
     border-radius: 20px;
     transition: 0.3s;
     height: 150px;
+    filter: drop-shadow(0px 0px 5px #5b4d80);
+    
 
 }
 
 .ratingtoptoon3:hover {
     background-color: #ffceba;
+    filter: drop-shadow(0px 0px 5px #ff0d0d);
 }
 
 
@@ -412,7 +427,7 @@
 .boxratingshowmain {
     width: 94%;
     padding: 1rem;
-    background-color: rgba(24, 24, 24, 0.6);
+    
     border-radius: 20px;
 
 }
@@ -427,8 +442,8 @@
 
 .headrating {
     font-size: xxx-large;
-    color: #fcaeff;
-    filter: drop-shadow(0px 0px 3px #ff73ff);
+    color: #fdd1ff;
+    filter: drop-shadow(0px 0px 3px #ff7cff);
 
 
 }
