@@ -1,5 +1,6 @@
 import { SeriesInterface } from "../../interfaces/ISeries";
 import { UsersInterface } from "../../interfaces/IUser";
+import { CommentInterface } from "../../interfaces/IComment";
 
 const apiUrl = "http://localhost:8080";
 
@@ -124,6 +125,25 @@ async function UpdateCoin(ID: Number | undefined, ID_package: Number | undefined
   return res;
 }
 
+async function CreateComment(data: CommentInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/comments`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
 export {
  
   CreateMember,
@@ -132,5 +152,6 @@ export {
   PackageCoin,
   CreateSeries,
   UpdateCoin,
+  CreateComment
   
 };
