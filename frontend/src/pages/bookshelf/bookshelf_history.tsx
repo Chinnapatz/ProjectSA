@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import "./style/bookshelf.css";
-import Logo from "././Logo.png";
 import Cookies from 'js-cookie'; 
 //component
 import Topmenu from "../component/topmenu";
 import Menubookshelf from "./component/menubookshelf";
+//interface
 import { UsersInterface } from "../../interfaces/IUser";
-import { GetUsersByUsernameAPI } from "../../services/https";
+//https
+import { GetUsersByUsernameAPI,GetCartoonHistory } from "../../services/https";
 const { Header,  Content } = Layout;
 
 interface cartoon {
@@ -27,9 +28,23 @@ function Bookshelf_history() {
       setMember(res);
     }
   };
+  const Get_Cartoon = async (ID: Number | undefined) => {
+    let res = await GetCartoonHistory(ID);
+    if (res) {
+      console.log(res);
+      setProducts(res);
+    }
+  };
+
   useEffect(()=>{
     GetUsersByUsername();
-  },[])
+  },[]);
+
+  useEffect(() => {
+    if (member?.ID) {
+      Get_Cartoon(member.ID);
+    }
+  }, [member]);
 
   return (
     <>
@@ -78,53 +93,23 @@ function Bookshelf_history() {
              
               <div className="header">การ์ตูนที่อ่านล่าสุด</div>
               {/* info-box1 start */}
-              <div className="info-box">
-                <div className="img-infobox">
-                  <img src={Logo} width={190} height={190} />
+              {products.map((cartoon)=>(
+                <div className="info-box">
+                  <div className="img-infobox">
+                  <img  src={cartoon.Square_Thumbnail} width={190} height={190} />
+                  </div>
+                  <div className="text-infobox">
+                    <h1>{cartoon.Title}</h1>
+                    <br></br>
+                    <h3>Update:06/09/2023</h3>
+                  </div>
+                  <div className="EpisodeNumber-infobox">
+                    <h1></h1>
+                  </div>
                 </div>
-                <div className="text-infobox">
-                  <h1>Toonname1</h1>
-                  <h2>writer:</h2>
-                  <br></br>
-                  <h3>Update:06/09/2023</h3>
-                </div>
-                <div className="EpisodeNumber-infobox">
-                  <h1>#4</h1>
-                </div>
-              </div>
+              ))}
               {/* info-box1 End */}
-               {/* info-box2 start */}
-               <div className="info-box">
-                <div className="img-infobox">
-                  <img src={Logo} width={190} height={190} />
-                </div>
-                <div className="text-infobox">
-                  <h1>Toonname1</h1>
-                  <h2>writer:</h2>
-                  <br></br>
-                  <h3>Update:06/09/2023</h3>
-                </div>
-                <div className="EpisodeNumber-infobox">
-                  <h1>#4</h1>
-                </div>
-              </div>
-              {/* info-box2 End */}
-              {/* info-box2 start */}
-              <div className="info-box">
-                <div className="img-infobox">
-                  <img src={Logo} width={190} height={190} />
-                </div>
-                <div className="text-infobox">
-                  <h1>Toonname1</h1>
-                  <h2>writer:</h2>
-                  <br></br>
-                  <h3>Update:06/09/2023</h3>
-                </div>
-                <div className="EpisodeNumber-infobox">
-                  <h1>#4</h1>
-                </div>
-              </div>
-              {/* info-box2 End */}
+               
             </Content>
           </Layout>
         </Content>

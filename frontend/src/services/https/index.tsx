@@ -225,12 +225,67 @@ async function CreateComment(data: CommentInterface) {
   return res;
 }
 
-async function name() {
-  
+// /bookshelf/follow
+async function GetCartoonFollow(ID: Number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/bookshelf/follow/${ID}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+    }else{
+      return false;
+    }
+  });
+  return res;
 }
 
+// /bookshelf/history
+async function GetCartoonHistory(ID: Number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/bookshelf/history/${ID}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+    }else{
+      return false;
+    }
+  });
+  return res;
+}
+
+
+// /bookshelf/paymentEpisodes
+async function GetCartoonPaymentEpisodes(ID: Number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/bookshelf/paymentEpisodes/${ID}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+    }else{
+      return false;
+    }
+  });
+  return res;
+}
 export {
- 
   CreateMember,
   LoginByUsername,
   GetUsersByUsernameAPI,
@@ -242,4 +297,13 @@ export {
   CreateComment,
   CreateEpisodes,
   GetCartoonByID_API,
+
+  //bookshelf/follow
+  GetCartoonFollow,
+
+  //bookshelf/history
+  GetCartoonHistory,
+
+  //bookshelf/history
+  GetCartoonPaymentEpisodes,
 };
