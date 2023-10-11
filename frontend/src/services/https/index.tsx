@@ -167,14 +167,14 @@ async function UpdateCoin(ID: Number | undefined, ID_package: Number | undefined
   return res;
 }
 
-async function CreateComment(data: CommentInterface) {
+async function CreateComment(ID: Number | undefined,data: CommentInterface):Promise<any> {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/comments`, requestOptions)
+  let res = await fetch(`${apiUrl}/comments/${ID}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {

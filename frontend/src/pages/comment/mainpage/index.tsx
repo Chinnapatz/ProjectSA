@@ -6,6 +6,8 @@ import "./index.css";
 import { CreateComment } from '../../../services/https';
 import { CommentInterface } from '../../../interfaces/IComment';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
+import Cookies from 'js-cookie';
+import { UsersInterface } from '../../../interfaces/IUser';
 
 
 const { Header, Content } = Layout;
@@ -22,13 +24,14 @@ function CommentPage() {
 
   
 
-
+  const [member, setMember] = useState<UsersInterface | undefined>(undefined);
+  const username = Cookies.get('username');
 
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
   const onFinish = async (values: CommentInterface) => {
-    let res = await CreateComment(values);
+    let res = await CreateComment(member?.ID,values);
     if (res.status) {
       messageApi.open({
         type: "success",
