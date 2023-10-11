@@ -77,7 +77,13 @@ function Publish() {
     }
   }, [member]);
 
-
+  const onClick = (ID: Number | undefined) => {
+    const idValues = `${ID}`;
+    Cookies.set('ID',idValues,{ expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+    const id = Cookies.get('ID');
+    console.log(id)
+    navigate('/Publish_Ep')
+  };
 
 
   const username = Cookies.get('username');
@@ -148,7 +154,7 @@ function Publish() {
 
                 </div>
                 <div className='Publish-button'>
-                    <Button style={{ backgroundColor: '#997FE1' }} type="primary" shape="round" size={size} onClick={publishEp}>
+                    <Button style={{ backgroundColor: '#997FE1' }} type="primary" shape="round" size={size} onClick={() => onClick(t.ID)}>
                       + Create Episodes
                     </Button>
                   </div>
