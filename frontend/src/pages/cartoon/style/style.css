@@ -101,6 +101,8 @@
 }
 
 .toonname {
+    position: relative;
+    top: 10px;
     transition: 0.3s;
     color: #ebebeb;
 }
@@ -111,6 +113,7 @@
 
 }
 .detailinfo {
+    top: -45px;
     position: relative;
     height: 290px;
     color: aliceblue;
