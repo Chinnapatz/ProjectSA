@@ -28,8 +28,8 @@ func main() {
 	r.DELETE("/members/:id", controller.DeleteMember)
 
 	r.POST("/login", controller.LoginByUsername)
-	r.POST("/comments",controller.CreateComment)
-
+	r.POST("/comments/:ID",controller.CreateComment)
+	r.GET("/comments/:ID",controller.GetComment)
 	// Run the server
 
 	r.Run()
