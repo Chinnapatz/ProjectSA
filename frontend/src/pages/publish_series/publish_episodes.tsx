@@ -58,7 +58,7 @@ const beforeUpload = async (file: RcFile) => {
 
 
 
-function Publish_Ep() {
+function Publish_Episodes() {
     const [member, setMember] = useState<UsersInterface| undefined>(undefined);
     const [title, setTitle] = useState<string|null>(null);
     const [cartoons, setCartoons] = useState<SeriesInterface | undefined>(undefined);
@@ -302,4 +302,4 @@ function Publish_Ep() {
     )
 }
 
-export default Publish_Ep
+export default Publish_Episodes

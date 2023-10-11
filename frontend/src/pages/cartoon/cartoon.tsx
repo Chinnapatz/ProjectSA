@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Layout } from "antd";
-import { Form, Link } from "react-router-dom";
+
 import Topmenu from "../component/topmenu";
 import './style/style.css'
 import LikeButton from './LikeButton';
@@ -11,12 +11,12 @@ const { Header, Content } = Layout;
 
 
 interface Toon {
-    ID:               number;
-    Square_Thumbnail: string;
-    Title:            string;
-    Price:            string;
-    Datetime:         string;
-  }
+    ID: number;
+    Thumbnail: string;
+    Title: string;
+    Price: string;
+    Datetime: string;
+}
 
 
 
@@ -33,8 +33,8 @@ interface Toon {
 
 function Cartoon() {
 
-    const [title, setTitle] = useState<any|null>(null);
-
+    const [title, setTitle] = useState<any | null>(null);
+    const [products, setProducts] = useState<Toon[]>([]);
 
 
     useEffect(() => {
@@ -42,24 +42,24 @@ function Cartoon() {
         script.src = '../styles/header';
         script.async = true;
         GetCartoonByID();
-        GetEpisodesByID();
-        
-          
-      
-        
+        GetEpisodesByID(id);
+
+
+
+
     }, []);
 
-   
+
 
 
     useEffect(() => {
-        
+
     }, [title]);
 
 
     const id = Cookies.get('ID');
     console.log(id)
-    
+
     const GetCartoonByID = async () => {
         let res = await GetCartoonByID_API(id);
         if (res) {
@@ -68,11 +68,27 @@ function Cartoon() {
             const titles = res.Vertical_Thumbnail
             setTitle(titles)
             //console.log(titles)
-           
+
         }
     };
 
-    const GetEpisodesByID = async () => {
+    const GetEpisodesByID = async (ID: string | undefined) => {
+        let res = await GetEpisodesByID_API(ID);
+        if (res) {
+            console.log(res)
+            setProducts(res);
+            // const titles = res.Vertical_Thumbnail
+            // setTitle(titles)
+            //console.log(titles)
+
+        }
+    };
+    //// true = 1 fuction
+    const onChange = (checked: boolean) => {
+        console.log(`switch to ${checked}`);
+    };
+    // false 1 function
+    const UpdateLike = async () => {
         let res = await GetEpisodesByID_API(id);
         if (res) {
             console.log(res)
@@ -80,11 +96,9 @@ function Cartoon() {
             // const titles = res.Vertical_Thumbnail
             // setTitle(titles)
             //console.log(titles)
-           
+
         }
     };
-
-
 
 
 
@@ -114,7 +128,9 @@ function Cartoon() {
                     <div className="dashboardbackgroud">
                         <div className="all">
                             <div className="top">
-                            <img className="imageshowimage" src={title} alt="search--v1" />
+                            <div className="imageshowInCartoon">
+                                    <img className="imageshowimage" src={title} alt="search--v1" />
+                                </div>
                             </div>
                             <div className="below">
 
@@ -130,37 +146,56 @@ function Cartoon() {
                                         </div>
                                         <div className="showlike"></div>
                                         <div className="blankspace"></div>
-                                        
-                                        <LikeButton></LikeButton>
+
+                                        <LikeButton />
+
+
                                         {/* <button className="likeicontop">
                                             <p className="sumlike">2.3M</p>
                                         </button> */}
-                                        
+
                                     </div>
                                 </div>
 
                                 <div className="eplist">
                                     <div className="blankspaceep"></div>
                                     <div className="listzone">
+                                    {products.map((p) => (
                                         <div className="list">
+                                        
                                             <div className="listbox">
-                                            <div className="listshowdashboad">
-                        <div className="coverpage1">
-                        {/* <img className="coverpage1" src={t.Square_Thumbnail} alt="search--v1" /> */}
-                        </div>
+                                            
+                                                <div className="imgEP">
+                                                    <img className="imgForEP" src={p.Thumbnail} />
+                                                </div>
+                                                <div className="EPinfoCartoon">
 
+                                                    <div className="EPNumber">
+                                                        <p className="NumberEPInCartoon">EP.{p.ID}</p>
+                                                    </div>
+                                                    <div className="blankSpaceInEPCartoon1"></div>
+                                                    <div className="toonnameAndDate">
+                                                        <p className="toonnameInCatoon">{p.Title}</p>
+                                                        <p className="DateInCartoon"> {p.Datetime}</p>
+                                                    </div>
+                                                    <div className="blankSpaceInEPCartoon2"></div>
+                                                    <div className="priceInCartoon">
+                                                        <div className="boxforprice">
+                                                            <div className="boxprice">
+                                                                <p className="EPPrice">{p.Price} 🪙</p>
 
-
-                        
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">title</h2>
-                          <h1 className="EP1">EP.1</h1>
-                        </div>
-                        
-                      </div>
+                                                            </div>
+                                                            <div className="blankpriceForBackIn"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
                                             </div>
+
+
+                                        
                                         </div>
-                                    
+                                    ))}
                                     </div>
                                 </div>
                             </div>

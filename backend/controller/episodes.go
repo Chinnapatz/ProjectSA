@@ -43,7 +43,7 @@ func CreateEpisodes(c *gin.Context) {
 }
 
 func GetEpisodeByID(c *gin.Context) {
-	var episodes entity.Episodes
+	var episodes []entity.Episodes
 	idCartoon := c.Param("ID")
 	if err := entity.DB().Raw("SELECT * FROM episodes WHERE cartoon_id = ?", idCartoon).Scan(&episodes).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
