@@ -1,6 +1,7 @@
 import { SeriesInterface } from "../../interfaces/ISeries";
 import { UsersInterface } from "../../interfaces/IUser";
 import { CommentInterface } from "../../interfaces/IComment";
+import { EpisodesInterface } from "../../interfaces/IEpisodes";
 
 const apiUrl = "http://localhost:8080";
 
@@ -44,6 +45,26 @@ async function CreateSeries(ID: Number | undefined,data: SeriesInterface):Promis
   return res;
 }
 
+async function CreateEpisodes(ID: Number | undefined,data: EpisodesInterface):Promise<any> {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/episodes/${ID}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
+
 async function LoginByUsername(data: UsersInterface) {
   const requestOptions ={
    
@@ -72,6 +93,23 @@ async function GetUsersByUsernameAPI(username: string | undefined) {
     
   };
   let res = await fetch(`${apiUrl}/login/${username}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+  return res;
+}
+
+async function GetCartoonByID_API(ID: string | undefined) {
+  const requestOptions = {
+    method: "GET",
+    
+  };
+  let res = await fetch(`${apiUrl}/cartoon/${ID}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -196,6 +234,7 @@ export {
   UpdateCoin,
   GetCategories,
   GetCartoon,
-  CreateComment
-  
+  CreateComment,
+  CreateEpisodes,
+  GetCartoonByID_API,
 };
