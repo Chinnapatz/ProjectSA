@@ -32,6 +32,69 @@ interface Toon {
 
 
 function Cartoon() {
+
+    const [title, setTitle] = useState<any|null>(null);
+
+
+
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = '../styles/header';
+        script.async = true;
+        GetCartoonByID();
+        GetEpisodesByID();
+        
+          
+      
+        
+    }, []);
+
+   
+
+
+    useEffect(() => {
+        
+    }, [title]);
+
+
+    const id = Cookies.get('ID');
+    console.log(id)
+    
+    const GetCartoonByID = async () => {
+        let res = await GetCartoonByID_API(id);
+        if (res) {
+            console.log(res)
+            // setCartoons(res);
+            const titles = res.Vertical_Thumbnail
+            setTitle(titles)
+            //console.log(titles)
+           
+        }
+    };
+
+    const GetEpisodesByID = async () => {
+        let res = await GetEpisodesByID_API(id);
+        if (res) {
+            console.log(res)
+            // setCartoons(res);
+            // const titles = res.Vertical_Thumbnail
+            // setTitle(titles)
+            //console.log(titles)
+           
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <>
             <Layout>
