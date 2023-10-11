@@ -3,6 +3,7 @@ import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import Topmenu from "../component/topmenu";
 import './style/style.css'
+import LikeButton from './LikeButton';
 //import Menubookshelf from "./component/menubookshelf";
 const { Header, Footer, Sider, Content } = Layout;
 function Cartoon() {
@@ -43,10 +44,12 @@ function Cartoon() {
                                         </div>
                                         <div className="showlike"></div>
                                         <div className="blankspace"></div>
-
-                                        <div className="likeicontop">
+                                        
+                                        <LikeButton></LikeButton>
+                                        {/* <button className="likeicontop">
                                             <p className="sumlike">2.3M</p>
-                                        </div>
+                                        </button> */}
+                                        
                                     </div>
                                 </div>
 
