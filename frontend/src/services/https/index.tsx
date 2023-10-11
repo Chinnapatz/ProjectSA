@@ -224,6 +224,11 @@ async function CreateComment(data: CommentInterface) {
 
   return res;
 }
+
+async function name() {
+  
+}
+
 export {
  
   CreateMember,

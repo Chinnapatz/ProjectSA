@@ -13,50 +13,8 @@ interface Toon {
   Title:            string;
   Datetime:         string;
 }
-// const data: Toon[] = [
-//   {
-//     id: 1,
-//     thumbnail:'./pictures/p1.png',
-//     toonname: "Toonname1",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 2,
-//     thumbnail:'./pictures/p2.png',
-//     toonname: "Toonname2",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 3,
-//     thumbnail:'./pictures/p3.jpg',
-//     toonname: "Toonname3",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 1,
-//     thumbnail:'./pictures/p1.png',
-//     toonname: "Toonname1",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 2,
-//     thumbnail:'./pictures/p2.png',
-//     toonname: "Toonname2",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 3,
-//     thumbnail:'./pictures/p3.jpg',
-//     toonname: "Toonname3",
-//     date:"date dd-mm-yyyy"
-//   },
-  
-// ]
 
 function Publish() {
-
-
-
   const navigate = useNavigate();
   const publishSe =() => navigate('/Publish_Se');
   const publishEp = () => navigate('/Publish_Ep')
@@ -91,10 +49,7 @@ function Publish() {
   const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
-      
       setMember(res);
-      
-      
     }
   };
   const Get_Cartoon = async (ID: Number | undefined) => {

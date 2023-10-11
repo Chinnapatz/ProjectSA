@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import "./style/bookshelf.css";
 import Logo from "././Logo.png";
+import Cookies from 'js-cookie'; 
 //component
 import Topmenu from "../component/topmenu";
 import Menubookshelf from "./component/menubookshelf";
+import { UsersInterface } from "../../interfaces/IUser";
+import { GetUsersByUsernameAPI } from "../../services/https";
 const { Header,  Content } = Layout;
 
-
+interface cartoon {
+  ID:               number;
+  Square_Thumbnail: string;
+  Title:            string;
+  Datetime:         string;
+}
 function Bookshelf_history() {
+  const [member, setMember] = useState<UsersInterface | undefined>(undefined);
+  const [products, setProducts] = useState<cartoon[]>([]);
+  const username = Cookies.get('username');
+  const GetUsersByUsername = async () => {
+    let res = await GetUsersByUsernameAPI(username);
+    if (res) {
+      setMember(res);
+    }
+  };
+  useEffect(()=>{
+    GetUsersByUsername();
+  },[])
+
   return (
     <>
       <Layout>

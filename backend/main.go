@@ -31,9 +31,20 @@ func main() {
 
 	r.POST("/login", controller.LoginByUsername)
 	r.POST("/comments",controller.CreateComment)
+	//new 
+	r.GET("/bookshelf/follow",controller.ListFollow)
+	r.GET("/bookshelf/history",controller.ListHistory)
+	r.GET("/bookshelf/paymentEpisodes",controller.ListPaymentEpisode)
 
+	r.GET("/bookshelf/follow/:id",controller.GetCartoonFollowByID)
+	r.GET("/bookshelf/history/:id",controller.GetCartoonHistoryByID)
+	r.GET("/bookshelf/paymentEpisodes/:id",controller.GetEpisodePaymentEpisodeByID)
+
+	r.POST("/bookshelf/follow",controller.CreateFollow)
+	r.POST("/bookshelf/history",controller.CreatePaymentEpisodes)
+	r.POST("/bookshelf/paymentEpisodes",controller.CreateHistory)
 	// Run the server
-
+	
 	r.Run()
 
 }
@@ -50,7 +61,6 @@ func CORSMiddleware() gin.HandlerFunc {
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
 			return
-
 		}
 
 		c.Next()
