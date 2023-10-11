@@ -1,13 +1,16 @@
 package entity
 
-import "gorm.io/gorm"
+import (
+"gorm.io/gorm"
+)
 
 type Episodes struct {
 	gorm.Model
 	Title		string		`gorm:"uniqueIndex"`
-	Picture		[]uint8
+	Pictures	string		
+	Thumbnail  	string
 	Status		bool
-	Ep_number	int	 
+	Epnumber	int	 		`gorm:"uniqueIndex"`
 	Price		int
 
 

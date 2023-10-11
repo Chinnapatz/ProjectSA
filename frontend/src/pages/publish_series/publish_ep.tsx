@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Topmenu from '../component/topmenu'
-import { Layout } from 'antd'
+import { ColorPicker, Layout } from 'antd'
 import { Steps } from 'antd'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, Space } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
@@ -13,6 +13,13 @@ import { useNavigate } from "react-router-dom";
 import { InputNumber } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { message } from 'antd';
+import { EpisodesInterface } from '../../interfaces/IEpisodes'
+import { CreateEpisodes, GetCartoonByID_API,GetCartoon,GetUsersByUsernameAPI } from '../../services/https'
+import Cookies from 'js-cookie';
+import { SeriesInterface } from '../../interfaces/ISeries'
+import Title from 'antd/es/skeleton/Title'
+import { UsersInterface } from '../../interfaces/IUser'
+
 const { Header, Content, Sider } = Layout;
 
 
@@ -35,43 +42,66 @@ const getBase64 = (file1: RcFile): Promise<string> =>
         reader.onload = () => resolve(reader.result as string);
         reader.onerror = (error) => reject(error);
     });
-
-const { Dragger } = Upload;
-
-const props: UploadProps = {
-    name: 'file',
-    multiple: true,
-    action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-    onChange(info) {
-        const { status } = info.file;
-        if (status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-    onDrop(e) {
-        console.log('Dropped files', e.dataTransfer.files);
-    },
+const getBase641 = (file: RcFile): Promise<string> =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+    });
+const beforeUpload = async (file: RcFile) => {
+    const base64 = await getBase64(file);
+    // Do something with the base64 string, like setting it in your state or sending it to the server
+    console.log(base64);
+    return false; // Prevent default upload behavior
 };
 
 
+
 function Publish_Ep() {
-    const [current, setCurrent] = useState(0);
+    const [member, setMember] = useState<UsersInterface| undefined>(undefined);
+    const [title, setTitle] = useState<string|null>(null);
+    const [cartoons, setCartoons] = useState<SeriesInterface | undefined>(undefined);
+
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = '../styles/header';
+        script.async = true;
+        GetCartoonByID();
+        GetUsersByUsername();
+          
+      
+        
+    }, []);
+
+    useEffect(() => {
+        if (member?.ID) {
+          Get_Cartoon(member.ID);
+        }
+      }, [member]);
+
+    useEffect(() => {
+        console.log(title)
+    }, [title]);
+
+    const [current, setCurrent] = useState(1);
     const onChange = (value: number) => {
+        navigate('/Publish_Se')
         console.log('onChange:', value);
         setCurrent(value);
     };
     const navigate = useNavigate();
+
+
+
+    //======================================================================================================================================================================
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const handlePreview = async (file: UploadFile) => {
         if (!file.url && !file.preview) {
             file.preview = await getBase64(file.originFileObj as RcFile);
         }
     };
+
     const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
         setFileList(newFileList);
     const uploadButton = (
@@ -79,6 +109,90 @@ function Publish_Ep() {
             <PlusOutlined className='text-btn-upload-square' />
             <div className='text-btn-upload-square' style={{ marginTop: 10 }}>select an image to upload</div>
         </div>);
+
+    //======================================================================================================================================================================
+    interface Toon {
+        ID:               number;
+        Square_Thumbnail: string;
+        Title:            string;
+        Datetime:         string;
+      }
+    
+    const username = Cookies.get('username');
+  
+    const GetUsersByUsername = async () => {
+      let res = await GetUsersByUsernameAPI(username);
+      if (res) {
+        
+        setMember(res);
+        
+        
+      }
+    };
+
+
+    const id = Cookies.get('ID');
+    console.log(id)
+    
+    const GetCartoonByID = async () => {
+        let res = await GetCartoonByID_API(id);
+        if (res) {
+            console.log(res)
+            setCartoons(res);
+            const titles = res.Title
+            setTitle(titles)
+            console.log(titles)
+           
+        }
+    };
+
+    const Get_Cartoon = async (ID: Number | undefined) => {
+        let res = await GetCartoon(ID);
+        if(res){
+          console.log(res)
+          
+        }
+      };
+    
+
+
+    const [messageApi] = message.useMessage();
+    const onFinish = async (values: EpisodesInterface) => {
+        const picturesString = values.pictures.fileList.map((file: any) => file.thumbUrl).join(',');
+
+        // Create an updated values object
+        const updatedValues = {
+            ...values,
+            pictures: picturesString,
+            thumbnail: values.thumbnail.file.thumbUrl,
+        };
+
+        console.log(updatedValues)
+        let res = await CreateEpisodes(cartoons?.ID, updatedValues);
+
+        if (res.status) {
+            messageApi.open({
+                type: "success",
+                content: <span style={{ color: 'green' }}>
+                    บันทึกข้อมูลสำเร็จ
+                </span>,
+            });
+            setTimeout(function () {
+                navigate('/Home')
+            }, 2000);
+        } else {
+            messageApi.open({
+                type: "error",
+                content: <span style={{ color: 'red' }}>
+                    บันทึกข้อมูลไม่สำเร็จ
+                </span>,
+            });
+        }
+    };
+
+
+
+
     return (
         <ConfigProvider
             theme={{
@@ -96,7 +210,9 @@ function Publish_Ep() {
                     Form: {
                         labelColor: 'white',
                         labelFontSize: 24,
+
                     },
+
 
                 },
             }}
@@ -110,7 +226,7 @@ function Publish_Ep() {
                             <Steps
                                 type="navigation"
                                 current={current}
-                                onChange={onChange}
+                                
                                 className="site-navigation-steps"
                                 items={[
                                     {
@@ -125,57 +241,63 @@ function Publish_Ep() {
                                 ]}
                             /> </Header>
                         <Layout className='background'>
-                            <Sider width={500} style={{ backgroundColor: 'transparent' }}>
-                                <p className='text-Upload-Series'>Upload Your Episode</p>
-                                <p className='text-Square'>Thumbnail</p>
-                                <div className='bg_btn_thumbnail'>
-                                    <Upload
-
-                                        className='btn_upload_square'
-                                        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                        listType="picture-card"
-                                        fileList={fileList}
-                                        onPreview={handlePreview}
-                                        onChange={handleChange}
-                                    >
-                                        {fileList.length >= 1 ? null : uploadButton}
-                                    </Upload>
-                                </div>
-                            </Sider>
-                            <Content style={{ width: '50vw', marginTop: '200px' }} className='bg-from' >
-                                <Form style={{ paddingLeft: '30px', width: '48vw', height: '60vh', marginTop: '100px', backgroundColor: 'transparent', borderColor: 'transparent', fontSize: '40px', color: 'white' }}
-                                    layout="vertical"
-                                    labelCol={{ span: 10 }}
-                                    wrapperCol={{ span: 10 }}
-                                >
-                                    <Form.Item label="Episode Name" wrapperCol={{ span: 15 }} >
-                                        <Input />
-
-                                    </Form.Item>
-                                    <p style={{fontSize:'24px'}}>Upload file</p>
-                                    <Dragger {...props} style={{
-                                        marginTop:'20px',
-                                        maxWidth: '850px', // กำหนดความกว้างสูงสุด
-                                        maxHeight: '300px', // กำหนดความสูงสูงสุด
-                                        
-                                    }} >
-                                        <p >
-                                            <InboxOutlined />
-                                        </p>
-                                        <p >Click or drag file to this area to upload</p>
-                                        <p >
-                                            Support for a single or bulk upload. 
-                                        </p>
-                                    </Dragger>
+                            <Form layout='vertical' onFinish={onFinish}>
+                                <Sider width={500} style={{ backgroundColor: 'transparent' }}>
+                                    <p className='text-Upload-Series'>Upload Your Episode</p>
                                     <Form.Item >
-                                        <Button type="primary" htmlType="submit" style={{ marginLeft:'590px',marginTop: '50px',borderRadius:'20px',width:'120px',height:'40px' }}>
-                                            Create Series
-                                        </Button>
+                                        <p className='text-Square'>Thumbnail</p>
+                                        <div className='bg_btn_thumbnail'>
+                                            <Form.Item name='thumbnail'>
+                                                <Upload
+
+                                                    className='btn_upload_square'
+                                                    action="http://localhost:3000/Publish_Ep"
+                                                    listType="picture-card"
+                                                    fileList={fileList}
+                                                    onPreview={handlePreview}
+                                                    onChange={handleChange}
+                                                >
+                                                    {fileList.length >= 1 ? null : uploadButton}
+                                                </Upload>
+                                            </Form.Item>
+                                        </div>
                                     </Form.Item>
+                                </Sider>
 
-                                </Form>
-
-                            </Content>
+                                <Content style={{ width: '50vw', marginTop: '0px' }} className='bg-from' >
+                                    <Form.Item style={{ paddingLeft: '60px', marginTop: '0px', backgroundColor: 'transparent', borderColor: 'transparent', fontSize: '40px', color: 'white' }}
+                                    > 
+                                     
+                                        <Form layout='horizontal'  >
+                                            <Space>
+                                                <p style={{ paddingLeft: '0px', position: 'relative', left: '-30px', color: 'white', fontSize: '24px' }}>Title : {title} </p>
+                                            </Space>
+                                        </Form>
+                                     
+                                        <Space>
+                                            <Form.Item label="Episode Name" name='epnumber' >
+                                                <InputNumber min={0} max={1000} style={{ width: '50px', height: '32px', marginRight: '8px', color: 'black' }} />
+                                            </Form.Item>
+                                            <Form.Item style={{ paddingTop: '45px', marginLeft: '-100px' }} name='title'>
+                                                <Input style={{ width: '500px', height: '32px', marginRight: '8px', color: 'black' }} name='title' />
+                                            </Form.Item>
+                                        </Space>
+                                        <p style={{ fontSize: '24px' }}>Upload file</p>
+                                        <Form.Item name='pictures'  >
+                                            <Upload
+                                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                                                listType="picture"
+                                                defaultFileList={[...fileList]}
+                                            >
+                                                <Button >Upload</Button>
+                                            </Upload>
+                                        </Form.Item>
+                                    </Form.Item>
+                                </Content>
+                                <Button type="primary" htmlType="submit" style={{ marginLeft: '1240px', marginTop: '570px', borderRadius: '20px', width: '120px', height: '40px' }}>
+                                    Create Series
+                                </Button>
+                            </Form>
                         </Layout>
                     </Layout>
                 </Content>
