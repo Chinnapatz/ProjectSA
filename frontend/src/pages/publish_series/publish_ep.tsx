@@ -111,12 +111,7 @@ function Publish_Ep() {
         </div>);
 
     //======================================================================================================================================================================
-    interface Toon {
-        ID:               number;
-        Square_Thumbnail: string;
-        Title:            string;
-        Datetime:         string;
-      }
+    
     
     const username = Cookies.get('username');
   

@@ -1,12 +1,91 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
 import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import Topmenu from "../component/topmenu";
 import './style/style.css'
 import LikeButton from './LikeButton';
+import Cookies from 'js-cookie';
+import { GetCartoonByID_API, GetEpisodesByID_API } from '../../services/https';
 //import Menubookshelf from "./component/menubookshelf";
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Content } = Layout;
+
+
+interface Toon {
+    ID:               number;
+    Square_Thumbnail: string;
+    Title:            string;
+    Price:            string;
+    Datetime:         string;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function Cartoon() {
+
+    const [title, setTitle] = useState<any|null>(null);
+
+
+
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = '../styles/header';
+        script.async = true;
+        GetCartoonByID();
+        GetEpisodesByID();
+        
+          
+      
+        
+    }, []);
+
+   
+
+
+    useEffect(() => {
+        
+    }, [title]);
+
+
+    const id = Cookies.get('ID');
+    console.log(id)
+    
+    const GetCartoonByID = async () => {
+        let res = await GetCartoonByID_API(id);
+        if (res) {
+            console.log(res)
+            // setCartoons(res);
+            const titles = res.Vertical_Thumbnail
+            setTitle(titles)
+            //console.log(titles)
+           
+        }
+    };
+
+    const GetEpisodesByID = async () => {
+        let res = await GetEpisodesByID_API(id);
+        if (res) {
+            console.log(res)
+            // setCartoons(res);
+            // const titles = res.Vertical_Thumbnail
+            // setTitle(titles)
+            //console.log(titles)
+           
+        }
+    };
+
+
+
     return (
         <>
             <Layout>
@@ -26,7 +105,7 @@ function Cartoon() {
                     <div className="dashboardbackgroud">
                         <div className="all">
                             <div className="top">
-
+                            <img className="imageshowimage" src={title} alt="search--v1" />
                             </div>
                             <div className="below">
 
@@ -58,61 +137,23 @@ function Cartoon() {
                                     <div className="listzone">
                                         <div className="list">
                                             <div className="listbox">
+                                            <div className="listshowdashboad">
+                        <div className="coverpage1">
+                        {/* <img className="coverpage1" src={t.Square_Thumbnail} alt="search--v1" /> */}
+                        </div>
 
+
+
+                        
+                        <div className="infotoonlist1">
+                          <h2 className="toonnamelist1">title</h2>
+                          <h1 className="EP1">EP.1</h1>
+                        </div>
+                        
+                      </div>
                                             </div>
                                         </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-                                        <div className="list">
-                                            <div className="listbox">
-
-                                            </div>
-                                        </div>
-
-
+                                    
                                     </div>
                                 </div>
                             </div>

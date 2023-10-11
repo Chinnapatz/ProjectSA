@@ -1,11 +1,72 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import Topmenu from "../component/topmenu";
 import './style/style.css'
+import { GetCartoonToDashboard } from '../../services/https';
+import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'; //npm install js-cookie
 //import Menubookshelf from "./component/menubookshelf";
 const { Header, Footer, Sider, Content } = Layout;
+
+
+
+
+
+
+
+interface Toon {
+  ID : number;
+  Square_Thumbnail: string;
+  Title:            string;
+}
+
+
+
+
 function Dashboard() {
+
+  const navigate = useNavigate();
+  const onClick = (ID: Number | undefined) => {
+    const idValues = `${ID}`;
+    Cookies.set('ID',idValues,{ expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+    const id = Cookies.get('ID');
+    console.log(id)
+    navigate('/Home/cartoon');
+  };
+
+
+
+
+  
+
+  const [products, setProducts] = useState<Toon[]>([]);
+
+
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = '../styles/header';
+    script.async = true;
+    Get_Cartoon()
+
+  },[]);
+
+  const Get_Cartoon = async () => {
+    let res = await GetCartoonToDashboard();
+    if(res){
+      console.log(res)
+      setProducts(res)
+    }
+  };
+
+
+
+
+
+
+
+
   return (
     <>
       <Layout>
@@ -344,382 +405,26 @@ function Dashboard() {
 
                 <div className="remforslidebarcartoonlistshowdashboad">
                   <div className="listcartoonlistshowdashboad">
-
-                    <div className="listboxcartoonlistshowdashboad">
+                  {products.map((t) => (
+                    <div className="listboxcartoonlistshowdashboad" onClick={() => onClick(t.ID)}>
                       <div className="listshowdashboad">
                         <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
+                        <img className="coverpage1" src={t.Square_Thumbnail} alt="search--v1" />
                         </div>
+
+
+
+                        
                         <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
+                          <h2 className="toonnamelist1">{t.Title}</h2>
                           <h1 className="EP1">EP.1</h1>
-
                         </div>
+                        
                       </div>
                     </div>
-
-                    <div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.2</h1>
-
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.3</h1>
-
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.4</h1>
-
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.5</h1>
-
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.6</h1>
-
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                                width={180}
-                                max-heigh={180}
-
-                                preview={{ visible: false, mask: false }}
-
-                                src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                              /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                                width={180}
-                                max-heigh={180}
-
-                                preview={{ visible: false, mask: false }}
-
-                                src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                              /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-
-                  preview={{ visible: false,mask: false }}
-
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div><div className="listboxcartoonlistshowdashboad">
-                      <div className="listshowdashboad">
-                        <div className="coverpage1">
-                          {/* <Image
-                  width={180}
-                  max-heigh={180}
-                  preview={{ visible: false,mask: false }}
-                  src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715241325568011/luv.jpg?ex=65199dd6&is=65184c56&hm=b92b308784fe27d83e34b2bdb03049bbe84f7ef15d1371d875c2111f96beeb44&"
-                /> */}
-                        </div>
-                        <div className="infotoonlist1">
-                          <h2 className="toonnamelist1">toonname</h2>
-                          <h1 className="EP1">EP.7</h1>
-
-                        </div>
-                      </div>
-                    </div>
-
+                    ))}
                   </div>
+                  
                 </div>
 
               </div>

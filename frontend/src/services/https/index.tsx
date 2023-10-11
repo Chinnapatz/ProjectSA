@@ -121,6 +121,23 @@ async function GetCartoonByID_API(ID: string | undefined) {
   return res;
 }
 
+async function GetEpisodesByID_API(ID: string | undefined) {
+  const requestOptions = {
+    method: "GET",
+    
+  };
+  let res = await fetch(`${apiUrl}/episodes/${ID}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+  return res;
+}
+
 async function GetCartoon(ID: Number | undefined):Promise<any> {
   const requestOptions ={
     medthod: "GET",
@@ -224,6 +241,35 @@ async function CreateComment(data: CommentInterface) {
 
   return res;
 }
+
+async function GetCartoonToDashboard() {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/home`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
+
+
+
+
+
+
+
+
 export {
  
   CreateMember,
@@ -237,4 +283,6 @@ export {
   CreateComment,
   CreateEpisodes,
   GetCartoonByID_API,
+  GetCartoonToDashboard,
+  GetEpisodesByID_API,
 };
