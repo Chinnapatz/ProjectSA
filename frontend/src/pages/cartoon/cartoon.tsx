@@ -1,12 +1,26 @@
-import React from "react";
+import React,{useState} from "react";
 import { Layout } from "antd";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import Topmenu from "../component/topmenu";
 import './style/style.css'
 import LikeButton from './LikeButton';
+import {SeriesInterface} from "../../interfaces/ISeries";
+import { GetCartoon } from "../../services/https";
+
 //import Menubookshelf from "./component/menubookshelf";
 const { Header, Footer, Sider, Content } = Layout;
 function Cartoon() {
+    // const {cartoons,setCartoon} = useState <SeriesInterface[]>([]);
+    // const [form]=Form.useForm();
+    // const getToonName=async () => {
+    //     let res = await GetCartoon(Number(id));
+    //     if (res){
+    //         setCartoon(res);
+    //         form.setFieldValue({
+            
+    //         })
+    //     }
+    // };
     return (
         <>
             <Layout>
@@ -32,11 +46,9 @@ function Cartoon() {
 
                                 <div className="infobox">
                                     <div className="info">
-                                        <h1 className="toonname">toonname</h1>
+                                        <h1 className="toonname" >toonname</h1>
                                         <br>
                                         </br>
-                                        <span className="by"> By </span>
-                                        <span className="creator"> Creatorname </span>
 
                                         <div className="detailinfo">
                                             <br></br>

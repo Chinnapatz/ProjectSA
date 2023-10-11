@@ -31,6 +31,7 @@ function Dashboard() {
             <div className="alltop">
               <div className="dashboardmain">
                 <div className="imageshow">
+                  <img className="imageshowimage" src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715240750940365/44.jpg?ex=65199dd6&is=65184c56&hm=59d69cb33684bc9ceadb11b702dde439a565eb6edd515c414aaf91518dd05df1&" alt="search--v1" />
                   {/* <Image
           width={1080}
           max-heigh={480}
@@ -47,12 +48,9 @@ function Dashboard() {
                       <h1 className="toonname">toonname</h1>
                       <br>
                       </br>
-                      <span className="by"> By </span>
-                      <span className="creator"> Creatorname </span>
-
-                      <div className="detailinfo">
-                        <br></br>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, maiores qui. Explicabo magni maiores officia non dolorum dolore harum cum inventore quibusdam? Laborum nobis fugit ullam voluptatibus repellendus dolores recusandae, dolore culpa corrupti veritatis consectetur et enim itaque porro perferendis ipsum placeat magnam maiores ab.</p>
+                      <div className="detailinfodash">
+                        
+                        <p className="infodashdt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, maiores qui. Explicabo magni maiores officia non dolorum dolore harum cum inventore quibusdam? Laborum nobis fugit ullam voluptatibus repellendus dolores recusandae, dolore culpa corrupti veritatis consectetur et enim itaque porro perferendis ipsum placeat magnam maiores ab.</p>
                       </div>
                       {/* <div className="showlike">
                         <div className="blankspace"></div>
