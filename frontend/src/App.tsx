@@ -18,7 +18,7 @@ import Bookshelf_followed from "./pages/bookshelf/bookshelf_followed";
 import Bookshelf_bought from "./pages/bookshelf/bookshelf_bought";
 import Bookshelf_history from "./pages/bookshelf/bookshelf_history";
 import Cartoon from "./pages/cartoon/cartoon";
-import CommentPage from "./pages/comment/mainpage";
+import CommentPage from "./pages/comment/mainpage/comment";
 
 
 function App() {

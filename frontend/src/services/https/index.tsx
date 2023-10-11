@@ -187,14 +187,35 @@ async function CreateComment(ID: Number | undefined,data: CommentInterface):Prom
   return res;
 }
 
-async function GetComment(ID: Number | undefined):Promise<any> {
+async function GetComment(){
   const requestOptions ={
     medthod: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   };
-  let res = await fetch(`${apiUrl}/comments/${ID}`, requestOptions)
+  let res = await fetch(`${apiUrl}/comments`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
+
+async function GetUsernameByMemberID(ID: Number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/members/${ID}`, requestOptions)
   .then((response) => response.json())
   .then((res) =>{
     if(res.data){
@@ -218,7 +239,8 @@ export {
   GetCategories,
   GetCartoon,
   CreateComment,
-  GetComment
+  GetComment,
+  GetUsernameByMemberID
   
   
 };

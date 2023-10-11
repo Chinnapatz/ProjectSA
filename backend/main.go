@@ -29,7 +29,8 @@ func main() {
 
 	r.POST("/login", controller.LoginByUsername)
 	r.POST("/comments/:ID",controller.CreateComment)
-	r.GET("/comments/:ID",controller.GetComment)
+	r.GET("/comments",controller.GetComment)
+	r.GET("/members/:ID",controller.GetUsernameByMemberID)
 	// Run the server
 
 	r.Run()
