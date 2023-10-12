@@ -3,7 +3,7 @@ import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import Topmenu from "../component/topmenu";
 import './style/style.css'
-import { GetCartoonToDashboard } from '../../services/https';
+import { GetCartoonToDashboard ,GetUsersByUsernameAPI} from '../../services/https';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'; //npm install js-cookie
 //import Menubookshelf from "./component/menubookshelf";
@@ -49,8 +49,9 @@ function Dashboard() {
     script.src = '../styles/header';
     script.async = true;
     Get_Cartoon()
+    GetUsersByUsername();
 
-  },[]);
+  });
 
   const Get_Cartoon = async () => {
     let res = await GetCartoonToDashboard();
@@ -59,7 +60,16 @@ function Dashboard() {
       setProducts(res)
     }
   };
+  const username = Cookies.get('username');
 
+    const GetUsersByUsername = async () => {
+        let res = await GetUsersByUsernameAPI(username);
+        if (res) {
+            console.log(res);
+           
+
+        }
+    };
 
 
 

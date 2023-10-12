@@ -262,6 +262,47 @@ async function GetCartoonToDashboard() {
   });
   return res;
 }
+async function getPayment(ID_E: number | undefined,member_ID: number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/paymentEP/${member_ID}/${ID_E}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return { status: 1, message: res.data };
+
+    }else{
+      return { status: 0, message: res.error };
+    }
+
+  });
+  return res;
+}
+
+async function UpdatePaymentEp(ID_E: number | undefined,member_ID: number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/PaymentEP/${member_ID}/${ID_E}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
 
 
 
@@ -285,4 +326,6 @@ export {
   GetCartoonByID_API,
   GetCartoonToDashboard,
   GetEpisodesByID_API,
+  getPayment,
+  UpdatePaymentEp,
 };

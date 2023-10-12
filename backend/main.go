@@ -30,9 +30,11 @@ func main() {
 	r.POST("/cartoons/:ID",controller.CreateSeries)
 	r.PATCH("/members", controller.UpdateMember)
 	r.DELETE("/members/:id", controller.DeleteMember)
-
+	r.GET("/paymentEP/:member_ID/:ID_E", controller.CheckPaymentEP)
+	r.GET("PaymentEP/:member_ID/:ID_E",controller.UpdatePaymentEp)
 	r.POST("/login", controller.LoginByUsername)
 	r.POST("/comments",controller.CreateComment)
+	
 
 	// Run the server
 

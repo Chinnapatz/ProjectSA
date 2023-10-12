@@ -10,9 +10,6 @@ type PaymentCoin struct {
 	gorm.Model
 	Datetime	time.Time
 
-
-
-
 	PackageID	*uint
 	Package 	Package 	`gorm:"foreignKey:PackageID"`
 
