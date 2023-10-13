@@ -1,5 +1,4 @@
 export interface CommentInterface{
-    username?:string;
-    message?:string;
-    MemberID?:Number;
+    Message?:string;
+    MemberID?:number;
 }
