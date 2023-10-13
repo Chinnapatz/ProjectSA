@@ -77,7 +77,6 @@ function Publish_Se() {
     GetUsersByUsername()
 
   }, []);
-  
 
   const [Categories, setCategories] = useState<Categories[]>([]);
 
@@ -104,7 +103,18 @@ function Publish_Se() {
   //   setCurrent(value);
   // };
 
-  
+  const handleStepClick = (value: number) => {
+    console.log('onChange:', value);
+    setCurrent(value);
+    if (current === 0) {
+      // navigate('/Publish_Ep')
+    }
+    else {
+      return {}
+    }
+    // ตรวจสอบว่าคลิกที่ Step ไหน
+    // และทำสิ่งที่คุณต้องการเช่นการอัพเดต state หรืออื่น ๆ
+  };
   const navigate = useNavigate();
   // Square button
   const [fileList1, setFileList1] = useState<UploadFile[]>([]);
@@ -157,6 +167,24 @@ function Publish_Se() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const [form] = Form.useForm();
   const [messageApi] = message.useMessage();
   const onFinish = async (values: SeriesInterface) => {
@@ -166,7 +194,7 @@ function Publish_Se() {
       square_thumbnail: values.square_thumbnail.file.thumbUrl,
     };
     let res = await CreateSeries(member?.ID,updatedValues);
-    console.log(res)
+    console.log(values)
     if (res.status) {
       messageApi.open({
         type: "success",
@@ -175,7 +203,7 @@ function Publish_Se() {
         </span>,
       });
       setTimeout(function () {
-        navigate('/Publish')
+        navigate('/Publish_Ep')
       }, 2000);
     } else {
       messageApi.open({
@@ -221,7 +249,8 @@ function Publish_Se() {
               <Header style={{ backgroundColor: 'transparent' }}>
                 <Steps
                   type="navigation"
-                  current={current}                
+                  current={current}
+                  onChange={handleStepClick}
                   className="site-navigation-steps"
                   items={[
                     {

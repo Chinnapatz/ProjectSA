@@ -1,6 +1,6 @@
 
 export interface SeriesInterface {
-    ID ?:            			number;  
+    CartoonID ?:            	number;  
     title ?:	            	string; 
 	catagories ?:				string; 
 	summary	?:			    	string; 

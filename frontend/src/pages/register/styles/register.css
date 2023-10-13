@@ -92,11 +92,11 @@
   margin-right: 20px;
 }
 
-/* span {
+span {
   content: "\2192";
   color: white;
   justify-items: center;
-} */
+}
 .enter-login{
   border-radius: 20px;
   font-size: 50px;

@@ -11,8 +11,6 @@ import (
 func CreateSeries(c *gin.Context) {
 	var cartoon entity.Cartoon
 	var member entity.Member
-	var cartoons []entity.Cartoon
-	
 	
 	idMember := c.Param("ID")
 
@@ -40,11 +38,7 @@ func CreateSeries(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	if err := entity.DB().Find(&cartoons).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": cartoons})
+	c.JSON(http.StatusOK, gin.H{"data": series})
 }
 
 
@@ -56,25 +50,4 @@ func GetCartoon(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data":cartoon})
-}
-
-func GetNameCartoon(c *gin.Context){
-	var cartoon entity.Cartoon
-	idMember := c.Param("ID")
-	if err := entity.DB().Raw("SELECT * FROM cartoons WHERE member_id=?",idMember).Find(&cartoon).Error; err != nil{
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data":cartoon})
-}
-
-func GetCartoonByID(c *gin.Context) {
-	var cartoon entity.Cartoon
-	idCartoon := c.Param("ID")
-	if err := entity.DB().Raw("SELECT * FROM cartoons WHERE id = ?", idCartoon).Scan(&cartoon).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": cartoon})
-
 }
