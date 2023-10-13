@@ -68,8 +68,8 @@ function Buycoin() {
     token: { colorBgContainer },
   } = theme.useToken();
   const [size, setSize] = useState<SizeType>('large');
+
   const handleClick = (p: Product) => {
-    
     Swal.fire({
       title: 'คุณต้องการชำระเงิน?',
       text: `คุณต้องการจ่ายชำระจำนวน THB ${p.Price}`,

@@ -67,7 +67,7 @@ interface Categories {
 
 
 
-function Publish_Se() {
+function Publish_Series() {
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -353,4 +353,4 @@ function Publish_Se() {
   )
 }
 
-export default Publish_Se
+export default Publish_Series

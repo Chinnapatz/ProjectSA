@@ -13,45 +13,7 @@ interface Toon {
   Title:            string;
   Datetime:         string;
 }
-// const data: Toon[] = [
-//   {
-//     id: 1,
-//     thumbnail:'./pictures/p1.png',
-//     toonname: "Toonname1",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 2,
-//     thumbnail:'./pictures/p2.png',
-//     toonname: "Toonname2",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 3,
-//     thumbnail:'./pictures/p3.jpg',
-//     toonname: "Toonname3",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 1,
-//     thumbnail:'./pictures/p1.png',
-//     toonname: "Toonname1",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 2,
-//     thumbnail:'./pictures/p2.png',
-//     toonname: "Toonname2",
-//     date:"date dd-mm-yyyy"
-//   },
-//   {
-//     id: 3,
-//     thumbnail:'./pictures/p3.jpg',
-//     toonname: "Toonname3",
-//     date:"date dd-mm-yyyy"
-//   },
-  
-// ]
+
 
 function Publish() {
 

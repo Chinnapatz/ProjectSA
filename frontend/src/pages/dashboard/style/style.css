@@ -502,7 +502,7 @@
 
 .infotoonlist1 {
     position: relative;
-
+    cursor: pointer;
     top: 5px;
     left: 20px;
 }
