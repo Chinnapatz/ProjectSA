@@ -1,6 +1,7 @@
 import { SeriesInterface } from "../../interfaces/ISeries";
 import { UsersInterface } from "../../interfaces/IUser";
 import { CommentInterface } from "../../interfaces/IComment";
+import { EpisodesInterface } from "../../interfaces/IEpisodes";
 
 const apiUrl = "http://localhost:8080";
 
@@ -44,6 +45,26 @@ async function CreateSeries(ID: Number | undefined,data: SeriesInterface):Promis
   return res;
 }
 
+async function CreateEpisodes(ID: Number | undefined,data: EpisodesInterface):Promise<any> {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/episodes/${ID}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
+
 async function LoginByUsername(data: UsersInterface) {
   const requestOptions ={
    
@@ -72,6 +93,40 @@ async function GetUsersByUsernameAPI(username: string | undefined) {
     
   };
   let res = await fetch(`${apiUrl}/login/${username}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+  return res;
+}
+
+async function GetCartoonByID_API(ID: string | undefined) {
+  const requestOptions = {
+    method: "GET",
+    
+  };
+  let res = await fetch(`${apiUrl}/cartoon/${ID}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+  return res;
+}
+
+async function GetEpisodesByID_API(ID: string | undefined) {
+  const requestOptions = {
+    method: "GET",
+    
+  };
+  let res = await fetch(`${apiUrl}/episodes/${ID}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -187,14 +242,55 @@ async function CreateComment(ID: Number | undefined,data: CommentInterface):Prom
   return res;
 }
 
-async function GetComment(){
+async function GetCartoonToDashboard() {
   const requestOptions ={
     medthod: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   };
-  let res = await fetch(`${apiUrl}/comments`, requestOptions)
+  let res = await fetch(`${apiUrl}/home`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+
+    }else{
+      return false;
+    }
+
+  });
+  return res;
+}
+async function getPayment(ID_E: number | undefined,member_ID: number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/paymentEP/${member_ID}/${ID_E}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return { status: 1, message: res.data };
+
+    }else{
+      return { status: 0, message: res.error };
+    }
+
+  });
+  return res;
+}
+
+async function UpdatePaymentEp(ID_E: number | undefined,member_ID: number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/PaymentEP/${member_ID}/${ID_E}`, requestOptions)
   .then((response) => response.json())
   .then((res) =>{
     if(res.data){
@@ -208,26 +304,13 @@ async function GetComment(){
   return res;
 }
 
-async function GetUsernameByMemberID(ID: Number | undefined):Promise<any> {
-  const requestOptions ={
-    medthod: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  let res = await fetch(`${apiUrl}/members/${ID}`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if(res.data){
-      return res.data;
 
-    }else{
-      return false;
-    }
 
-  });
-  return res;
-}
+
+
+
+
+
 export {
  
   CreateMember,
@@ -238,6 +321,13 @@ export {
   UpdateCoin,
   GetCategories,
   GetCartoon,
+  CreateComment,
+  CreateEpisodes,
+  GetCartoonByID_API,
+  GetCartoonToDashboard,
+  GetEpisodesByID_API,
+  getPayment,
+  UpdatePaymentEp,
   CreateComment,
   GetComment,
   GetUsernameByMemberID

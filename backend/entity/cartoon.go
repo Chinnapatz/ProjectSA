@@ -14,7 +14,7 @@ type Cartoon struct {
 	Vertical_Thumbnail	string
 	Datetime			time.Time
 
-
+	Follows		[]Follow	`gorm:"foreignKey:CartoonID"`
 	Episodess	[]Episodes	`gorm:"foreignKey:CartoonID"`
 	Historys	[]History	`gorm:"foreignKey:CartoonID"`
 	Ratings		[]Rating	`gorm:"foreignKey:CartoonID"`
