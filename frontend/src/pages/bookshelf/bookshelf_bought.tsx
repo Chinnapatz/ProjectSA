@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import Topmenu from "../component/topmenu";
 import Menubookshelf from "./component/menubookshelf";
 import { UsersInterface } from "../../interfaces/IUser";
-import { GetUsersByUsernameAPI,GetCartoonPaymentEpisodes } from "../../services/https";
+import { GetUsersByUsernameAPI,GetCartoonPaymentEpisodesByID } from "../../services/https";
 const { Header,  Content } = Layout;
 
 interface cartoon {
@@ -26,8 +26,8 @@ function Bookshelf_bought() {
       setMember(res);
     }
   };
-  const Get_Cartoon = async (ID: Number | undefined) => {
-    let res = await GetCartoonPaymentEpisodes(ID);
+  const getCartoonPaymentEpisodesByID = async (ID: Number | undefined) => {
+    let res = await GetCartoonPaymentEpisodesByID(ID);
     if (res) {
       console.log(res);
       setProducts(res);
@@ -38,7 +38,7 @@ function Bookshelf_bought() {
   },[]);
   useEffect(() => {
     if (member?.ID) {
-      // Get_Cartoon(member.ID);
+      getCartoonPaymentEpisodesByID(member.ID);
     }
   }, [member]);
   return (

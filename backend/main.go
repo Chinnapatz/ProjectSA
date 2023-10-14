@@ -16,7 +16,7 @@ func main() {
 	// User Routes
 
 	r.GET("/members", controller.ListMember)
-	r.GET("/member/:id", controller.GetMember)
+	r.GET("/member/:ID", controller.GetMember)
 	r.GET("/login/:username", controller.GetMemberByUsername)
 	r.GET("/cartoon/:ID",controller.GetCartoonByID)
 	r.GET("/package", controller.PackageCoin)
@@ -36,9 +36,10 @@ func main() {
 	r.GET("/bookshelf/history",controller.ListHistory)
 	r.GET("/bookshelf/paymentEpisodes",controller.ListPaymentEpisode)
 
-	r.GET("/bookshelf/follow/:id",controller.GetCartoonFollowByID)
-	r.GET("/bookshelf/history/:id",controller.GetCartoonHistoryByID)
-	r.GET("/bookshelf/paymentEpisodes/:id",controller.GetEpisodePaymentEpisodeByID)
+	r.GET("/bookshelf/follow/:ID",controller.GetCartoonFollowByID)
+	r.GET("/bookshelf/follow/kuy/:ID",controller.GetCartoonFollow)
+	r.GET("/bookshelf/history/:ID",controller.GetCartoonHistoryByID)
+	r.GET("/bookshelf/paymentEpisodes/:ID",controller.GetEpisodePaymentEpisodeByID)
 
 	r.POST("/bookshelf/follow",controller.CreateFollow)
 	r.POST("/bookshelf/history",controller.CreatePaymentEpisodes)

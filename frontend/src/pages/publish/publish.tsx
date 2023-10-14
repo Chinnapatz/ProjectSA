@@ -32,6 +32,7 @@ function Publish() {
   useEffect(() => {
     if (member?.ID) {
       Get_Cartoon(member.ID);
+      
     }
   }, [member]);
 
@@ -49,6 +50,7 @@ function Publish() {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
       setMember(res);
+      
     }
   };
   const Get_Cartoon = async (ID: Number | undefined) => {

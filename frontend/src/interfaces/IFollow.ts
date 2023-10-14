@@ -4,7 +4,7 @@ export interface FollowInterface {
     ID?: number;
     
     MemberID?: string;
-    Member?:UsersInterface;
+    // Member?:UsersInterface;
     CartoonID?: number;
-    Cartoon?:SeriesInterface;
+    // Cartoon?:SeriesInterface;
 }

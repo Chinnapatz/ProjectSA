@@ -9,7 +9,7 @@ import Menubookshelf from "./component/menubookshelf";
 //interface
 import { UsersInterface } from "../../interfaces/IUser";
 //https
-import { GetUsersByUsernameAPI,GetCartoonHistory } from "../../services/https";
+import { GetUsersByUsernameAPI,GetCartoonHistoryByID } from "../../services/https";
 const { Header,  Content } = Layout;
 
 interface cartoon {
@@ -28,8 +28,8 @@ function Bookshelf_history() {
       setMember(res);
     }
   };
-  const Get_Cartoon = async (ID: Number | undefined) => {
-    let res = await GetCartoonHistory(ID);
+  const getCartoonHistoryByID = async (ID: Number | undefined) => {
+    let res = await GetCartoonHistoryByID(ID);
     if (res) {
       console.log(res);
       setProducts(res);
@@ -42,7 +42,7 @@ function Bookshelf_history() {
 
   useEffect(() => {
     if (member?.ID) {
-      Get_Cartoon(member.ID);
+      getCartoonHistoryByID(member.ID);
     }
   }, [member]);
 

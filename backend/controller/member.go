@@ -26,15 +26,13 @@ func CreateMember(c *gin.Context) {
 func GetMember(c *gin.Context) {
 	var member entity.Member
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM users WHERE id = ?", id).Scan(&member).Error; err != nil {
+	if err := entity.DB().Preload("FollowedCartoon").Preload("FollowedCartoon.Cartoon").First(&member, id).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": member})
 
 }
-
-
 
 // GET /users
 

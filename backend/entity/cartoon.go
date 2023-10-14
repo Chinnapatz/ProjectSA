@@ -14,7 +14,7 @@ type Cartoon struct {
 	Vertical_Thumbnail	string
 	Datetime			time.Time
 
-	Follows		[]Follow	`gorm:"foreignKey:CartoonID"`
+	Followers		[]*Follow	`gorm:"many2many:follows;"`
 	Episodess	[]Episodes	`gorm:"foreignKey:CartoonID"`
 	Historys	[]History	`gorm:"foreignKey:CartoonID"`
 	Ratings		[]Rating	`gorm:"foreignKey:CartoonID"`
@@ -24,5 +24,5 @@ type Cartoon struct {
 
 	MemberID	*uint
 	Member		Member 		`gorm:"foreignKey:MemberID"`
-
+	Follows []Follow `gorm:"many2many:follows;"`
 }
