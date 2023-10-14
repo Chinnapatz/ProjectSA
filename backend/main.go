@@ -33,10 +33,11 @@ func main() {
 	r.GET("/paymentEP/:member_ID/:ID_E", controller.CheckPaymentEP)
 	r.GET("PaymentEP/:member_ID/:ID_E",controller.UpdatePaymentEp)
 	r.POST("/login", controller.LoginByUsername)
-	r.POST("/comments",controller.CreateComment)
+	
 	r.POST("/comments/:ID",controller.CreateComment)
 	r.GET("/comments",controller.GetComment)
 	r.GET("/members/:ID",controller.GetUsernameByMemberID)
+
 
 	// Run the server
 

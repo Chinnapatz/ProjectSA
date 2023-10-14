@@ -10,6 +10,8 @@
     
 }
 
+
+
 .comment-border{
     background-color: aqua;
     height: 10px;
@@ -17,6 +19,7 @@
 }
 
 .submit-style{
+    left: -30px;
     background: #5C469C;
     height: 50px;
     width: 150px;
@@ -30,6 +33,8 @@
 }
 
 .textarea-style{
+    
+    left: -30px;
     height: 100;
     width: 100%;
     resize: none;

@@ -15,16 +15,19 @@ const { TextArea } = Input;
 
 
 
+
 function CommentPage() {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
   const [comment_username, setUsername] = useState('');
-
+ 
+ 
   useEffect(() => {
     const script = document.createElement('script');
     script.src = '../styles/header';
     script.async = true;
+    console.log(username)
     GetUsersByUsername();
 
   }, []);
@@ -33,18 +36,21 @@ function CommentPage() {
     if (member?.ID) {
       Get_Comments(member.ID);
       Get_Username(member.ID);
+
       console.log(Mention);
     }
   }, [member]);
 
   const username = Cookies.get('username');
+  
 
  
   const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
-
+      console.log(res)
       setMember(res);
+      console.log(member);
     }
   };
 
@@ -59,13 +65,14 @@ function CommentPage() {
   };
 
   const [name, setUsernames] = useState<UsersInterface[]>([]);
-  const Get_Username = async (ID: Number | undefined):Promise<any> => {
+  const Get_Username = async (ID: number | undefined): Promise<void> => {
     let res = await GetUsernameByMemberID(ID);
     if (res) {
-      console.log(res)
-      setUsernames(res)
+      console.log(res);
+      setUsernames(res);
     }
   };
+  
  
   // const comment_username = await Get_Username(MemberID);
 
@@ -128,7 +135,7 @@ function CommentPage() {
                 {Mention.map((m) => (
                   <div>
                     <Card className='card-color'>
-                      <h4 style={{ color: "#6844F8" }}>Anonymous</h4>
+                      <h4 style={{ color: "#6844F8" }}>{name.find(user => user.ID === m.MemberID)?.Username}</h4>
                       <div>{m.Message}</div>
                     </Card>
                     <Divider></Divider>
