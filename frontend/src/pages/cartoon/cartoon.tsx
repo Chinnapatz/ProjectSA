@@ -7,12 +7,14 @@ import LikeButton from './LikeButton';
 import Cookies from 'js-cookie';
 import { GetCartoonByID_API, GetEpisodesByID_API, GetUsersByUsernameAPI, getPayment ,UpdatePaymentEp} from '../../services/https';
 import { UsersInterface } from '../../interfaces/IUser';
+import { useNavigate } from "react-router-dom";
 //import Menubookshelf from "./component/menubookshelf";
 const { Header, Content } = Layout;
 
 
 interface Toon {
     ID: number;
+    Epnumber: number;
     Thumbnail: string;
     Title: string;
     Price: string;
@@ -41,6 +43,9 @@ function Cartoon() {
     const id = Cookies.get('ID');
     // console.log(id)
 
+    const navigate = useNavigate();
+    
+
     const GetCartoonByID = async () => {
         let res = await GetCartoonByID_API(id);
         if (res) {
@@ -55,11 +60,8 @@ function Cartoon() {
     const GetEpisodesByID = async (ID: string | undefined) => {
         let res = await GetEpisodesByID_API(ID);
         if (res) {
-            // console.log(res)
+            console.log(res)
             setProducts(res);
-            // const titles = res.Vertical_Thumbnail
-            // setTitle(titles)
-            //console.log(titles)
 
         }
     };
@@ -72,10 +74,7 @@ function Cartoon() {
         let res = await GetEpisodesByID_API(id);
         if (res) {
             console.log(res)
-            // setCartoons(res);
-            // const titles = res.Vertical_Thumbnail
-            // setTitle(titles)
-            //console.log(titles)
+
 
         }
     };
@@ -154,7 +153,13 @@ function Cartoon() {
         })
       }
 
-    
+      const onClick = (ID: Number | undefined) => {
+        const idEpValues = `${ID}`;
+        Cookies.set("ID_ep", idEpValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+        const id = Cookies.get("ID_ep");
+        console.log(id);
+        navigate('/Home/cartoon/episodes');
+      };
 
 
 
@@ -222,7 +227,7 @@ function Cartoon() {
                                                     <div className="EPinfoCartoon">
 
                                                         <div className="EPNumber">
-                                                            <p className="NumberEPInCartoon">EP.{p.ID}</p>
+                                                            <p className="NumberEPInCartoon">EP.{p.Epnumber}</p>
                                                         </div>
                                                         <div className="blankSpaceInEPCartoon1"></div>
                                                         <div className="toonnameAndDate">
@@ -234,7 +239,7 @@ function Cartoon() {
                                                         <div className="priceInCartoon" >
                                                             {isBoughtMap[p.ID] ? (
                                                                 <div>
-                                                                    <div style={{color:'white'}}>สินค้าถูกซื้อแล้ว!</div>
+                                                                    <div style={{color:'white'}} onClick={() => onClick(p.ID)}>สินค้าถูกซื้อแล้ว!</div>
                                                                 </div>
                                                             ) : (
                                                                 <div className="boxforprice" onClick={() => handleClick(p)}>

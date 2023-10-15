@@ -78,6 +78,23 @@ async function GetEpisodesByID_API(ID: string | undefined) {
     });
   return res;
 }
+
+async function GetChapterByID_API(ID: string | undefined) {
+  const requestOptions = {
+    method: "GET",
+    
+  };
+  let res = await fetch(`${apiUrl}/episode/${ID}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+  return res;
+}
 async function getPayment(ID_E: number | undefined,member_ID: Number | undefined):Promise<any> {
   const requestOptions ={
     medthod: "GET",
@@ -184,5 +201,6 @@ export {
     GetEpisodesByID_API,
     getPayment,
     UpdatePaymentEp,
+    GetChapterByID_API,
     
 };
