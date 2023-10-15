@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Layout } from "antd";
 import Swal from "sweetalert2";
+import './style/LikeButton.css';
 //css
 import "./style/style.css";
 import "./style/followButton.css";
@@ -22,9 +23,12 @@ import {
   UpdatePaymentEp,
 } from "../../services/https";
 import { CreateFollow } from "../../services/https/Bookshelf/bookshelf_follow";
+import { CreateRating } from "../../services/https/Cartoon/rating";
 //interface
 import { UsersInterface } from "../../interfaces/IUser";
 import { FollowInterface } from "../../interfaces/IFollow";
+import { RatingInterface } from "../../interfaces/IRating";
+
 
 const { Header, Content } = Layout;
 
@@ -36,13 +40,16 @@ interface Toon {
   Price: string;
   Datetime: string;
 }
+  
 
 function Cartoon() {
   const [title, setTitle] = useState<any | null>(null);
   const [products, setProducts] = useState<Toon[]>([]);
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
-  const id = Cookies.get("ID");
-  const navigate = useNavigate();
+ 
+  const [liked, setLiked] = useState(false);
+ 
+  
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -56,6 +63,9 @@ function Cartoon() {
   useEffect(() => {
   }, [title]);
 
+  
+  const navigate = useNavigate();
+  const id = Cookies.get('ID');
   const GetCartoonByID = async () => {
     let res = await GetCartoonByID_API(id);
     if (res) {
@@ -143,6 +153,16 @@ function Cartoon() {
   const [follow, setFollow] = useState(false);
   const [cartoon, setCartoon] = useState<Toon>();
   const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
+
+
+  const [rating, setRating] = useState(false);
+  const [isRating, setIsRating] = useState<FollowInterface[]>([]);
+
+  const handleLikeClick = () => {
+    setLiked(!liked);
+    CreateRating(member?.ID, cartoon?.ID);
+  };
+
   const handleFollowButtonClick = () => {
     setFollow(!follow);
     CreateFollow(member?.ID, cartoon?.ID);
@@ -218,7 +238,12 @@ function Cartoon() {
                     </div>
                     {/* Button_Follow-End */}
 
-                    <LikeButton />
+                    <div>
+                      {/* Apply the "liked" class when the button is liked */}
+                      <div onClick={handleLikeClick} className={liked ? 'liked' : 'like'}>
+                        {liked ? '💖 LIKED' : '🤍 LIKE'}
+                      </div>
+                    </div>
 
                     {/* <button className="likeicontop">
                                             <p className="sumlike">2.3M</p>
