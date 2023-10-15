@@ -115,7 +115,7 @@ async function getPayment(ID_E: number | undefined,member_ID: Number | undefined
   });
   return res;
 }
-
+//Page.Bought Episodes
 async function UpdatePaymentEp(ID_E: number | undefined,member_ID: Number | undefined):Promise<any> {
   const requestOptions ={
     medthod: "GET",

@@ -1,7 +1,7 @@
 import { UsersInterface } from "./IUser";
 import { EpisodesInterface } from "./IEpisodes";
 
-export interface FollowInterface {
+export interface PaymentEpisodeInterface {
     ID?: number;
     
     EpisodesID?: number;

@@ -62,7 +62,7 @@ function Bookshelf_history() {
           <Topmenu />
         </Header>
         <Content
-          style={{ padding: "10px 10px 10px 10px", height: "100%" }}
+          style={{ padding: "10px 10px 10px 10px", height: "100vh" }}
           className="MainBackgroundColor"
         >
         <Layout className="MainBackgroundColor">
