@@ -60,8 +60,10 @@ func main() {
 	
 	//Page.Bookshelf/paymentEpisodes
 	r.GET("/bookshelf/paymentEpisodes",controller.ListPaymentEpisode)
-	r.GET("/bookshelf/paymentEpisodes/:ID",controller.GetEpisodePaymentEpisodeByID)
+	r.GET("/bookshelf/paymentEpisodes/:ID",controller.GetCartoonPaymentEpisodesByID)
 	r.POST("/bookshelf/paymentEpisodes",controller.CreateHistory)
+	
+	
 	// Run the server
 	r.Run()
 }
