@@ -5,7 +5,7 @@ import { EpisodesInterface } from "../../../interfaces/IEpisodes";
 import { FollowInterface } from "../../../interfaces/IFollow";
 const apiUrl = "http://localhost:8080";
 // /bookshelf/follow
-async function GetCartoonByID(ID: number | undefined):Promise<any> {
+async function GetCartoonFollowByID(ID: Number | undefined):Promise<any> {
     const requestOptions ={
       medthod: "GET",
       headers: {
@@ -44,7 +44,7 @@ async function CreateFollow(member_ID: Number | undefined,ID_C: number | undefin
   }
 
 export{
-    GetCartoonByID,
+    GetCartoonFollowByID,
     CreateFollow,
 }
 

@@ -1,6 +1,6 @@
 import React,{ useEffect, useState } from "react";
 import { Layout } from "antd";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./style/bookshelf.css";
 import Cookies from 'js-cookie'; 
 //component
@@ -21,12 +21,14 @@ function Bookshelf_bought() {
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
   const [products, setProducts] = useState<cartoon[]>([]);
   const username = Cookies.get('username');
+  const navigate = useNavigate();
   const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
       setMember(res);
     }
   };
+
   const getCartoonPaymentEpisodesByID = async (ID: Number | undefined):Promise<any> => {
     let res = await GetCartoonPaymentEpisodesByID(ID);
     if (res) {
@@ -34,14 +36,24 @@ function Bookshelf_bought() {
       setProducts(res);
     }
   };
+
   useEffect(()=>{
     GetUsersByUsername();
   },[]);
+
   useEffect(() => {
     if (member?.ID) {
       getCartoonPaymentEpisodesByID(member.ID);
     }
   }, [member]);
+
+  const onClick = (ID: Number | undefined) => {
+    const idValues = `${ID}`;
+    Cookies.set("ID", idValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+    const id = Cookies.get("ID");
+    console.log(id);
+    navigate("/Home/cartoon");
+  };
   return (
     <>
       <Layout>
@@ -90,7 +102,7 @@ function Bookshelf_bought() {
               <div className="header">การ์ตูนที่ซื้อแล้ว</div>
               {/* info-box1 start */}
               {products.map((cartoon)=>(
-                <div className="info-box">
+                <div className="info-box" onClick={() => onClick(cartoon.ID)}>
                   <div className="img-infobox">
                     <img  src={cartoon.Thumbnail} width={190} height={190} />
                   </div>

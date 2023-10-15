@@ -8,9 +8,14 @@ import "./style/style.css";
 import './style/followButton.css';
 //ไม่ใช้
 
-
 //component
 import Topmenu from "../component/topmenu";
+import './style/style.css'
+import LikeButton from './LikeButton';
+
+
+import { useNavigate } from "react-router-dom";
+//import Menubookshelf from "./component/menubookshelf";
 //https request
 import {
   GetCartoonByID_API,
@@ -30,11 +35,12 @@ import { RatingInterface } from "../../interfaces/IRating";
 const { Header, Content } = Layout;
 
 interface Toon {
-  ID: number;
-  Thumbnail: string;
-  Title: string;
-  Price: string;
-  Datetime: string;
+    ID: number;
+    Epnumber: number;
+    Thumbnail: string;
+    Title: string;
+    Price: string;
+    Datetime: string;
 }
   
 
@@ -48,16 +54,25 @@ function Cartoon() {
   
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "../styles/header";
+    const script = document.createElement('script');
+    script.src = '../styles/header';
     script.async = true;
     GetCartoonByID();
     GetEpisodesByID(id);
     GetUsersByUsername();
-  }, []);
-  useEffect(() => { }, [title]);
-  const id = Cookies.get("ID");
-  // console.log(id)
+
+
+}, []);
+useEffect(() => {
+}, [title]);
+const id = Cookies.get('ID');
+// console.log(id)
+
+    const navigate = useNavigate();
+    
+
+  
+    
 
   const GetCartoonByID = async () => {
     let res = await GetCartoonByID_API(id);
@@ -108,7 +123,6 @@ function Cartoon() {
   };
 
   const [isBoughtMap, setIsBoughtMap] = useState<{ [key: number]: boolean }>({});
-
   useEffect(() => {
     products.forEach((p) => {
       if (!isBoughtMap.hasOwnProperty(p.ID)) {
@@ -123,6 +137,7 @@ function Cartoon() {
       }
     });
   }, [products, isBoughtMap, member?.ID]);
+
   //status
   const checkBought = async (
     ID_E: number | undefined,
@@ -166,7 +181,7 @@ function Cartoon() {
   //Part.followButton
   const [follow, setFollow] = useState(false);
   const [cartoon, setCartoon] = useState<Toon>();
-  const [isFollow, setIsFollow] = useState<FollowInterface[]>([]);
+  const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
 
 
   const [rating, setRating] = useState(false);
@@ -183,6 +198,16 @@ function Cartoon() {
   };
   console.log(member);
   console.log(products);
+
+
+      const onClick = (ID: Number | undefined) => {
+        const idEpValues = `${ID}`;
+        Cookies.set("ID_ep", idEpValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+        const id = Cookies.get("ID_ep");
+        console.log(id);
+        navigate('/Home/cartoon/episodes');
+      };
+
 
   const handleLikeClick = () => {
     setLiked(!liked);
@@ -269,57 +294,64 @@ function Cartoon() {
                   </div>
                 </div>
 
-                <div className="eplist">
-                  <div className="blankspaceep"></div>
-                  <div className="listzone">
-                    {products.map((p) => (
-                      <div className="list" key={p.ID}>
-                        <div className="listbox">
-                          <div className="imgEP">
-                            <img className="imgForEP" src={p.Thumbnail} />
-                          </div>
-                          <div className="EPinfoCartoon">
-                            <div className="EPNumber">
-                              <p className="NumberEPInCartoon">EP.{p.ID}</p>
-                            </div>
-                            <div className="blankSpaceInEPCartoon1"></div>
-                            <div className="toonnameAndDate">
-                              <p className="toonnameInCatoon">{p.Title}</p>
-                              <p className="DateInCartoon"> {p.Datetime}</p>
-                            </div>
-                            <div className="blankSpaceInEPCartoon2"></div>
+                                <div className="eplist">
+                                    <div className="blankspaceep"></div>
+                                    <div className="listzone">
+                                        {products.map((p) => (
 
-                            <div className="priceInCartoon">
-                              {isBoughtMap[p.ID] ? (
-                                <div>
-                                  <div style={{ color: "white" }}>
-                                    สินค้าถูกซื้อแล้ว!
-                                  </div>
+                                            <div className="list" key={p.ID}>
+
+                                                <div className="listbox">
+
+                                                    <div className="imgEP">
+                                                        <img className="imgForEP" src={p.Thumbnail} />
+                                                    </div>
+                                                    <div className="EPinfoCartoon">
+
+                                                        <div className="EPNumber">
+                                                            <p className="NumberEPInCartoon">EP.{p.Epnumber}</p>
+                                                        </div>
+                                                        <div className="blankSpaceInEPCartoon1"></div>
+                                                        <div className="toonnameAndDate">
+                                                            <p className="toonnameInCatoon">{p.Title}</p>
+                                                            <p className="DateInCartoon"> {p.Datetime}</p>
+                                                        </div>
+                                                        <div className="blankSpaceInEPCartoon2"></div>
+
+                                                        <div className="priceInCartoon" >
+                                                            {isBoughtMap[p.ID] ? (
+                                                                <div>
+                                                                    <div style={{color:'white'}} onClick={() => onClick(p.ID)}>สินค้าถูกซื้อแล้ว!</div>
+                                                                </div>
+                                                            ) : (
+                                                                <div className="boxforprice" onClick={() => handleClick(p)}>
+                                                                    <div className="boxprice">
+                                                                        <p className="EPPrice">{p.Price} 🪙</p>
+                                                                    </div>
+                                                                    <div className="blankpriceForBackIn"></div>
+                                                                </div>
+                                                            )}
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            </div>
+
+                                        ))}
+                                    </div>
                                 </div>
-                              ) : (
-                                <div
-                                  className="boxforprice"
-                                  onClick={() => handleClick(p)}
-                                >
-                                  <div className="boxprice">
-                                    <p className="EPPrice">{p.Price} 🪙</p>
-                                  </div>
-                                  <div className="blankpriceForBackIn"></div>
-                                </div>
-                              )}
                             </div>
-                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Content>
-      </Layout>
-    </>
-  );
+                    </div>
+                </Content>
+            </Layout>
+        </>
+    );
 }
 export default Cartoon;

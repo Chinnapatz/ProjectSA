@@ -57,7 +57,7 @@ func GetEpisodePaymentEpisodeByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": episodes})
 }
-
+//GET
 func GetCartoonPaymentEpisodesByID(c *gin.Context){
 	var episodes []entity.Episodes
 	var paymentEp []entity.PaymentEpisode

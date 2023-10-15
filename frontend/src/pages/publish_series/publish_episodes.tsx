@@ -51,13 +51,8 @@ const getBase641 = (file: RcFile): Promise<string> =>
         reader.onload = () => resolve(reader.result as string);
         reader.onerror = (error) => reject(error);
     });
-const beforeUpload = async (file: RcFile) => {
-    const base64 = await getBase64(file);
-    // Do something with the base64 string, like setting it in your state or sending it to the server
-    console.log(base64);
-    return false; // Prevent default upload behavior
-};
 
+    
 
 
 function Publish_Episodes() {

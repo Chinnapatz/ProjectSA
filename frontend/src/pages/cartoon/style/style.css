@@ -303,3 +303,7 @@
     transition: 0.3s;
 
 }
+.imageshowimage{
+    width: 900px;
+    object-fit: cover;
+}

@@ -26,16 +26,7 @@ function Menubookshelf() {
           การ์ตูนที่ติดตาม
         </span>
       </Link>
-      <Link to="/Bookshelf/History"><span style={{
-            paddingRight: "0vw",
-            paddingLeft: "0vw",
-            color: "white",
-            fontSize: "18px",
-          }}
-        >
-          การ์ตูนที่อ่านล่าสุด
-        </span>
-      </Link>
+      
       <Link to="/Bookshelf/Bought">
         <span
           style={{
