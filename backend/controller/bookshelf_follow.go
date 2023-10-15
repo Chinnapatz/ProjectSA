@@ -11,8 +11,8 @@ func CreateFollow(c *gin.Context) {
 	// var follow entity.Follow
 	var member entity.Member
 	var cartoon entity.Cartoon
-	idMember := c.Param("memID")
-	idCartoon := c.Param("toonID")
+	idMember := c.Param("memberID")
+	idCartoon := c.Param("cartoonID")
 
 
 	// if err := c.ShouldBindJSON(&follow); err != nil {
@@ -41,12 +41,24 @@ func CreateFollow(c *gin.Context) {
 
 
 // GET bookshelf/follow/:id
-func GetCartoonFollowByID(c *gin.Context) {
-	idCartoon := c.Param("cartonID")
-	var cartoons entity.Cartoon
-	if err := entity.DB().Preload("Member").Raw("SELECT * FROM cartoons WHERE id = ?",idCartoon).Find(&cartoons).Error; err != nil {
+func GetCartoonFollowByID(c *gin.Context){
+	var follow []entity.Follow
+	var cartoons []entity.Cartoon
+	
+	idMember := c.Param("ID")
+	
+	if err := entity.DB().Raw("SELECT * FROM follows WHERE member_id = ?", idMember).Scan(&follow).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+	}
+	
+	for _, cartoon := range follow {
+		var singleCartoon entity.Cartoon
+		if err := entity.DB().Raw("SELECT * FROM cartoons WHERE id = ?", cartoon.CartoonID).Scan(&singleCartoon).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		cartoons = append(cartoons, singleCartoon)
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cartoons})
 }

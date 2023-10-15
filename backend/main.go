@@ -50,7 +50,7 @@ func main() {
 	
 	//Page.Bookshelf/follow
 
-	r.GET("/bookshelf/follow/:cartonID",controller.GetCartoonFollowByID)
+	r.GET("/bookshelf/follow/:ID",controller.GetCartoonFollowByID)
 	r.GET("/bookshelf/follows/:memberID/:cartoonID",controller.CreateFollow)
 	
 

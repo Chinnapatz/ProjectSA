@@ -47,9 +47,9 @@ function Cartoon() {
     GetEpisodesByID(id);
     GetUsersByUsername();
   }, []);
+
   useEffect(() => {}, [title]);
   const id = Cookies.get("ID");
-  // console.log(id)
 
   const GetCartoonByID = async () => {
     let res = await GetCartoonByID_API(id);
@@ -58,33 +58,18 @@ function Cartoon() {
       setCartoon(res);
       const titles = res.Vertical_Thumbnail;
       setTitle(titles);
-      //console.log(titles)
     }
   };
   const GetEpisodesByID = async (ID: string | undefined) => {
     let res = await GetEpisodesByID_API(ID);
     if (res) {
-      // console.log(res)
+
       setProducts(res);
-      // const titles = res.Vertical_Thumbnail
-      // setTitle(titles)
-      //console.log(titles)
     }
   };
-  //// true = 1 fuction
+
   const onChange = (checked: boolean) => {
     console.log(`switch to ${checked}`);
-  };
-  // false 1 function
-  const UpdateLike = async () => {
-    let res = await GetEpisodesByID_API(id);
-    if (res) {
-      console.log(res);
-      // setCartoons(res);
-      // const titles = res.Vertical_Thumbnail
-      // setTitle(titles)
-      //console.log(titles)
-    }
   };
 
   const username = Cookies.get("username");
@@ -97,7 +82,6 @@ function Cartoon() {
   };
 
   const [isBoughtMap, setIsBoughtMap] = useState<{ [key: number]: boolean }>({});
-
   useEffect(() => {
     products.forEach((p) => {
       if (!isBoughtMap.hasOwnProperty(p.ID)) {
@@ -112,6 +96,7 @@ function Cartoon() {
       }
     });
   }, [products, isBoughtMap, member?.ID]);
+
   //status
   const checkBought = async (
     ID_E: number | undefined,
@@ -155,7 +140,7 @@ function Cartoon() {
   //Part.followButton
   const [follow, setFollow] = useState(false);
   const [cartoon,setCartoon] =useState<Toon>();
-  const [isFollow, setIsFollow] = useState<FollowInterface[]>([]);
+  const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
   const handleFollowButtonClick = () => {
     setFollow(!follow);  
     console.log(member?.ID);  
@@ -164,6 +149,7 @@ function Cartoon() {
   };
   console.log(member);
   console.log(products);
+
 
   
 
@@ -257,7 +243,6 @@ function Cartoon() {
                               <p className="DateInCartoon"> {p.Datetime}</p>
                             </div>
                             <div className="blankSpaceInEPCartoon2"></div>
-
                             <div className="priceInCartoon">
                               {isBoughtMap[p.ID] ? (
                                 <div>
