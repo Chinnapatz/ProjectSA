@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import Topmenu from "../component/topmenu";
 import Menubookshelf from "./component/menubookshelf";
 import { UsersInterface } from "../../interfaces/IUser";
-import { GetUsersByUsernameAPI,GetCartoonPaymentEpisodesByID } from "../../services/https";
+import { GetUsersByUsernameAPI } from "../../services/https";
 const { Header,  Content } = Layout;
 
 interface cartoon {
@@ -26,21 +26,21 @@ function Bookshelf_bought() {
       setMember(res);
     }
   };
-  const getCartoonPaymentEpisodesByID = async (ID: Number | undefined) => {
-    let res = await GetCartoonPaymentEpisodesByID(ID);
-    if (res) {
-      console.log(res);
-      setProducts(res);
-    }
-  };
+  // const getCartoonPaymentEpisodesByID = async (ID: Number | undefined) => {
+  //   let res = await GetCartoonPaymentEpisodesByID(ID);
+  //   if (res) {
+  //     console.log(res);
+  //     setProducts(res);
+  //   }
+  // };
   useEffect(()=>{
     GetUsersByUsername();
   },[]);
-  useEffect(() => {
-    if (member?.ID) {
-      getCartoonPaymentEpisodesByID(member.ID);
-    }
-  }, [member]);
+  // useEffect(() => {
+  //   if (member?.ID) {
+  //     getCartoonPaymentEpisodesByID(member.ID);
+  //   }
+  // }, [member]);
   return (
     <>
       <Layout>

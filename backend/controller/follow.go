@@ -48,7 +48,7 @@ func ListFollow(c *gin.Context) {
 // GET bookshelf/follow/:id
 func GetCartoonFollowByID(c *gin.Context) {
 	idCartoon := c.Param("ID")
-	var cartoons []entity.Cartoon
+	var cartoons entity.Cartoon
 	if err := entity.DB().Preload("Member").Raw("SELECT * FROM cartoons WHERE id = ?",idCartoon).Find(&cartoons).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

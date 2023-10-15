@@ -284,7 +284,7 @@ async function GetCartoonToDashboard() {
   });
   return res;
 }
-async function getPayment(ID_E: number | undefined,member_ID: number | undefined):Promise<any> {
+async function getPayment(ID_E: number | undefined,member_ID: Number | undefined):Promise<any> {
   const requestOptions ={
     medthod: "GET",
     headers: {
@@ -305,7 +305,7 @@ async function getPayment(ID_E: number | undefined,member_ID: number | undefined
   return res;
 }
 
-async function UpdatePaymentEp(ID_E: number | undefined,member_ID: number | undefined):Promise<any> {
+async function UpdatePaymentEp(ID_E: number | undefined,member_ID: Number | undefined):Promise<any> {
   const requestOptions ={
     medthod: "GET",
     headers: {
@@ -326,7 +326,25 @@ async function UpdatePaymentEp(ID_E: number | undefined,member_ID: number | unde
   return res;
 }
 
-
+// /bookshelf/follow
+async function GetCartoonByID(ID: number | undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/bookshelf/follow/${ID}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+    }else{
+      return false;
+    }
+  });
+  return res;
+}
 
 
 
@@ -355,4 +373,8 @@ export {
   GetEpisodesByID_API,
   getPayment,
   UpdatePaymentEp,
+  GetCategories,
+  CreateEpisodes,
+  GetCartoonByID,
+  CreateComment
 };

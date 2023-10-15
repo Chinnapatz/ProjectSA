@@ -109,7 +109,7 @@ function Cartoon() {
     }, [products, isBoughtMap, member?.ID]);
     
     //status
-    const checkBought = async (ID_E: number | undefined, member_ID: number | undefined): Promise<React.ReactNode> => {
+    const checkBought = async (ID_E: number | undefined, member_ID: Number | undefined): Promise<React.ReactNode> => {
         let res = await getPayment(ID_E, member_ID);
         setIsBoughtMap((prevIsBoughtMap) => {
             const updatedIsBoughtMap = { ...prevIsBoughtMap };

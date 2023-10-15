@@ -15,7 +15,7 @@ import {
 } from "../../services/https";
 const { Header, Content } = Layout;
 interface Cartoon {
-  ID: Number;
+  ID: number;
   Square_Thumbnail: string;
   Title: string;
   Datetime: string;
