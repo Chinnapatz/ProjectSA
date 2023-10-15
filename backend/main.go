@@ -52,13 +52,14 @@ func main() {
 	//Page.Bookshelf/follow
 
 	r.GET("/bookshelf/follow/:ID",controller.GetCartoonFollowByID)
+	r.GET("/cartoon/rating/:cartonID",controller.GetCartoonRatingByID)
 	r.GET("/bookshelf/follows/:memberID/:cartoonID",controller.CreateFollow)
+	r.GET("/bookshelf/followsCheck/:memberID/:cartoonID",controller.CheckCartoonFollowByID)
+	r.DELETE("/bookshelf/follows/:memberID/:cartoonID",controller.DeleteFollow)
+	r.GET("/cartoon/ratings/:mem4RatingID/:toon4RatingID",controller.CreateRating)
 	
 
-	//Page.Bookshelf/history
-	r.GET("/bookshelf/history",controller.ListHistory)
-	r.GET("/bookshelf/history/:ID",controller.GetCartoonHistoryByID)
-	r.POST("/bookshelf/history",controller.CreatePaymentEpisodes)
+
 	
 	//Page.Bookshelf/paymentEpisodes
 	r.GET("/bookshelf/paymentEpisodes",controller.ListPaymentEpisode)

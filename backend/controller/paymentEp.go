@@ -9,20 +9,16 @@ import (
 )
 
 func CheckPaymentEP(c *gin.Context) {
-
 	var PaymentEP entity.PaymentEpisode
 	idMember := c.Param("member_ID")
 	idE := c.Param("ID_E")
-
 	result := entity.DB().Raw("SELECT * FROM payment_episodes WHERE episodes_id = ? AND member_id = ? ", idE, idMember).Scan(&PaymentEP)
-
 	// ตรวจสอบว่ามี error หรือไม่
 	if result.Error != nil {
 		// มี error ในการดึงข้อมูล
 		c.JSON(http.StatusBadRequest, gin.H{"error": result.Error.Error()})
 		return
 	}
-
 	// ไม่มี error แสดงว่าข้อมูลถูกดึงมาสำเร็จ
 	// ตรวจสอบว่ามีข้อมูลหรือไม่
 	if result.RowsAffected == 0 {
@@ -30,10 +26,8 @@ func CheckPaymentEP(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ไม่พบข้อมูล"})
 		return
 	}
-
 	// มีข้อมูล ส่งข้อมูลที่ได้กลับไป
 	c.JSON(http.StatusOK, gin.H{"data": PaymentEP})
-
 }
 
 // GET /package/:id/:id

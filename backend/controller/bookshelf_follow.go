@@ -62,6 +62,32 @@ func GetCartoonFollowByID(c *gin.Context){
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cartoons})
 }
+// no path now
+func DeleteFollow(c *gin.Context) {
+	idMember := c.Param("memberID")
+	idCartoon := c.Param("cartoonID")
 
+	if tx := entity.DB().Exec("DELETE FROM follows WHERE member_id = ? AND cartoon_id = ?", idMember, idCartoon); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": idMember})
+}
+// no path now
+func CheckCartoonFollowByID(c *gin.Context) {
+	var follow entity.Follow
+	idMember := c.Param("memberID")
+	idCartoon := c.Param("cartoonID")
+	result := entity.DB().Raw("SELECT * FROM follows WHERE cartoon_id = ? AND member_id = ? ", idCartoon, idMember).Scan(&follow)
+	if result.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": result.Error.Error()})
+		return
+	}
+	if result.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ไม่พบข้อมูล"})
+		return
+	}
 
+	c.JSON(http.StatusOK, gin.H{"data": follow})
+}
 
