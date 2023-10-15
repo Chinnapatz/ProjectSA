@@ -49,8 +49,6 @@ function Cartoon() {
  
   const [liked, setLiked] = useState(false);
  
-  
-
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "../styles/header";
@@ -154,15 +152,6 @@ function Cartoon() {
   const [cartoon, setCartoon] = useState<Toon>();
   const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
 
-
-  const [rating, setRating] = useState(false);
-  const [isRating, setIsRating] = useState<FollowInterface[]>([]);
-
-  const handleLikeClick = () => {
-    setLiked(!liked);
-    CreateRating(member?.ID, cartoon?.ID);
-  };
-
   const handleFollowButtonClick = () => {
     setFollow(!follow);
     CreateFollow(member?.ID, cartoon?.ID);
@@ -174,6 +163,14 @@ function Cartoon() {
     console.log(id);
     navigate("/Home/cartoon/episodes");
   };
+  //Part.rating
+  const [rating, setRating] = useState(false);
+  const [isRating, setIsRating] = useState<FollowInterface[]>([]);
+  const handleLikeClick = () => {
+    setLiked(!liked);
+    CreateRating(member?.ID, cartoon?.ID);
+  };
+
   
   return (
     <>

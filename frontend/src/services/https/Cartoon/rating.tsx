@@ -4,10 +4,6 @@ import { CommentInterface } from "../../../interfaces/IComment";
 import { EpisodesInterface } from "../../../interfaces/IEpisodes";
 import { RatingInterface } from "../../../interfaces/IRating";
 const apiUrl = "http://localhost:8080";
-// /bookshelf/follow
-
-
-
 
 async function CreateRating(mem4RatingID: Number | undefined,toon4RatingID: number | undefined):Promise<any> {
     const requestOptions ={

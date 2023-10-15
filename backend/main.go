@@ -56,10 +56,10 @@ func main() {
 	r.GET("/bookshelf/follows/:memberID/:cartoonID",controller.CreateFollow)
 	r.GET("/bookshelf/followsCheck/:memberID/:cartoonID",controller.CheckCartoonFollowByID)
 	r.DELETE("/bookshelf/follows/:memberID/:cartoonID",controller.DeleteFollow)
+	
+	//Page.rating
 	r.GET("/cartoon/ratings/:mem4RatingID/:toon4RatingID",controller.CreateRating)
 	
-
-
 	
 	//Page.Bookshelf/paymentEpisodes
 	r.GET("/bookshelf/paymentEpisodes",controller.ListPaymentEpisode)
