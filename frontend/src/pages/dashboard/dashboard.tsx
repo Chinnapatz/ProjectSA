@@ -51,7 +51,7 @@ function Dashboard() {
     Get_Cartoon()
     GetUsersByUsername();
 
-  });
+  },[]);
 
   const Get_Cartoon = async () => {
     let res = await GetCartoonToDashboard();

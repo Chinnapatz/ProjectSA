@@ -47,11 +47,12 @@ func main() {
 	
 	//Page.Comment
 	r.POST("/comments",controller.CreateComment)
-
+	
 	//Page.Bookshelf/follow
-	r.GET("/bookshelf/follow",controller.ListFollow)
-	r.GET("/bookshelf/follow/:ID",controller.GetCartoonFollowByID)
-	r.POST("/bookshelf/follow",controller.CreateFollow)
+
+	r.GET("/bookshelf/follow/:cartonID",controller.GetCartoonFollowByID)
+	r.GET("/bookshelf/follows/:memberID/:cartoonID",controller.CreateFollow)
+	
 
 	//Page.Bookshelf/history
 	r.GET("/bookshelf/history",controller.ListHistory)

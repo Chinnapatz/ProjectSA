@@ -26,13 +26,6 @@ function Bookshelf_bought() {
       setMember(res);
     }
   };
-  // const getCartoonPaymentEpisodesByID = async (ID: Number | undefined) => {
-  //   let res = await GetCartoonPaymentEpisodesByID(ID);
-  //   if (res) {
-  //     console.log(res);
-  //     setProducts(res);
-  //   }
-  // };
   useEffect(()=>{
     GetUsersByUsername();
   },[]);
@@ -57,7 +50,7 @@ function Bookshelf_bought() {
           <Topmenu />
         </Header>
         <Content
-          style={{ padding: "10px 10px 10px 10px", height: "100%" }}
+          style={{ padding: "10px 10px 10px 10px", height: "100vh" }}
           className="MainBackgroundColor"
         >
         <Layout className="MainBackgroundColor">
@@ -78,7 +71,7 @@ function Bookshelf_bought() {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                height: "100  vh",
+                height: "100%",
                 padding: "10px 20px 10px 10px",
                 backgroundColor: "1818",
                 background: "#181818",

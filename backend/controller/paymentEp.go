@@ -14,7 +14,6 @@ func CheckPaymentEP(c *gin.Context) {
 	idMember := c.Param("member_ID")
 	idE := c.Param("ID_E")
 
-	
 	result := entity.DB().Raw("SELECT * FROM payment_episodes WHERE episodes_id = ? AND member_id = ? ", idE, idMember).Scan(&PaymentEP)
 
 	// ตรวจสอบว่ามี error หรือไม่
@@ -36,15 +35,14 @@ func CheckPaymentEP(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": PaymentEP})
 
 }
+
 // GET /package/:id/:id
-func UpdatePaymentEp(c *gin.Context){
+func UpdatePaymentEp(c *gin.Context) {
 	var cartoonCoin entity.Episodes
 	var member entity.Member
-	
-	
+
 	idMember := c.Param("member_ID")
 	idE := c.Param("ID_E")
-
 
 	// ค้นหา user ด้วย id
 	if err := entity.DB().Raw("SELECT * FROM members WHERE id = ?", idMember).Scan(&member).Error; err != nil {
@@ -56,33 +54,30 @@ func UpdatePaymentEp(c *gin.Context){
 		return
 	}
 
-	 // Add Coins from the Package to the existing Coins of the Member
-	 if member.Coins < cartoonCoin.Price {
-    c.JSON(http.StatusBadRequest, gin.H{"error": "ยอดเหรียญไม่เพียงพอ"})
-    return
-}
-	 member.Coins -= cartoonCoin.Price
+	// Add Coins from the Package to the existing Coins of the Member
+	if member.Coins < cartoonCoin.Price {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ยอดเหรียญไม่เพียงพอ"})
+		return
+	}
+	member.Coins -= cartoonCoin.Price
 
-	 // Update the Member with the new Coins value
-	 if err := entity.DB().Model(&member).Update("Coins", member.Coins).Error; err != nil {
-			 c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			 return
-	 }
-
-
-
-	 payment := entity.PaymentEpisode{
-		MemberID:   &member.ID,
-		EpisodesID: &cartoonCoin.ID,
-		Datetime: time.Now(),
-}
-
-if err := entity.DB().Create(&payment).Error; err != nil {
+	// Update the Member with the new Coins value
+	if err := entity.DB().Model(&member).Update("Coins", member.Coins).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
-}
+	}
 
-c.JSON(http.StatusOK, gin.H{"data":payment})
+	payment := entity.PaymentEpisode{
+		MemberID:   &member.ID,
+		EpisodesID: &cartoonCoin.ID,
+		Datetime:   time.Now(),
+	}
 
+	if err := entity.DB().Create(&payment).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": payment})
 
 }
