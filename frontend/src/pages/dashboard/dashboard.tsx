@@ -51,7 +51,8 @@ function Dashboard() {
     Get_Cartoon()
     GetUsersByUsername();
 
-  });
+  },[]);
+
 
   const Get_Cartoon = async () => {
     let res = await GetCartoonToDashboard();
@@ -419,13 +420,9 @@ function Dashboard() {
                         <div className="coverpage1">
                         <img className="coverpage1" src={t.Square_Thumbnail} alt="search--v1" />
                         </div>
-
-
-
-                        
                         <div className="infotoonlist1">
                           <h2 className="toonnamelist1">{t.Title}</h2>
-                          <h1 className="EP1">EP.1</h1>
+                          <h1 className="EP1"> </h1>
                         </div>
                         
                       </div>

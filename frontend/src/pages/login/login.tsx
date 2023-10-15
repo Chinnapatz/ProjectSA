@@ -5,8 +5,7 @@ import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { useNavigate } from "react-router-dom";
 
 import { UsersInterface } from '../../interfaces/IUser';
-import { LoginByUsername } from '../../services/https';
-
+import { LoginByUsername } from '../../services/https/Login/login';
 import Cookies from 'js-cookie'; //npm install js-cookie
 
 function Login() {

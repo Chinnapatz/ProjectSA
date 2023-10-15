@@ -18,7 +18,7 @@ import Bookshelf_followed from "./pages/bookshelf/bookshelf_followed";
 import Bookshelf_bought from "./pages/bookshelf/bookshelf_bought";
 import Bookshelf_history from "./pages/bookshelf/bookshelf_history";
 import Cartoon from "./pages/cartoon/cartoon";
-import CommentPage from "./pages/comment/mainpage/comment";
+
 
 function App() {
   
@@ -37,7 +37,8 @@ function App() {
         <Route path='/Bookshelf/Followed' element={<Bookshelf_followed/>}/>            
         <Route path='/Bookshelf/History' element={<Bookshelf_history/>}/>            
         <Route path='/Bookshelf/Bought' element={<Bookshelf_bought/>}/>    
-        <Route path='/Home/cartoon' element={<Cartoon/>}/>       
+        <Route path='/Home/cartoon' element={<Cartoon/>}/>        
+        <Route path='/Home/cartoon/episodes' element={<Episodes/>}/>         
         <Route path='/CommentPage' element={<CommentPage/>}/>       
       </Routes >
     </BrowserRouter>

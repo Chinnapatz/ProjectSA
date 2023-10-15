@@ -52,3 +52,14 @@ func GetEpisodeByID(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": episodes})
 
 }
+
+func GetChapterByID(c *gin.Context) {
+	var episodes []entity.Episodes
+	idEpisodes := c.Param("ID")
+	if err := entity.DB().Raw("SELECT * FROM episodes WHERE id = ?", idEpisodes).Scan(&episodes).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": episodes})
+
+}

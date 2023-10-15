@@ -1,6 +1,6 @@
-
+import { UsersInterface } from "./IUser";
 export interface SeriesInterface {
-    ID ?:            			number;  
+    ID ?:            			Number;  
     title ?:	            	string; 
 	catagories ?:				string; 
 	summary	?:			    	string; 

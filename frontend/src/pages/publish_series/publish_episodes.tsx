@@ -14,7 +14,9 @@ import { InputNumber } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import { EpisodesInterface } from '../../interfaces/IEpisodes'
-import { CreateEpisodes, GetCartoonByID_API,GetCartoon,GetUsersByUsernameAPI } from '../../services/https'
+import {  GetCartoonByID_API,GetUsersByUsernameAPI } from '../../services/https'
+import { GetCartoon,CreateEpisodes } from '../../services/https/Publish/publish'
+
 import Cookies from 'js-cookie';
 import { SeriesInterface } from '../../interfaces/ISeries'
 import Title from 'antd/es/skeleton/Title'
@@ -49,13 +51,8 @@ const getBase641 = (file: RcFile): Promise<string> =>
         reader.onload = () => resolve(reader.result as string);
         reader.onerror = (error) => reject(error);
     });
-const beforeUpload = async (file: RcFile) => {
-    const base64 = await getBase64(file);
-    // Do something with the base64 string, like setting it in your state or sending it to the server
-    console.log(base64);
-    return false; // Prevent default upload behavior
-};
 
+    
 
 
 function Publish_Episodes() {
@@ -164,7 +161,6 @@ function Publish_Episodes() {
 
         console.log(updatedValues)
         let res = await CreateEpisodes(cartoons?.ID, updatedValues);
-
         if (res.status) {
             messageApi.open({
                 type: "success",

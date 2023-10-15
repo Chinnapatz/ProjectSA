@@ -10,7 +10,8 @@ import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import '../component/topmenu';
 
 import { UsersInterface } from '../../interfaces/IUser';
-import { GetUsersByUsernameAPI, PackageCoin ,UpdateCoin} from "../../services/https";
+import { GetUsersByUsernameAPI,} from "../../services/https";
+import { PackageCoin,UpdateCoin } from '../../services/https/Payment_coin/payment_coin';
 import Cookies from 'js-cookie'; //npm install js-cookie
 
 /* Confirmation  */

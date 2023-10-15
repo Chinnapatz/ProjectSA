@@ -10,7 +10,9 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import './style/publish_se.css'
 import { Button, Form, Input, Select } from 'antd';
 import { useNavigate } from "react-router-dom";
-import { GetUsersByUsernameAPI,CreateSeries, GetCategories } from '../../services/https'
+import { GetUsersByUsernameAPI,  } from '../../services/https'
+import { CreateSeries } from '../../services/https/Publish/publish'
+import { GetCategories } from '../../services/https/Publish/publish'
 import { SeriesInterface } from '../../interfaces/ISeries'
 
 import Cookies from 'js-cookie';
@@ -150,12 +152,6 @@ function Publish_Series() {
       
     }
   };
-
-
-
-
-
-
 
   const [form] = Form.useForm();
   const [messageApi] = message.useMessage();
