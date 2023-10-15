@@ -8,9 +8,9 @@ import Topmenu from "../component/topmenu";
 import Menubookshelf from "./component/menubookshelf";
 import { UsersInterface } from "../../interfaces/IUser";
 import { SeriesInterface } from "../../interfaces/ISeries";
+import { GetCartoonByID } from "../../services/https/Bookshelf/bookshelf_follow";
 import {
   GetUsersByUsernameAPI,
-  GetCartoonByID,
   GetInfoMemberByMemberID,
 } from "../../services/https";
 const { Header, Content } = Layout;

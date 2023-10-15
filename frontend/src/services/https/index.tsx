@@ -40,46 +40,13 @@ async function GetInfoMemberByMemberID(ID: Number | undefined) {
   return res;
 }
 
-//Page Register
-async function CreateMember(data: UsersInterface) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
 
-  let res = await fetch(`${apiUrl}/members`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        return { status: true, message: res.data };
-      } else {
-        return { status: false, message: res.error };
-      }
-    });
 
-  return res;
-}
-//Page publish
-async function CreateSeries(ID: Number | undefined,data: SeriesInterface):Promise<any> {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
 
-  let res = await fetch(`${apiUrl}/cartoons/${ID}`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        return { status: true, message: res.data };
-      } else {
-        return { status: false, message: res.error };
-      }
-    });
 
-  return res;
-}
+
+
+//Page.Cartoon ยังไม่จัด
 async function GetCartoonByID_API(ID: string | undefined) {
   const requestOptions = {
     method: "GET",
@@ -95,93 +62,6 @@ async function GetCartoonByID_API(ID: string | undefined) {
     });
   return res;
 }
-
-
-async function GetCartoon(ID: Number | undefined):Promise<any> {
-  const requestOptions ={
-    medthod: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  let res = await fetch(`${apiUrl}/cartoons/${ID}`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if(res.data){
-      return res.data;
-
-    }else{
-      return false;
-    }
-
-  });
-  return res;
-}
-async function GetCategories() {
-  const requestOptions ={
-    medthod: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  let res = await fetch(`${apiUrl}/categories`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if(res.data){
-      return res.data;
-
-    }else{
-      return false;
-    }
-
-  });
-  return res;
-}
-
-//Page publish/Episodes
-async function CreateEpisodes(ID: Number | undefined,data: EpisodesInterface):Promise<any> {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
-
-  let res = await fetch(`${apiUrl}/episodes/${ID}`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        return { status: true, message: res.data };
-      } else {
-        return { status: false, message: res.error };
-      }
-    });
-
-  return res;
-}
-//Page Login
-async function LoginByUsername(data: UsersInterface) {
-  const requestOptions ={
-   
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
-
-  let res = await fetch(`${apiUrl}/login`,requestOptions)
-  .then((response) => response.json())
-  .then((res)=>{
-    if(res.data){
-      return { status: true, message: res.data };
-
-    }
-    else{
-      return { status: false, message: res.error };
-    }
-  });
-  return res;
-}
-
-
 async function GetEpisodesByID_API(ID: string | undefined) {
   const requestOptions = {
     method: "GET",
@@ -196,92 +76,6 @@ async function GetEpisodesByID_API(ID: string | undefined) {
         return false;
       }
     });
-  return res;
-}
-
-
-
-//Page Payment_coin
-async function PackageCoin() {
-  const requestOptions ={
-    medthod: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  let res = await fetch(`${apiUrl}/package`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if(res.data){
-      return res.data;
-
-    }else{
-      return false;
-    }
-
-  });
-  return res;
-}
-
-async function UpdateCoin(ID: Number | undefined, ID_package: Number | undefined):Promise<any> {
-  const requestOptions ={
-    medthod: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  let res = await fetch(`${apiUrl}/package/${ID}/${ID_package}`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if(res.data){
-      return res.data;
-
-    }else{
-      return false;
-    }
-
-  });
-  return res;
-}
-//Page comment
-async function CreateComment(data: CommentInterface) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
-
-  let res = await fetch(`${apiUrl}/comments`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        return { status: true, message: res.data };
-      } else {
-        return { status: false, message: res.error };
-      }
-    });
-
-  return res;
-}
-
-async function GetCartoonToDashboard() {
-  const requestOptions ={
-    medthod: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  let res = await fetch(`${apiUrl}/home`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if(res.data){
-      return res.data;
-
-    }else{
-      return false;
-    }
-
-  });
   return res;
 }
 async function getPayment(ID_E: number | undefined,member_ID: Number | undefined):Promise<any> {
@@ -326,22 +120,24 @@ async function UpdatePaymentEp(ID_E: number | undefined,member_ID: Number | unde
   return res;
 }
 
-// /bookshelf/follow
-async function GetCartoonByID(ID: number | undefined):Promise<any> {
+//Page.dashboard
+async function GetCartoonToDashboard() {
   const requestOptions ={
     medthod: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   };
-  let res = await fetch(`${apiUrl}/bookshelf/follow/${ID}`, requestOptions)
+  let res = await fetch(`${apiUrl}/home`, requestOptions)
   .then((response) => response.json())
   .then((res) =>{
     if(res.data){
       return res.data;
+
     }else{
       return false;
     }
+
   });
   return res;
 }
@@ -351,30 +147,42 @@ async function GetCartoonByID(ID: number | undefined):Promise<any> {
 
 
 
+
+
+
+
+
+
 export {
   //All Page
-  GetUsersByUsernameAPI,
-  GetInfoMemberByMemberID,
+    GetUsersByUsernameAPI,
+    GetInfoMemberByMemberID,
   //register
-  CreateMember,
+    // CreateMember,
 
   //login
-  LoginByUsername,
+    // LoginByUsername,
 
   //payment_Coin
-  PackageCoin,
-  UpdateCoin,
+    // PackageCoin,
+    // UpdateCoin,
 
   //publish_series
-  CreateSeries,
-  GetCartoon,
-  GetCartoonByID_API,
-  GetCartoonToDashboard,
-  GetEpisodesByID_API,
-  getPayment,
-  UpdatePaymentEp,
-  GetCategories,
-  CreateEpisodes,
-  GetCartoonByID,
-  CreateComment
+    // CreateSeries,
+    // GetCartoon,
+    GetCartoonByID_API,
+    // GetCategories,
+    
+    // CreateEpisodes,
+  //Comment
+    // CreateComment,
+    
+  //bookshelf/follow
+    //GetCartoonByID,
+
+    GetCartoonToDashboard,
+    GetEpisodesByID_API,
+    getPayment,
+    UpdatePaymentEp,
+    
 };

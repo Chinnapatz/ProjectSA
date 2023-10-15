@@ -5,8 +5,9 @@ import type { SizeType } from "antd/es/config-provider/SizeContext";
 import "./styles/publish.css";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie"; //npm install js-cookie
-import { GetCartoon, GetUsersByUsernameAPI } from "../../services/https";
+import { GetUsersByUsernameAPI } from "../../services/https";
 import { UsersInterface } from "../../interfaces/IUser";
+import { GetCartoon } from "../../services/https/Publish/publish";
 interface Toon {
   ID: number;
   Square_Thumbnail: string;

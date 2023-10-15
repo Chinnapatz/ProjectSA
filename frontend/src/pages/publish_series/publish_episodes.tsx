@@ -14,7 +14,9 @@ import { InputNumber } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import { EpisodesInterface } from '../../interfaces/IEpisodes'
-import { CreateEpisodes, GetCartoonByID_API,GetCartoon,GetUsersByUsernameAPI } from '../../services/https'
+import {  GetCartoonByID_API,GetUsersByUsernameAPI } from '../../services/https'
+import { GetCartoon,CreateEpisodes } from '../../services/https/Publish/publish'
+
 import Cookies from 'js-cookie';
 import { SeriesInterface } from '../../interfaces/ISeries'
 import Title from 'antd/es/skeleton/Title'

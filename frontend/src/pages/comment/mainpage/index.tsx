@@ -3,27 +3,18 @@ import { Layout, Input, Button, Divider, Card, Form, message, theme } from 'antd
 import InfiniteScroll from 'react-infinite-scroll-component';
 import "./index.css";
 
-import { CreateComment } from '../../../services/https';
+import { CreateComment } from '../../../services/https/Comment/comment';
 import { CommentInterface } from '../../../interfaces/IComment';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 
-
 const { Header, Content } = Layout;
 const { TextArea } = Input;
-
-
-
 
 function CommentPage() {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [size, setSize] = useState<SizeType>('large');
-
-  
-
-
-
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
