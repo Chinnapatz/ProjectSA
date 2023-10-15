@@ -18,6 +18,7 @@ import Bookshelf_followed from "./pages/bookshelf/bookshelf_followed";
 import Bookshelf_bought from "./pages/bookshelf/bookshelf_bought";
 import Bookshelf_history from "./pages/bookshelf/bookshelf_history";
 import Cartoon from "./pages/cartoon/cartoon";
+import Episodes from "./pages/episodes/episodes";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path='/Bookshelf/History' element={<Bookshelf_history/>}/>            
         <Route path='/Bookshelf/Bought' element={<Bookshelf_bought/>}/>    
         <Route path='/Home/cartoon' element={<Cartoon/>}/>        
+        <Route path='/Home/cartoon/episodes' element={<Episodes/>}/>    
       </Routes >
     </BrowserRouter>
     

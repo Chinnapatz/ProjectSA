@@ -27,6 +27,7 @@ func main() {
 	//Page.publish
 	r.GET("/cartoon/:ID",controller.GetCartoonByID)
 	r.GET("/episodes/:ID",controller.GetEpisodeByID)
+	r.GET("/episode/:ID",controller.GetChapterByID)
 
 	r.POST("/episodes/:ID",controller.CreateEpisodes)
 	r.POST("/cartoons/:ID",controller.CreateSeries)
