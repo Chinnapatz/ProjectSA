@@ -10,7 +10,7 @@ type Episodes struct {
 	Pictures	string		
 	Thumbnail  	string
 	Status		bool
-	Epnumber	int	 		`gorm:"uniqueIndex"`
+	Epnumber	int	 		
 	Price		int
 
 
