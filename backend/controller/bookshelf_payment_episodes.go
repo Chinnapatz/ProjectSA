@@ -57,3 +57,24 @@ func GetEpisodePaymentEpisodeByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": episodes})
 }
+
+func GetCartoonPaymentEpisodesByID(c *gin.Context){
+	var episodes []entity.Episodes
+	var paymentEp []entity.PaymentEpisode
+	idMember := c.Param("ID")
+	
+	if err := entity.DB().Raw("SELECT * FROM payment_episodes WHERE member_id = ?", idMember).Scan(&paymentEp).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
+	for _, episode := range paymentEp {
+		var singleEpisode entity.Episodes
+		if err := entity.DB().Raw("SELECT * FROM episodes WHERE id = ?", episode.EpisodesID).Scan(&singleEpisode).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		episodes = append(episodes, singleEpisode)
+	}
+	c.JSON(http.StatusOK, gin.H{"data": episodes})
+}

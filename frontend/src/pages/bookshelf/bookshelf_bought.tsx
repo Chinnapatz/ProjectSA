@@ -8,11 +8,12 @@ import Topmenu from "../component/topmenu";
 import Menubookshelf from "./component/menubookshelf";
 import { UsersInterface } from "../../interfaces/IUser";
 import { GetUsersByUsernameAPI } from "../../services/https";
+import { GetCartoonPaymentEpisodesByID } from "../../services/https/Bookshelf/bookshelf_bought";
 const { Header,  Content } = Layout;
 
 interface cartoon {
   ID:               number;
-  Square_Thumbnail: string;
+  Thumbnail: string;
   Title:            string;
   Datetime:         string;
 }
@@ -26,14 +27,21 @@ function Bookshelf_bought() {
       setMember(res);
     }
   };
+  const getCartoonPaymentEpisodesByID = async (ID: Number | undefined):Promise<any> => {
+    let res = await GetCartoonPaymentEpisodesByID(ID);
+    if (res) {
+      console.log(res);
+      setProducts(res);
+    }
+  };
   useEffect(()=>{
     GetUsersByUsername();
   },[]);
-  // useEffect(() => {
-  //   if (member?.ID) {
-  //     getCartoonPaymentEpisodesByID(member.ID);
-  //   }
-  // }, [member]);
+  useEffect(() => {
+    if (member?.ID) {
+      getCartoonPaymentEpisodesByID(member.ID);
+    }
+  }, [member]);
   return (
     <>
       <Layout>
@@ -84,7 +92,7 @@ function Bookshelf_bought() {
               {products.map((cartoon)=>(
                 <div className="info-box">
                   <div className="img-infobox">
-                    <img  src={cartoon.Square_Thumbnail} width={190} height={190} />
+                    <img  src={cartoon.Thumbnail} width={190} height={190} />
                   </div>
                   <div className="text-infobox">
                     <h1>{cartoon.Title}</h1>
