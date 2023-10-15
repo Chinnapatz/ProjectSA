@@ -16,7 +16,7 @@ func main() {
 	// User Routes
 
 	r.GET("/members", controller.ListMember)
-	r.GET("/member/:id", controller.GetMember)
+	r.GET("/member/:ID", controller.GetMember)
 	r.GET("/login/:username", controller.GetMemberByUsername)
 	r.GET("/cartoon/:ID",controller.GetCartoonByID)
 	r.GET("/episodes/:ID",controller.GetEpisodeByID)
@@ -35,9 +35,21 @@ func main() {
 	r.POST("/login", controller.LoginByUsername)
 	r.POST("/comments",controller.CreateComment)
 	
+	//new 
+	r.GET("/bookshelf/follow",controller.ListFollow)
+	r.GET("/bookshelf/history",controller.ListHistory)
+	r.GET("/bookshelf/paymentEpisodes",controller.ListPaymentEpisode)
 
+	r.GET("/bookshelf/follow/:ID",controller.GetCartoonFollowByID)
+	r.GET("/bookshelf/follow/kuy/:ID",controller.GetCartoonFollow)
+	r.GET("/bookshelf/history/:ID",controller.GetCartoonHistoryByID)
+	r.GET("/bookshelf/paymentEpisodes/:ID",controller.GetEpisodePaymentEpisodeByID)
+
+	r.POST("/bookshelf/follow",controller.CreateFollow)
+	r.POST("/bookshelf/history",controller.CreatePaymentEpisodes)
+	r.POST("/bookshelf/paymentEpisodes",controller.CreateHistory)
 	// Run the server
-
+	
 	r.Run()
 
 }
@@ -54,7 +66,6 @@ func CORSMiddleware() gin.HandlerFunc {
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
 			return
-
 		}
 
 		c.Next()
