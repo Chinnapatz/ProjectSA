@@ -51,7 +51,9 @@ func main() {
 	//Page.Bookshelf/follow
 
 	r.GET("/bookshelf/follow/:cartonID",controller.GetCartoonFollowByID)
-	r.GET("/bookshelf/follows/:memberID/:cartoonID",controller.CreateFollow)
+	r.GET("/cartoon/rating/:cartonID",controller.GetCartoonRatingByID)
+	r.GET("/bookshelf/follows/:memID/:toonID",controller.CreateFollow)
+	r.GET("/cartoon/ratings/:mem4RatingID/:toon4RatingID",controller.CreateRating)
 	
 
 	//Page.Bookshelf/history

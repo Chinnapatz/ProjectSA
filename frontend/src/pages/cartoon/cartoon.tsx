@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Layout } from "antd";
 import Swal from "sweetalert2";
+import './style/LikeButton.css';
 //css
 import "./style/style.css";
 import './style/followButton.css';
 //ไม่ใช้
-import LikeButton from "./LikeButton";
+
 
 //component
 import Topmenu from "../component/topmenu";
@@ -19,9 +20,11 @@ import {
   UpdatePaymentEp,
 } from "../../services/https";
 import { CreateFollow } from "../../services/https/Bookshelf/bookshelf_follow";
+import { CreateRating } from "../../services/https/Cartoon/rating";
 //interface
 import { UsersInterface } from "../../interfaces/IUser";
 import { FollowInterface } from "../../interfaces/IFollow";
+import { RatingInterface } from "../../interfaces/IRating";
 
 
 const { Header, Content } = Layout;
@@ -33,11 +36,16 @@ interface Toon {
   Price: string;
   Datetime: string;
 }
+  
 
 function Cartoon() {
   const [title, setTitle] = useState<any | null>(null);
   const [products, setProducts] = useState<Toon[]>([]);
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
+ 
+  const [liked, setLiked] = useState(false);
+ 
+  
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -47,7 +55,7 @@ function Cartoon() {
     GetEpisodesByID(id);
     GetUsersByUsername();
   }, []);
-  useEffect(() => {}, [title]);
+  useEffect(() => { }, [title]);
   const id = Cookies.get("ID");
   // console.log(id)
 
@@ -61,6 +69,9 @@ function Cartoon() {
       //console.log(titles)
     }
   };
+
+  
+
   const GetEpisodesByID = async (ID: string | undefined) => {
     let res = await GetEpisodesByID_API(ID);
     if (res) {
@@ -154,18 +165,33 @@ function Cartoon() {
   };
   //Part.followButton
   const [follow, setFollow] = useState(false);
-  const [cartoon,setCartoon] =useState<Toon>();
+  const [cartoon, setCartoon] = useState<Toon>();
   const [isFollow, setIsFollow] = useState<FollowInterface[]>([]);
+
+
+  const [rating, setRating] = useState(false);
+
+  const [isRating, setIsRating] = useState<FollowInterface[]>([]);
+
+
+
   const handleFollowButtonClick = () => {
-    setFollow(!follow);  
-    console.log(member?.ID);  
-    console.log(cartoon?.ID);  
-    CreateFollow(member?.ID,cartoon?.ID);
+    setFollow(!follow);
+    console.log(member?.ID);
+    console.log(cartoon?.ID);
+    CreateFollow(member?.ID, cartoon?.ID);
   };
   console.log(member);
   console.log(products);
 
-  
+  const handleLikeClick = () => {
+    setLiked(!liked);
+    console.log(member?.ID);
+    console.log(cartoon?.ID);
+    CreateRating(member?.ID, cartoon?.ID);
+  };
+
+
 
   return (
     <>
@@ -230,7 +256,12 @@ function Cartoon() {
                     </div>
                     {/* Button_Follow-End */}
 
-                    <LikeButton />
+                    <div>
+                      {/* Apply the "liked" class when the button is liked */}
+                      <div onClick={handleLikeClick} className={liked ? 'liked' : 'like'}>
+                        {liked ? '💖 LIKED' : '🤍 LIKE'}
+                      </div>
+                    </div>
 
                     {/* <button className="likeicontop">
                                             <p className="sumlike">2.3M</p>
