@@ -168,7 +168,7 @@ function Publish_Ep() {
         };
 
         console.log(updatedValues)
-        let res = await CreateEpisodes(cartoons?.ID, updatedValues);
+        let res = await   (cartoons?.ID, updatedValues);
 
         if (res.status) {
             messageApi.open({

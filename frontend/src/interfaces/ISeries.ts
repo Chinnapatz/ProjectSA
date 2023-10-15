@@ -1,4 +1,4 @@
-
+import { UsersInterface } from "./IUser";
 export interface SeriesInterface {
     ID ?:            			Number;  
     title ?:	            	string; 

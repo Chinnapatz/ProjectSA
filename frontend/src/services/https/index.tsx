@@ -247,7 +247,7 @@ async function CreateComment(data: CommentInterface) {
 }
 
 // /bookshelf/follow
-async function GetCartoonFollowByID(ID: Number | undefined):Promise<any> {
+async function GetCartoonByID(ID: number | undefined):Promise<any> {
   const requestOptions ={
     medthod: "GET",
     headers: {
@@ -356,7 +356,7 @@ export {
   CreateComment,
 
   //bookshelf/follow
-  GetCartoonFollowByID,
+  GetCartoonByID,
   GetCartoonFollow,
   //bookshelf/history
   GetCartoonHistoryByID,

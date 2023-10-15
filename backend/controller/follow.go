@@ -49,7 +49,7 @@ func ListFollow(c *gin.Context) {
 func GetCartoonFollowByID(c *gin.Context) {
 	idCartoon := c.Param("ID")
 	var cartoons []entity.Cartoon
-	if err := entity.DB().Preload("Member").Model(&entity.Cartoon{}).Where("id=?", idCartoon).Find(&cartoons).Error; err != nil {
+	if err := entity.DB().Preload("Member").Raw("SELECT * FROM cartoons WHERE id = ?",idCartoon).Find(&cartoons).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
