@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Layout } from "antd";
 import Swal from "sweetalert2";
-import './style/LikeButton.css';
+import "./style/LikeButton.css";
 //css
 import "./style/style.css";
 import "./style/followButton.css";
@@ -10,25 +10,25 @@ import "./style/followButton.css";
 //component
 import Topmenu from "../component/topmenu";
 import "./style/style.css";
-import LikeButton from "./LikeButton";
 
 import { useNavigate } from "react-router-dom";
-//import Menubookshelf from "./component/menubookshelf";
+
 //https request
 import {
   GetCartoonByID_API,
   GetEpisodesByID_API,
   GetUsersByUsernameAPI,
+  //payment
   getPayment,
   UpdatePaymentEp,
 } from "../../services/https";
-import { CreateFollow } from "../../services/https/Bookshelf/bookshelf_follow";
+
+import { CreateFollow,DeleteFollow,CheckCartoonFollowByID } from "../../services/https/Bookshelf/bookshelf_follow";
 import { CreateRating } from "../../services/https/Cartoon/rating";
+
 //interface
 import { UsersInterface } from "../../interfaces/IUser";
 import { FollowInterface } from "../../interfaces/IFollow";
-import { RatingInterface } from "../../interfaces/IRating";
-
 
 const { Header, Content } = Layout;
 
@@ -40,15 +40,13 @@ interface Toon {
   Price: string;
   Datetime: string;
 }
-  
 
 function Cartoon() {
   const [title, setTitle] = useState<any | null>(null);
   const [products, setProducts] = useState<Toon[]>([]);
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
- 
   const [liked, setLiked] = useState(false);
- 
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "../styles/header";
@@ -58,12 +56,12 @@ function Cartoon() {
     GetUsersByUsername();
   }, []);
 
-  useEffect(() => {
-  }, [title]);
+  useEffect(() => {}, [title]);
 
-  
   const navigate = useNavigate();
-  const id = Cookies.get('ID');
+  const id = Cookies.get("ID");
+  const username = Cookies.get("username");
+
   const GetCartoonByID = async () => {
     let res = await GetCartoonByID_API(id);
     if (res) {
@@ -80,12 +78,7 @@ function Cartoon() {
       setProducts(res);
     }
   };
-  
-  const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
-  };
 
-  const username = Cookies.get("username");
   const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
@@ -94,11 +87,14 @@ function Cartoon() {
     }
   };
 
+  const onChange = (checked: boolean) => {
+    console.log(`switch to ${checked}`);
+  };
   const [isBoughtMap, setIsBoughtMap] = useState<{ [key: number]: boolean }>({});
+
   useEffect(() => {
     products.forEach((p) => {
-      if (!isBoughtMap.hasOwnProperty(p.ID)) {
-        // เพิ่ม ID_E ใหม่เข้าไปเฉพาะถ้ายังไม่มีใน isBoughtMap
+      if (!isBoughtMap.hasOwnProperty(p.ID)) { // เพิ่ม ID_E ใหม่เข้าไปเฉพาะถ้ายังไม่มีใน isBoughtMap
         setIsBoughtMap((prevIsBoughtMap) => {
           return {
             ...prevIsBoughtMap,
@@ -107,6 +103,9 @@ function Cartoon() {
         });
         checkBought(p.ID, member?.ID);
       }
+    });
+    CheckCartoonFollowByID(member?.ID, cartoon?.ID).then((isFollowed) => {
+    setFollow(isFollowed);
     });
   }, [products, isBoughtMap, member?.ID]);
 
@@ -125,6 +124,7 @@ function Cartoon() {
     return null;
   };
 
+
   //buyep
   const handleClick = (p: Toon) => {
     Swal.fire({
@@ -140,21 +140,30 @@ function Cartoon() {
         console.log(member?.ID);
         console.log(p.ID);
         UpdatePaymentEp(p.ID, member?.ID);
-
         Swal.fire("ชำระสำเร็จ!", `คุณได้รับ coin จำนวน ${p.Price}`, "success");
-
         setTimeout(() => window.location.reload(), 800);
       }
     });
   };
+
   //Part.followButton
   const [follow, setFollow] = useState(false);
   const [cartoon, setCartoon] = useState<Toon>();
   const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
-
   const handleFollowButtonClick = () => {
     setFollow(!follow);
-    CreateFollow(member?.ID, cartoon?.ID);
+    
+    if (follow) {
+      console.log(follow);
+      // ถ้ากดปุ่มและเป็น follow, ให้เรียก DeleteFollow
+      DeleteFollow(member?.ID, cartoon?.ID);
+    } else {
+      console.log(follow);
+      // ถ้ากดปุ่มและไม่เป็น follow, ให้เรียก CreateFollow
+      console.log(member?.ID);
+      console.log(cartoon?.ID);
+      CreateFollow(member?.ID, cartoon?.ID);
+    };
   };
   const onClick = (ID: Number | undefined) => {
     const idEpValues = `${ID}`;
@@ -163,6 +172,10 @@ function Cartoon() {
     console.log(id);
     navigate("/Home/cartoon/episodes");
   };
+
+
+
+
   //Part.rating
   const [rating, setRating] = useState(false);
   const [isRating, setIsRating] = useState<FollowInterface[]>([]);
@@ -171,7 +184,7 @@ function Cartoon() {
     CreateRating(member?.ID, cartoon?.ID);
   };
 
-  
+  console.log(follow);
   return (
     <>
       <Layout>
@@ -222,8 +235,9 @@ function Cartoon() {
                     </div>
                     <div className="showlike"></div>
                     <div className="blankspace"></div>
-
+                    
                     {/* Button_Follow-Start */}
+                    
                     <div>
                       {/* Apply the "liked" class when the button is liked */}
                       <div
@@ -237,8 +251,11 @@ function Cartoon() {
 
                     <div>
                       {/* Apply the "liked" class when the button is liked */}
-                      <div onClick={handleLikeClick} className={liked ? 'liked' : 'like'}>
-                        {liked ? '💖 LIKED' : '🤍 LIKE'}
+                      <div
+                        onClick={handleLikeClick}
+                        className={liked ? "liked" : "like"}
+                      >
+                        {liked ? "💖 LIKED" : "🤍 LIKE"}
                       </div>
                     </div>
 

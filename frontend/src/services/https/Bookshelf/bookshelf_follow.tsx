@@ -43,19 +43,20 @@ async function CreateFollow(member_ID: Number | undefined,ID_C: number | undefin
     return res;
 }
 
-async function DeleteFollow(member_ID: Number | undefined,ID_C: number | undefined):Promise<any> {
-  const requestOptions ={
+async function DeleteFollow(memberID: Number | undefined,cartoonID: number | undefined) {
+  const requestOptions = {
     method: "DELETE"
   };
-  let res = await fetch(`${apiUrl}/bookshelf/follows/${member_ID}/${ID_C}`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if (res.data) {
-      return { status: true, message: res.data };
-    } else {
-      return { status: false, message: res.error };
-    }
-  });
+  let res = await fetch(`${apiUrl}/bookshelf/follows/${memberID}/${cartoonID}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
   return res;
 }
 async function CheckCartoonFollowByID(member_ID: Number | undefined,ID_C: Number| undefined):Promise<any> {
