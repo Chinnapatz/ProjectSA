@@ -2,8 +2,6 @@ package controller
 
 import (
 	"net/http"
-	"time"
-
 	"github.com/Chinnapatz/ProjectSA/entity"
 	"github.com/gin-gonic/gin"
 )
@@ -64,7 +62,6 @@ func UpdatePaymentEp(c *gin.Context) {
 	payment := entity.PaymentEpisode{
 		MemberID:   &member.ID,
 		EpisodesID: &cartoonCoin.ID,
-		Datetime:   time.Now(),
 	}
 
 	if err := entity.DB().Create(&payment).Error; err != nil {

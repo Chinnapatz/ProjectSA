@@ -22,7 +22,6 @@ import CommentPage from "./pages/comment/mainpage";
 
 
 function App() {
-  
   return (
     <BrowserRouter>
       <Routes>
@@ -43,8 +42,6 @@ function App() {
         <Route path='/Home/cartoon/episodes/comment' element={<CommentPage/>}/>    
       </Routes >
     </BrowserRouter>
-    
   );
 }
-
 export default App;
