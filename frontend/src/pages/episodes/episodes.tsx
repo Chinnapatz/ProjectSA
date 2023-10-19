@@ -3,7 +3,7 @@ import { Layout } from "antd";
 import Swal from 'sweetalert2';
 import Topmenu from "../component/topmenu";
 import './style/episodes.css'
-
+import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { GetCartoonByID_API, GetEpisodesByID_API, GetUsersByUsernameAPI, getPayment ,UpdatePaymentEp, GetChapterByID_API} from '../../services/https';
 import { UsersInterface } from '../../interfaces/IUser';
@@ -23,7 +23,8 @@ function Episodes() {
     const [products, setProducts] = useState<Toon[]>([]);
 
 
-
+    const navigate = useNavigate();
+    
 
 
     useEffect(() => {
@@ -97,7 +98,7 @@ function Episodes() {
                         </div>
                         <div className="jumpbox">
                             <div className="jump">
-                                <span className="jumpto">jump to...</span>
+                                <span className="jumpto" onClick={() => navigate("/Home/cartoon/episodes/comment")}>jump to...</span>
                             </div>
                         </div>
                     </div>

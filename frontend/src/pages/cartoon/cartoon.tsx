@@ -41,6 +41,11 @@ interface Toon {
   Datetime: string;
 }
   
+interface Toons {
+  ID:            number;
+  title:	       string; 
+	summary:			 string; 
+}
 
 function Cartoon() {
   const [title, setTitle] = useState<any | null>(null);
@@ -69,7 +74,7 @@ function Cartoon() {
     if (res) {
       console.log(res);
       setCartoon(res);
-      const titles = res.Vertical_Thumbnail;
+      const titles = res.Horizontal_Thumbnail;
       setTitle(titles);
     }
   };
@@ -193,6 +198,7 @@ function Cartoon() {
         >
           <div className="dashboardbackgroud">
             <div className="all">
+          
               <div className="top">
                 <div className="imageshowInCartoon">
                   <img
@@ -205,10 +211,8 @@ function Cartoon() {
               <div className="below">
                 <div className="infobox">
                   <div className="info">
-                    <h1 className="toonname">toonname</h1>
-                    <br></br>
-
-                    <div className="detailinfo">
+                
+                    <h1 className="toonname">toonname</h1><br></br><div className="detailinfo">
                       <br></br>
                       <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -220,6 +224,7 @@ function Cartoon() {
                         placeat magnam maiores ab.
                       </p>
                     </div>
+             
                     <div className="showlike"></div>
                     <div className="blankspace"></div>
 
@@ -247,7 +252,7 @@ function Cartoon() {
                                         </button> */}
                   </div>
                 </div>
-
+                                    
                 <div className="eplist">
                   <div className="blankspaceep"></div>
                   <div className="listzone">

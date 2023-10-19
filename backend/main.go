@@ -30,7 +30,7 @@ func main() {
 	r.GET("/episode/:ID",controller.GetChapterByID)
 
 	r.POST("/episodes/:ID",controller.CreateEpisodes)
-	r.POST("/cartoons/:ID",controller.CreateSeries)
+	r.POST("/cartoons/:ID/:categoriesID",controller.CreateSeries)
 	//Page.paymentCoin
 	r.GET("/package", controller.PackageCoin)
 	r.GET("/package/:ID/:ID_package", controller.UpdateCoin)

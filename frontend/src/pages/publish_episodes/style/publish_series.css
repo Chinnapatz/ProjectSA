@@ -20,7 +20,8 @@
 }
 
 .background {
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   background-attachment: fixed;
   background: linear-gradient(170deg, #D4ADFC -0.89%, #5C469C 87.43%, #181818 157.59%);
   position:relative;
@@ -89,16 +90,31 @@
   font-family: Inter;
   color: gray;
 }
+
 .bg-from{
   margin-left:500px;
   margin-top:-380px;
   background:rgba(24, 24, 24, 0.90);;
   width: 1000px;
-  height: 75vh;
+  height: fit-content;
   position: absolute;
   border-radius: 10px;
+  min-height: 700px;
  
 }
 .ant-select-selection-item {
   color: black;
 }
+.ant-upload-list {
+  width: 95%;
+}
+
+/* 
+.ant-layout{
+  min-height: 100vh;
+  height: 100%;
+}
+
+.btn-create-series{
+  left: -150px;
+} */

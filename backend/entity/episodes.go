@@ -7,7 +7,7 @@ import (
 type Episodes struct {
 	gorm.Model
 	Title		string		`gorm:"uniqueIndex"`
-	Pictures	string		
+	Pictures	string		`gorm:"not null"`
 	Thumbnail  	string
 	Status		bool
 	Epnumber	int	 		

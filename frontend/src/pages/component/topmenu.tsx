@@ -98,7 +98,7 @@ function Topmenu() {
             </div>
            
             <div className='text-on-top' onClick={homeButton} >Home</div>
-            <div className='text-on-top' onClick={categories}>Categories</div>
+            
             
             <div className='text-on-top' onClick={bookshelf}>Bookshelf</div>
           </div>

@@ -18,8 +18,8 @@ interface Toon {
 
 function Publish() {
   const navigate = useNavigate();
-  const publishSe = () => navigate("/Publish_Se");
-  const publishEp = () => navigate("/Publish_Ep");
+  const publishSe = () => navigate("/Publish_Series");
+  const publishEp = () => navigate("/Publish_Episodes");
   const [size, setSize] = useState<SizeType>("large");
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
   const [products, setProducts] = useState<Toon[]>([]);
@@ -43,7 +43,7 @@ function Publish() {
     Cookies.set("ID", idValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
     const id = Cookies.get("ID");
     console.log(id);
-    navigate("/Publish_Ep");
+    navigate("/Publish_Episodes");
   };
 
   const username = Cookies.get("username");
