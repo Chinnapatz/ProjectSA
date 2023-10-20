@@ -38,8 +38,8 @@ func main() {
 	r.GET("/paymentEP/:member_ID/:ID_E", controller.CheckPaymentEP)
 	r.GET("PaymentEP/:member_ID/:ID_E",controller.UpdatePaymentEp)
 	//Page.Comment
-	r.POST("/comments/:ID",controller.CreateComment)
-	r.GET("/comments",controller.GetComment)
+	r.POST("/comments/:ID/:IDep",controller.CreateComment)
+	r.GET("/comments/:ID",controller.GetComment)
 	r.GET("/members/:ID",controller.GetUsernameByMemberID)
 
 	

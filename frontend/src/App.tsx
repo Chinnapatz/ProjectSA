@@ -18,8 +18,7 @@ import Cartoon from "./pages/cartoon/cartoon";
 import Episodes from "./pages/episodes/episodes";
 import Publish_Series from "./pages/publish_episodes/publish_series";
 import Publish_Episodes from "./pages/publish_series/publish_episodes";
-import CommentPage from "./pages/comment/mainpage";
-
+import CommentPage from "./pages/comment/mainpage/comment";
 
 function App() {
   return (
@@ -39,6 +38,9 @@ function App() {
         <Route path='/Bookshelf/Bought' element={<Bookshelf_bought/>}/>    
         <Route path='/Home/cartoon' element={<Cartoon/>}/>        
         <Route path='/Home/cartoon/episodes' element={<Episodes/>}/>    
+        <Route path='/Home/cartoon/episodes/comment' element={<CommentPage/>}/> 
+        
+
       </Routes >
     </BrowserRouter>
   );

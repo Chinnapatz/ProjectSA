@@ -13,7 +13,9 @@ import (
 func CreateComment(c *gin.Context) {
 	var message entity.Comment
 	var member entity.Member
+	var episode entity.Episodes
 	
+	IDep := c.Param("IDep")
 	idMember := c.Param("ID")
 
 	if err := entity.DB().Raw("SELECT * FROM members WHERE id = ?", idMember).Scan(&member).Error; err != nil {
@@ -25,11 +27,15 @@ func CreateComment(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
+	if err := entity.DB().Raw("SELECT * FROM episodes WHERE id = ?", IDep).Scan(&episode).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	 commenttext := entity.Comment{
 		MemberID: 				&member.ID,
 		Message:				message.Message,
-		Datetime: 				time.Now(),	
+		Datetime: 				time.Now(),
+		EpisodesID: 			&episode.ID,				
 		
 	 }
 	if err := entity.DB().Create(&commenttext).Error; err != nil {
@@ -41,7 +47,8 @@ func CreateComment(c *gin.Context) {
 
 func GetComment(c *gin.Context) {
 	var message []entity.Comment
-	if err := entity.DB().Raw("SELECT * FROM comments").Find(&message).Error; err != nil{
+	idEpisodes := c.Param("ID")
+	if err := entity.DB().Raw("SELECT * FROM comments WHERE episodes_id = ?", idEpisodes).Find(&message).Error; err != nil{
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

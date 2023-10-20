@@ -1,6 +1,7 @@
 .bg-color{
     background: linear-gradient(166deg, #D4ADFC 0%, #5C469C 82.55%, #181818 143.46%);
     background-attachment: fixed;
+    min-height: 100vh;
 
 }
 

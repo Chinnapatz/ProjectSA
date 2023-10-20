@@ -2,15 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Input, Button, Divider, Card, Form, message } from 'antd';
 import "./index.css";
 
-import { CreateComment, GetUsersByUsernameAPI, GetComment,GetUsernameByMemberID } from '../../../services/https';
+import { GetUsersByUsernameAPI, } from '../../../services/https';
+import { CreateComment,GetComment,GetUsernameByMemberID } from '../../../services/https/Comment/comment';
 import { CommentInterface } from '../../../interfaces/IComment';
 import Cookies from 'js-cookie';
-import { UsersInterface } from '../../../interfaces/IUser';
+
 
 
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
+interface UsersInterface {
+  ID?: number;
+  Username?: string;
+  Password?:	string;
+	Email?:	string;
+  Coins?: Number;
+}
 
 
 
@@ -21,7 +29,8 @@ function CommentPage() {
   const [messageApi, contextHolder] = message.useMessage();
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
   const [comment_username, setUsername] = useState('');
- 
+  const id = Cookies.get('ID_ep');
+  console.log(id)
  
   useEffect(() => {
     const script = document.createElement('script');
@@ -34,13 +43,14 @@ function CommentPage() {
 
   useEffect(() => {
     if (member?.ID) {
-      Get_Comments(member.ID);
+      Get_Comments(id);
       Get_Username(member.ID);
 
       console.log(Mention);
     }
   }, [member]);
 
+  
   const username = Cookies.get('username');
   
 
@@ -56,8 +66,8 @@ function CommentPage() {
 
   const [Mention, setComments] = useState<CommentInterface[]>([]);
 
-  const Get_Comments = async (ID: Number | undefined) => {
-    let res = await GetComment();
+  const Get_Comments = async (ID: string| undefined) => {
+    let res = await GetComment(ID);
     if (res) {
       console.log(res)
       setComments(res)
@@ -78,7 +88,7 @@ function CommentPage() {
 
 
   const onFinish = async (values: CommentInterface) => {
-    let res = await CreateComment(member?.ID, values);
+    let res = await CreateComment(member?.ID,id,values);
     if (res.status) {
       messageApi.open({
         type: "success",

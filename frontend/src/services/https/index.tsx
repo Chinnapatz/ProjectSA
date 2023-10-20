@@ -163,84 +163,6 @@ async function GetCartoonToDashboard() {
 
 
 
-//Page.dashboard
-async function GetCartoonToDashboard() {
-  const requestOptions ={
-    medthod: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  let res = await fetch(`${apiUrl}/home`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if(res.data){
-      return res.data;
-
-    }else{
-      return false;
-    }
-
-  });
-  return res;
-}
-
-
-
-
-
-
-async function GetComment() {
-  const requestOptions ={
-    medthod: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  let res = await fetch(`${apiUrl}/comments`, requestOptions)
-  .then((response) => response.json())
-  .then((res) =>{
-    if(res.data){
-      return res.data;
-
-    }else{
-      return false;
-    }
-
-  });
-  return res;
-}
-
-
-async function GetUsernameByMemberID(memberID: number | undefined): Promise<any> {
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  try {
-    const response = await fetch(`${apiUrl}/members`, requestOptions);
-
-    if (!response.ok) {
-      console.error("Error getting username by member ID");
-      return null;
-    }
-
-    const data = await response.json();
-     console.log(data);
-    if (data && data.data) {
-      return data.data;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.error("Error getting username by member ID: " + error);
-    return null;
-  }
-}
-
 export {
   //All Page
     GetUsersByUsernameAPI,
@@ -264,6 +186,7 @@ export {
     // CreateEpisodes,
   //Comment
     // CreateComment,
+
     
   //bookshelf/follow
     //GetCartoonByID,
