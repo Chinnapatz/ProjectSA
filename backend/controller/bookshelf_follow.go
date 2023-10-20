@@ -2,7 +2,6 @@ package controller
 
 import (
 	"net/http"
-
 	"github.com/Chinnapatz/ProjectSA/entity"
 	"github.com/gin-gonic/gin"
 )
