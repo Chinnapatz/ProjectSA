@@ -7,7 +7,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import './style/publish_se.css'
+import './style/publish_series.css'
 import { Button, Form, Input, Select } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { GetUsersByUsernameAPI,  } from '../../services/https'
@@ -17,6 +17,7 @@ import { SeriesInterface } from '../../interfaces/ISeries'
 
 import Cookies from 'js-cookie';
 import { UsersInterface } from '../../interfaces/IUser'
+import { CategoriesInterface } from '../../interfaces/lCategories'
 
 
 const getBase64 = (file1: RcFile): Promise<string> =>
@@ -52,9 +53,7 @@ const headerStyle: React.CSSProperties = {
 
 
 
-const onChange = (value: string) => {
-  console.log(`selected ${value}`);
-};
+
 const onSearch = (value: string) => {
   console.log('search:', value);
 };
@@ -62,15 +61,12 @@ const onSearch = (value: string) => {
 const filterOption = (input: string, option?: { label: string; value: string }) =>
   (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
-interface Categories {
-  ID: number;
-  Type: string;
-}
+
 
 
 
 function Publish_Series() {
-
+  const [type, setType] = useState();
   useEffect(() => {
     const script = document.createElement('script');
     script.src = '../styles/header';
@@ -80,33 +76,24 @@ function Publish_Series() {
 
   }, []);
   
-
-  const [Categories, setCategories] = useState<Categories[]>([]);
-
-
   const Get_Categories = async () => {
 
     let res = await GetCategories();
-    console.log(res)
     if (res) {
       console.log(res)
       setCategories(res)
     }
   };
 
+  useEffect(() => {
+    console.log(type)
+  },[type])
 
 
 
-
-
-  const [current, setCurrent] = useState(0);
-  // const onChange = (value: number) => {
-  //   
-
-  //   setCurrent(value);
-  // };
 
   
+  const [current, setCurrent] = useState(0);
   const navigate = useNavigate();
   // Square button
   const [fileList1, setFileList1] = useState<UploadFile[]>([]);
@@ -137,13 +124,17 @@ function Publish_Series() {
     </div>
   );
 
+  const onChange = (value: any) => {
+    console.log(`selected ${value}`);
+    setType(value)
+  };
 
 
-
-
+  const [Categories, setCategories] = useState<CategoriesInterface[]>([]);
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
   const username = Cookies.get('username');
   
+
   const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
@@ -154,15 +145,16 @@ function Publish_Series() {
   };
 
   const [form] = Form.useForm();
-  const [messageApi] = message.useMessage();
+  const [messageApi,contextHolder] = message.useMessage();
+
   const onFinish = async (values: SeriesInterface) => {
     const updatedValues = {
       ...values,
-      vertical_thumbnail: values.vertical_thumbnail.file.thumbUrl,
+      horizontal_Thumbnail: values.horizontal_Thumbnail.file.thumbUrl,
       square_thumbnail: values.square_thumbnail.file.thumbUrl,
     };
-    let res = await CreateSeries(member?.ID,updatedValues);
-    console.log(res)
+    let res = await CreateSeries(member?.ID,type,updatedValues);
+    console.log(type)
     if (res.status) {
       messageApi.open({
         type: "success",
@@ -180,6 +172,7 @@ function Publish_Series() {
           บันทึกข้อมูลไม่สำเร็จ
         </span>,
       });
+      setTimeout(() => window.location.reload(), 800);
     }
   };
 
@@ -253,9 +246,9 @@ function Publish_Series() {
                           </Upload>
                         </Form.Item>
                       </div>
-                      <p className='text-Vertical'>Vertical Thumbnail</p>
+                      <p className='text-Vertical'>Horizontal Thumbnail</p>
                       <div className='bg_btn_square'>
-                        <Form.Item name='vertical_thumbnail'>
+                        <Form.Item name='horizontal_Thumbnail'>
                           <Upload
                             action="http://localhost:3000/Publish_Se"
                             listType="picture-card"
@@ -279,7 +272,7 @@ function Publish_Series() {
                       <Form.Item label="Title" name='title' >
                         <Input />
                       </Form.Item>
-                      <Form.Item label="Genre" name='catagories'
+                      <Form.Item label="Genre" name='catagories_id'
                       >
                         <Select
                           showSearch
@@ -290,7 +283,7 @@ function Publish_Series() {
                           
                         >
                           {Categories.map(category => (
-                            <Select.Option key={category.ID} value={category.Type}>
+                            <Select.Option key={category.ID} value={category.ID}>
                               {category.Type}
                             </Select.Option>
                           ))}
@@ -302,7 +295,7 @@ function Publish_Series() {
                       </Form.Item>
                     </Form.Item>
                   </Content>
-
+                  {contextHolder}
                   <Button type="primary" htmlType="submit" style={{ marginLeft: '1200px', marginTop: '230px', borderRadius: '20px', width: '120px', height: '40px' }}  >
                     Create Series
                   </Button>

@@ -7,7 +7,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import './style/publish_ep.css'
+import './style/publish_episodes.css'
 import { Button, Form, Input, Select } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { InputNumber } from 'antd';
@@ -148,7 +148,7 @@ function Publish_Episodes() {
     
 
 
-    const [messageApi] = message.useMessage();
+    const [messageApi,contextHolder] = message.useMessage();
     const onFinish = async (values: EpisodesInterface) => {
         const picturesString = values.pictures.fileList.map((file: any) => file.thumbUrl).join(',');
 
@@ -178,6 +178,7 @@ function Publish_Episodes() {
                     บันทึกข้อมูลไม่สำเร็จ
                 </span>,
             });
+            setTimeout(() => window.location.reload(), 800);
         }
     };
 
@@ -255,7 +256,7 @@ function Publish_Episodes() {
                                     </Form.Item>
                                 </Sider>
 
-                                <Content style={{ width: '50vw', marginTop: '0px' }} className='bg-from' >
+                                <Content style={{ width: '50vw', marginTop: '-20px' }} className='bg-from' >
                                     <Form.Item style={{ paddingLeft: '60px', marginTop: '0px', backgroundColor: 'transparent', borderColor: 'transparent', fontSize: '40px', color: 'white' }}
                                     > 
                                      
@@ -268,11 +269,16 @@ function Publish_Episodes() {
                                         <Space>
                                             <Form.Item label="Episode Name" name='epnumber' >
                                                 <InputNumber min={0} max={1000} style={{ width: '50px', height: '32px', marginRight: '8px', color: 'black' }} />
+                                                
                                             </Form.Item>
                                             <Form.Item style={{ paddingTop: '45px', marginLeft: '-100px' }} name='title'>
                                                 <Input style={{ width: '500px', height: '32px', marginRight: '8px', color: 'black' }} name='title' />
                                             </Form.Item>
+                                            <Form.Item label="Price" name='price' >
+                                        <InputNumber step={10} min={10} max={100} style={{ width: '70px', height: '32px', marginRight: '8px', color: 'black' }} />
+                                        </Form.Item>
                                         </Space>
+                                        
                                         <p style={{ fontSize: '24px' }}>Upload file</p>
                                         <Form.Item name='pictures'  >
                                             <Upload
@@ -285,8 +291,9 @@ function Publish_Episodes() {
                                         </Form.Item>
                                     </Form.Item>
                                 </Content>
+                                {contextHolder}
                                 <Button type="primary" htmlType="submit" style={{ marginLeft: '1240px', marginTop: '570px', borderRadius: '20px', width: '120px', height: '40px' }}>
-                                    Create Series
+                                    Create Episode
                                 </Button>
                             </Form>
                         </Layout>
