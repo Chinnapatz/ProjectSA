@@ -9,7 +9,6 @@ type Episodes struct {
 	Title		string		`gorm:"uniqueIndex"`
 	Pictures	string		`gorm:"not null"`
 	Thumbnail  	string
-	Status		bool
 	Epnumber	int	 		
 	Price		int
 
@@ -17,7 +16,7 @@ type Episodes struct {
 
 	PaymentEpisodes	[]PaymentEpisode `gorm:"foreignKey:EpisodesID"`
 	Comments		[]Comment	`gorm:"foreignKey:EpisodesID"`
-	Historys		[]History	`gorm:"foreignKey:EpisodesID"`
+
 
 	CartoonID	*uint
 	Cartoon		Cartoon		`gorm:"foreignKey:CartoonID"`

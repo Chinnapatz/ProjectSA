@@ -1,6 +1,7 @@
 .bg-color{
     background: linear-gradient(166deg, #D4ADFC 0%, #5C469C 82.55%, #181818 143.46%);
     background-attachment: fixed;
+    min-height: 100vh;
 
 }
 
@@ -10,6 +11,8 @@
     
 }
 
+
+
 .comment-border{
     background-color: aqua;
     height: 10px;
@@ -17,6 +20,7 @@
 }
 
 .submit-style{
+    left: -30px;
     background: #5C469C;
     height: 50px;
     width: 150px;
@@ -30,6 +34,8 @@
 }
 
 .textarea-style{
+    
+    left: -30px;
     height: 100;
     width: 100%;
     resize: none;

@@ -18,6 +18,8 @@ const { Header, Footer, Sider, Content } = Layout;
 
 interface Toon {
   ID: number;
+  Summary:  string;
+  Horizontal_Thumbnail : string ;
   Square_Thumbnail: string;
   Title: string;
 }
@@ -160,7 +162,7 @@ function Dashboard() {
                 <div className="imageshow">
                   <img
                     className="imageshowimage"
-                    src="https://cdn.discordapp.com/attachments/1031454676241108993/1157715240750940365/44.jpg?ex=65199dd6&is=65184c56&hm=59d69cb33684bc9ceadb11b702dde439a565eb6edd515c414aaf91518dd05df1&"
+                    src={cartoon1st?.Horizontal_Thumbnail}
                     alt="search--v1"
                   />
                   {/* <Image
@@ -175,17 +177,11 @@ function Dashboard() {
                 <div className="infotop">
                   <div className="infotopbox">
                     <div className="info">
-                      <h1 className="toonname">toonname</h1>
+                      <h1 className="toonname">{cartoon1st?.Title}</h1>
                       <br></br>
                       <div className="detailinfodash">
                         <p className="infodashdt">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Nesciunt, maiores qui. Explicabo magni maiores
-                          officia non dolorum dolore harum cum inventore
-                          quibusdam? Laborum nobis fugit ullam voluptatibus
-                          repellendus dolores recusandae, dolore culpa corrupti
-                          veritatis consectetur et enim itaque porro perferendis
-                          ipsum placeat magnam maiores ab.
+                        {cartoon1st?.Summary}
                         </p>
                       </div>
                       {/* <div className="showlike">

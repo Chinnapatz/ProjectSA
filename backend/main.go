@@ -32,13 +32,19 @@ func main() {
 	//Page.Catagories
 	r.GET("/categories",controller.GetCategories)
 	r.GET("/cartoons/:ID",controller.GetCartoon)
+	
 	//Page.Dashboard
 	r.GET("/home",controller.GetCartoonToDashboard)
+
 	//Page.paymentEpisode
 	r.GET("/paymentEP/:member_ID/:ID_E", controller.CheckPaymentEP)
 	r.GET("PaymentEP/:member_ID/:ID_E",controller.UpdatePaymentEp)
+
 	//Page.Comment
-	r.POST("/comments",controller.CreateComment)
+    r.POST("/comments/:ID/:IDep",controller.CreateComment)
+    r.GET("/comments/:ID",controller.GetComment)
+    r.GET("/members/:ID",controller.GetUsernameByMemberID)
+
 	//Page.Bookshelf/follow
 	r.GET("/bookshelf/follow/:ID",controller.GetCartoonFollowByID)
 

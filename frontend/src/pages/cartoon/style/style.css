@@ -108,8 +108,17 @@
   position: relative;
   height: 290px;
   color: aliceblue;
-  overflow-x: auto;
+  overflow-y: scroll;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
 }
+.detailinfo::-webkit-scrollbar { 
+    width: 0;
+    height: 0;
+}
+  
+  
+
 
 /* like */
 

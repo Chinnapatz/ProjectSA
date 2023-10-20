@@ -29,7 +29,6 @@ func CreateEpisodes(c *gin.Context) {
 		CartoonID:  &cartoon.ID,
 		Title:      episodes.Title,
 		Pictures:   episodes.Pictures,
-		Status:     episodes.Status,
 		Epnumber:  	episodes.Epnumber,
 		Thumbnail:  episodes.Thumbnail,
 		Price:      episodes.Price,

@@ -7,8 +7,6 @@ import (
 type History struct {
 	gorm.Model
 
-	EpisodesID	*uint
-	Episodes	Episodes `gorm:"foreignKey:EpisodesID"`
 
 	CartoonID	*uint
 	Cartoon		Cartoon		`gorm:"foreignKey:CartoonID"`
