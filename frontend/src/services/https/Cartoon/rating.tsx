@@ -23,8 +23,70 @@ async function CreateRating(mem4RatingID: Number | undefined,toon4RatingID: numb
     });
     return res;
   }
+
+
+  async function GetCartoonRating1stID() {
+    const requestOptions ={
+      medthod: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    let res = await fetch(`${apiUrl}/cartoon/rating`, requestOptions)
+    .then((response) => response.json())
+    .then((res) =>{
+      if(res.data){
+        return res.data;
+      }else{
+        return false;
+      }
+    });
+    return res;
+}
+
+async function GetCartoonRating2ndID() {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/cartoon/ratings2nd`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+    }else{
+      return false;
+    }
+  });
+  return res;
+}
+
+
+async function GetCartoonRating3thID() {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/cartoon/ratings3th`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+    }else{
+      return false;
+    }
+  });
+  return res;
+}
   
   export{
   
     CreateRating,
+    GetCartoonRating1stID,
+    GetCartoonRating2ndID,
+    GetCartoonRating3thID,
   }
