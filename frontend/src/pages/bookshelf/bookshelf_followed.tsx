@@ -1,102 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./style/bookshelf.css";
 import Cookies from "js-cookie";
+import dayjs from "dayjs";
 //component
 import Topmenu from "../component/topmenu";
 import Menubookshelf from "./component/menubookshelf";
+
 import { UsersInterface } from "../../interfaces/IUser";
-import { SeriesInterface } from "../../interfaces/ISeries";
-import { GetCartoonByID } from "../../services/https/Bookshelf/bookshelf_follow";
-import {
-  GetUsersByUsernameAPI,
-  GetInfoMemberByMemberID,
-} from "../../services/https";
+
+
+import { GetCartoonFollowByID } from "../../services/https/Bookshelf/bookshelf_follow";
+import { GetUsersByUsernameAPI } from "../../services/https";
 const { Header, Content } = Layout;
+
 interface Cartoon {
-  ID: number;
+  ID: Number;
+  CreatedAt : string;
   Square_Thumbnail: string;
   Title: string;
-  Datetime: string;
 }
 
 function Bookshelf_followed() {
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
-  const [datafollowmember, setDataFollowMember] = useState<UsersInterface | undefined>(undefined);
-  const [cartoon, setCartoon] = useState<Cartoon[]>([]);
+  const [products, setProducts] = useState<Cartoon[]>([]);
+
   const username = Cookies.get("username");
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "../styles/header";
-    script.async = true;
-    getUsersByUsername();
-    console.log("Data Member:", member);
-    getInfoDataMemberByMemberID(member?.ID);
-    console.log("datafollowmember:", datafollowmember);
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      let followedCartoons: Cartoon[] = [];
-      if (datafollowmember?.FollowedCartoon) {
-        if (Array.isArray(datafollowmember.FollowedCartoon)) {
-          followedCartoons = datafollowmember.FollowedCartoon as Cartoon[];
-        } else {
-          followedCartoons = [datafollowmember.FollowedCartoon as Cartoon];
-        }
-      }
-
-      if (followedCartoons.length > 0) {
-        const validCartoons: Cartoon[] = followedCartoons.filter(
-          (cartoon) => !!cartoon.ID
-        );
-        if (validCartoons.length > 0) {
-          const cartoonIDs: number[] = validCartoons
-            .filter((cartoon) => typeof cartoon.ID === "number")
-            .map((cartoon) => cartoon.ID as number); // Corrected type here
-            getCartoonIDfromMemberID(cartoonIDs);
-            console.log("Cartoon data: ", cartoon);
-          
-        }
-      }
-    };
-    fetchData();
-  }, [datafollowmember]);
-
-  const getUsersByUsername = async () => {
+  const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
       setMember(res);
-      console.log("Data Member:", member);
     }
   };
 
-  const getInfoDataMemberByMemberID = async (ID: Number | undefined) => {
-    let res = await GetInfoMemberByMemberID(ID);
+  const getCartoonFollowByID = async (ID: Number | undefined): Promise<any> => 
+  {
+    let res = await GetCartoonFollowByID(ID);
     if (res) {
-      setDataFollowMember(res);
-      console.log("DataFollow Member:", datafollowmember);
+      setProducts(res);
+
     }
+  };
+  
+
+  const onClick = (ID: Number | undefined) => {
+   
+    const idValues = `${ID}`;
+    Cookies.set("ID", idValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+    const id = Cookies.get("ID");
+    console.log(id);
+    navigate("/Home/cartoon");
   };
 
-  const getCartoonIDfromMemberID = async (ID: number[] | undefined) => {
-    if (ID && ID.length > 0) {
-      const cartoons: Cartoon[] = [];
-      for (const id of ID) {
-        const cartoon = await GetCartoonByID(id);
-        if (cartoon) {
-          cartoons.push(cartoon);
-        }
-      }
-      setCartoon(cartoons);
-      console.log("Cartoon data: ", cartoons);
-      console.log("Cartoon data: ", cartoon);
-     
+  useEffect(() => {
+    GetUsersByUsername();
+  }, []);
+
+  useEffect(() => {
+    if (member?.ID) {
+      getCartoonFollowByID(member.ID);
     }
-  };
-  console.log("Cartoon data: ", cartoon);
+    
+  }, [member]);
+  console.log(products);
   return (
     <>
       <Layout>
@@ -144,23 +113,23 @@ function Bookshelf_followed() {
             >
               <div className="header">การ์ตูนที่ติดตาม</div>
               {/* info-box1 start */}
-              {cartoon.map((cartoon) => (
-                <div key={String(cartoon.ID)} className="info-box">
+              <div className="info-box-Area">
+              {products.map((cartoon) => (
+                <div className="info-box" onClick={() => onClick(cartoon.ID)}>
                   <div className="img-infobox">
-                    <img
-                      src={cartoon.Square_Thumbnail}
-                      width={190}
-                      height={190}
-                      alt="Cartoon Thumbnail"
-                    />
+                    <img src={cartoon.Square_Thumbnail} width={190} height={190} />
                   </div>
                   <div className="text-infobox">
                     <h1>{cartoon.Title}</h1>
                     <br></br>
-                    <h3>Update: {cartoon.Datetime}</h3>
+                    <h3>สร้างเมื่อ : {dayjs(cartoon.CreatedAt).format("DD/MM/YYYY")}</h3>
+                  </div>
+                  <div className="EpisodeNumber-infobox">
+                    <h1></h1>
                   </div>
                 </div>
               ))}
+              </div>
 
               {/* info-box1 End */}
             </Content>

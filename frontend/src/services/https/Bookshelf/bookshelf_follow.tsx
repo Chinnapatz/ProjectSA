@@ -5,7 +5,7 @@ import { EpisodesInterface } from "../../../interfaces/IEpisodes";
 import { FollowInterface } from "../../../interfaces/IFollow";
 const apiUrl = "http://localhost:8080";
 // /bookshelf/follow
-async function GetCartoonByID(ID: number | undefined):Promise<any> {
+async function GetCartoonFollowByID(ID: Number | undefined):Promise<any> {
     const requestOptions ={
       medthod: "GET",
       headers: {
@@ -22,7 +22,7 @@ async function GetCartoonByID(ID: number | undefined):Promise<any> {
       }
     });
     return res;
-  }
+}
 
 async function CreateFollow(member_ID: Number | undefined,ID_C: number | undefined):Promise<any> {
     const requestOptions ={
@@ -41,9 +41,48 @@ async function CreateFollow(member_ID: Number | undefined,ID_C: number | undefin
       }
     });
     return res;
-  }
-
-export{
-    GetCartoonByID,
-    CreateFollow,
 }
+
+async function DeleteFollow(memberID: Number | undefined,cartoonID: number | undefined) {
+  const requestOptions = {
+    method: "DELETE"
+  };
+  let res = await fetch(`${apiUrl}/bookshelf/follows/${memberID}/${cartoonID}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+async function CheckCartoonFollowByID(member_ID: Number | undefined,ID_C: Number| undefined):Promise<any> {
+  const requestOptions ={
+    medthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let res = await fetch(`${apiUrl}/bookshelf/followsCheck/${member_ID}/${ID_C}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) =>{
+    if(res.data){
+      return res.data;
+    }else{
+      return false;
+    }
+  });
+  return res;
+}
+export{
+    DeleteFollow,
+    CreateFollow,
+    GetCartoonFollowByID,
+    CheckCartoonFollowByID,
+}
+
+
+

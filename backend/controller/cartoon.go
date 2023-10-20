@@ -11,12 +11,19 @@ import (
 func CreateSeries(c *gin.Context) {
 	var cartoon entity.Cartoon
 	var member entity.Member
+	var categories entity.Categories
 	var cartoons []entity.Cartoon
-	
-	
+
+	categoriesID := c.Param("categoriesID")
 	idMember := c.Param("ID")
 
+
 	if err := entity.DB().Raw("SELECT * FROM members WHERE id = ?", idMember).Scan(&member).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := entity.DB().Raw("SELECT * FROM categories WHERE id = ?", categoriesID).Scan(&categories).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -28,12 +35,13 @@ func CreateSeries(c *gin.Context) {
 
 	 series := entity.Cartoon{
 		MemberID: 				&member.ID,
+		CategoriesID: 			&categories.ID,
 		Title: 					cartoon.Title,
-		Catagories: 			cartoon.Catagories,
 		Summary: 				cartoon.Summary,
 		Square_Thumbnail: 		cartoon.Square_Thumbnail,
-		Vertical_Thumbnail:		cartoon.Vertical_Thumbnail,
+		Horizontal_Thumbnail:	cartoon.Horizontal_Thumbnail,
 		Datetime: 				time.Now(),	
+
 		
 	 }
 	if err := entity.DB().Create(&series).Error; err != nil {

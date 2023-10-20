@@ -4,7 +4,6 @@ import (
 	"github.com/Chinnapatz/ProjectSA/entity"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"time"
 )
 
 func CreatePaymentEpisodes(c *gin.Context) {
@@ -27,7 +26,7 @@ func CreatePaymentEpisodes(c *gin.Context) {
 		
 		MemberID:   &member.ID,
 		EpisodesID: &episodes.ID,
-		Datetime:   time.Now(),
+	
 		
 	}
 	if err := entity.DB().Create(&PayEp).Error; err != nil {
@@ -57,7 +56,7 @@ func GetEpisodePaymentEpisodeByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": episodes})
 }
-
+//GET
 func GetCartoonPaymentEpisodesByID(c *gin.Context){
 	var episodes []entity.Episodes
 	var paymentEp []entity.PaymentEpisode

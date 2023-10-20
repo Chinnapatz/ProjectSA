@@ -1,6 +1,6 @@
 import React,{ useEffect, useState } from "react";
 import { Layout } from "antd";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./style/bookshelf.css";
 import Cookies from 'js-cookie'; 
 //component
@@ -11,22 +11,24 @@ import { GetUsersByUsernameAPI } from "../../services/https";
 import { GetCartoonPaymentEpisodesByID } from "../../services/https/Bookshelf/bookshelf_bought";
 const { Header,  Content } = Layout;
 
-interface cartoon {
+interface Episodes {
   ID:               number;
-  Thumbnail: string;
+  Thumbnail:        string;
   Title:            string;
   Datetime:         string;
 }
 function Bookshelf_bought() {
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
-  const [products, setProducts] = useState<cartoon[]>([]);
+  const [products, setProducts] = useState<Episodes[]>([]);
   const username = Cookies.get('username');
+  const navigate = useNavigate();
   const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
       setMember(res);
     }
   };
+
   const getCartoonPaymentEpisodesByID = async (ID: Number | undefined):Promise<any> => {
     let res = await GetCartoonPaymentEpisodesByID(ID);
     if (res) {
@@ -34,14 +36,24 @@ function Bookshelf_bought() {
       setProducts(res);
     }
   };
+
   useEffect(()=>{
     GetUsersByUsername();
   },[]);
+
   useEffect(() => {
     if (member?.ID) {
       getCartoonPaymentEpisodesByID(member.ID);
     }
   }, [member]);
+
+  const onClick = (ID_ep: Number | undefined) => {
+    const idValues = `${ID_ep}`;
+    Cookies.set("ID_ep", idValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+    const id = Cookies.get("ID_ep");
+    navigate("/Home/cartoon/episodes");
+  };
+  console.log(products);
   return (
     <>
       <Layout>
@@ -90,14 +102,13 @@ function Bookshelf_bought() {
               <div className="header">การ์ตูนที่ซื้อแล้ว</div>
               {/* info-box1 start */}
               {products.map((cartoon)=>(
-                <div className="info-box">
+                <div className="info-box" onClick={() => onClick(cartoon.ID)}>
                   <div className="img-infobox">
                     <img  src={cartoon.Thumbnail} width={190} height={190} />
                   </div>
                   <div className="text-infobox">
                     <h1>{cartoon.Title}</h1>
                     <br></br>
-                    <h3>Update:06/09/2023</h3>
                   </div>
                   <div className="EpisodeNumber-infobox">
                     <h1></h1>

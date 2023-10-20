@@ -8,11 +8,11 @@ import (
 type Cartoon struct {
 	gorm.Model
 	Title              string `gorm:"uniqueIndex"`
-	Catagories         string
 	Summary            string
 	Square_Thumbnail   string
-	Vertical_Thumbnail string
+	Horizontal_Thumbnail string
 	Datetime           time.Time
+	
 
 	Followers []*Follow  `gorm:"many2many:follows;"`
 	Episodess []Episodes `gorm:"foreignKey:CartoonID"`

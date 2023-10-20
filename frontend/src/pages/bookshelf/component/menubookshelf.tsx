@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-
 import { Link } from "react-router-dom";
 import "../style/bookshelf.css";
 const page = localStorage.getItem("page");
-
 const setCurrentPage = (val: string) => {
   localStorage.setItem("page", val);
 };
-
 function Menubookshelf() {
   return (
     <div
@@ -26,14 +23,16 @@ function Menubookshelf() {
           การ์ตูนที่ติดตาม
         </span>
       </Link>
-      <Link to="/Bookshelf/History"><span style={{
-            paddingRight: "0vw",
-            paddingLeft: "0vw",
+      <Link to="/Bookshelf/History">
+        <span
+          style={{
+            paddingRight: "7vw",
+            paddingLeft: "7vw",
             color: "white",
             fontSize: "18px",
           }}
         >
-          การ์ตูนที่อ่านล่าสุด
+          ประวัติการอ่าน
         </span>
       </Link>
       <Link to="/Bookshelf/Bought">

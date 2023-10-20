@@ -5,14 +5,14 @@ import { EpisodesInterface } from "../../../interfaces/IEpisodes";
 
 const apiUrl = "http://localhost:8080";
 
-async function CreateSeries(ID: Number | undefined,data: SeriesInterface):Promise<any> {
+async function CreateSeries(ID: Number | undefined,categoriesID: number | undefined,data: SeriesInterface):Promise<any> {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     };
   
-    let res = await fetch(`${apiUrl}/cartoons/${ID}`, requestOptions)
+    let res = await fetch(`${apiUrl}/cartoons/${ID}/${categoriesID}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {

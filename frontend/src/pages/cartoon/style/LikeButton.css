@@ -1,7 +1,3 @@
-/* .liked {
-    color: green;
-  } */
-
 
   .liked {
     top: 10px;
@@ -26,7 +22,7 @@
     scale: 1.1;
   }
 
-  .like {
+  .LIKE {
     top: 10px;
     position: relative;
     height: 40px;
@@ -43,7 +39,7 @@
          -webkit-user-select: none; 
   }
 
-  .like:hover{
+  .LIKE:hover{
     scale: 1.1;
     background-color: #ff9fc6;
     color: #ffffff;
