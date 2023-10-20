@@ -8,17 +8,10 @@ import (
 )
 
 func CreateRating(c *gin.Context) {
-	// var follow entity.Follow
 	var member entity.Member
 	var cartoon entity.Cartoon
 	idMember := c.Param("mem4RatingID")
 	idCartoon := c.Param("toon4RatingID")
-
-
-	// if err := c.ShouldBindJSON(&follow); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
 	if tx := entity.DB().Where("id=?", idCartoon).Find(&cartoon); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "cartoon not found"})
 		return
@@ -37,19 +30,62 @@ func CreateRating(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": f})
 }
-
-
-
-// GET bookshelf/follow/:id
-func GetCartoonRatingByID(c *gin.Context) {
-	idCartoon := c.Param("cartonID")
-	var cartoons entity.Cartoon
-	if err := entity.DB().Preload("Member").Raw("SELECT * FROM cartoons WHERE id = ?",idCartoon).Find(&cartoons).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+func CheckCartoonRatingByID(c *gin.Context) {
+	var rating entity.Rating
+	idMember := c.Param("mem4RatingID")
+	idCartoon := c.Param("toon4RatingID")
+	result := entity.DB().Raw("SELECT * FROM ratings WHERE cartoon_id = ? AND member_id = ? ", idCartoon, idMember).Scan(&rating)
+	if result.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": result.Error.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": cartoons})
+	if result.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ไม่พบข้อมูล"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": rating})
+}
+
+// DELETE /bookshelf/follows/:memberID/:cartoonID
+func DeleteRating(c *gin.Context) {
+	idMember := c.Param("mem4RatingID")
+	idCartoon := c.Param("toon4RatingID")
+
+	if tx := entity.DB().Exec("DELETE FROM ratings WHERE member_id = ? AND cartoon_id = ?", idMember, idCartoon); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": idMember})
 }
 
 
 
+
+
+
+
+
+func GetCartoonRating1stID(c *gin.Context) {
+	var ratings entity.Rating
+	if err := entity.DB().Raw("SELECT cartoon_id FROM ratings GROUP BY cartoon_id HAVING COUNT(*) > 0 ORDER BY COUNT(*) DESC LIMIT 1 OFFSET 0").Find(&ratings).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": ratings})
+}
+func GetCartoonRating2ndID(c *gin.Context) {
+	var ratings entity.Rating
+	if err := entity.DB().Raw("SELECT cartoon_id FROM ratings GROUP BY cartoon_id HAVING COUNT(*) > 0 ORDER BY COUNT(*) DESC LIMIT 1 OFFSET 1").Find(&ratings).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": ratings})
+}
+func GetCartoonRating3thID(c *gin.Context) {
+	var ratings entity.Rating
+	if err := entity.DB().Raw("SELECT cartoon_id FROM ratings GROUP BY cartoon_id HAVING COUNT(*) > 0 ORDER BY COUNT(*) DESC LIMIT 1 OFFSET 2").Find(&ratings).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": ratings})
+}

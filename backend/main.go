@@ -41,17 +41,31 @@ func main() {
 	r.POST("/comments",controller.CreateComment)
 	//Page.Bookshelf/follow
 	r.GET("/bookshelf/follow/:ID",controller.GetCartoonFollowByID)
+
 	r.GET("/bookshelf/follows/:memberID/:cartoonID",controller.CreateFollow)
 	r.GET("/bookshelf/followsCheck/:memberID/:cartoonID",controller.CheckCartoonFollowByID)
-	
 	r.DELETE("/bookshelf/follows/:memberID/:cartoonID",controller.DeleteFollow)
+
 	//Page.rating
 	r.GET("/cartoon/ratings/:mem4RatingID/:toon4RatingID",controller.CreateRating)
-	r.GET("/cartoon/rating/:cartonID",controller.GetCartoonRatingByID)
+	r.GET("/cartoon/ratingCheck/:mem4RatingID/:toon4RatingID",controller.CheckCartoonRatingByID)
+	r.DELETE("/cartoon/ratingDEL/:mem4RatingID/:toon4RatingID",controller.DeleteRating)
+
+	r.GET("/cartoon/rating",controller.GetCartoonRating1stID)
+	r.GET("/cartoon/ratings2nd",controller.GetCartoonRating2ndID)
+	r.GET("/cartoon/ratings3th",controller.GetCartoonRating3thID)
+	
+	
 	//Page.Bookshelf/paymentEpisodes
 	r.GET("/bookshelf/paymentEpisodes",controller.ListPaymentEpisode)
 	r.GET("/bookshelf/paymentEpisodes/:ID",controller.GetCartoonPaymentEpisodesByID)
-	r.POST("/bookshelf/paymentEpisodes",controller.CreateHistory)
+	
+	//Page.Bookshelf/history
+	r.GET("/bookshelf/history/:memberID",controller.GetCartoonHistoryByID)
+	r.GET("/bookshelf/history/:memberID/:cartoonID",controller.CreateHistory)
+
+
+	
 
 	// Run the server
 	r.Run()

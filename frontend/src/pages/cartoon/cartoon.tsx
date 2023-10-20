@@ -11,20 +11,32 @@ import "./style/followButton.css";
 import Topmenu from "../component/topmenu";
 import "./style/style.css";
 
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 //https request
 import {
   GetCartoonByID_API,
   GetEpisodesByID_API,
   GetUsersByUsernameAPI,
+
   //payment
   getPayment,
   UpdatePaymentEp,
 } from "../../services/https";
 
-import { CreateFollow, DeleteFollow, CheckCartoonFollowByID } from "../../services/https/Bookshelf/bookshelf_follow";
-import { CreateRating } from "../../services/https/Cartoon/rating";
+import { 
+  //bookshelf/follow
+  CreateFollow,
+  DeleteFollow,
+  CheckCartoonFollowByID 
+} from "../../services/https/Bookshelf/bookshelf_follow";
+
+import { 
+  //bookshelf/history
+  CreateHistory 
+} from "../../services/https/Bookshelf/bookshelf_history";
+//ratting
+import { CreateRating,DeleteRating,CheckCartoonRatingByID } from "../../services/https/Cartoon/rating";
 
 //interface
 import { UsersInterface } from "../../interfaces/IUser";
@@ -52,7 +64,7 @@ function Cartoon() {
   const [title, setTitle] = useState<Toons>();
   const [products, setProducts] = useState<Toon[]>([]);
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
-  const [liked, setLiked] = useState(false);
+
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -74,8 +86,8 @@ function Cartoon() {
   const GetCartoonByID = async () => {
     let res = await GetCartoonByID_API(id);
     if (res) {
-      console.log(res);
       setCartoon(res);
+      setCartoonLIKE(res);
       setTitle(res);
     }
   };
@@ -90,7 +102,6 @@ function Cartoon() {
   const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
-      console.log(res);
       setMember(res);
     }
   };
@@ -113,8 +124,11 @@ function Cartoon() {
       }
     });
     CheckCartoonFollowByID(member?.ID, cartoon?.ID).then((isFollowed) => {
-      setFollow(isFollowed);
+    setFollow(isFollowed);
     });
+    CheckCartoonRatingByID(member?.ID, cartoon?.ID).then((LIKED) => {
+      setLIKE(LIKED);
+      });
   }, [products, isBoughtMap, member?.ID]);
 
   //status
@@ -158,22 +172,22 @@ function Cartoon() {
   const [follow, setFollow] = useState(false);
   const [cartoon, setCartoon] = useState<Toon>();
   const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
+  
   const handleFollowButtonClick = () => {
     setFollow(!follow);
-
+    
     if (follow) {
       console.log(follow);
-      // ถ้ากดปุ่มและเป็น follow, ให้เรียก DeleteFollow
       DeleteFollow(member?.ID, cartoon?.ID);
     } else {
       console.log(follow);
-      // ถ้ากดปุ่มและไม่เป็น follow, ให้เรียก CreateFollow
       console.log(member?.ID);
       console.log(cartoon?.ID);
       CreateFollow(member?.ID, cartoon?.ID);
     };
   };
-  const onClick = (ID: Number | undefined) => {
+  const onClick = (ID: Number | undefined, MemberID:Number| undefined , cartoonID:number) => {
+    CreateHistory(MemberID,cartoonID);
     const idEpValues = `${ID}`;
     Cookies.set("ID_ep", idEpValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
     const id = Cookies.get("ID_ep");
@@ -182,17 +196,24 @@ function Cartoon() {
   };
 
 
-
-
-  //Part.rating
-  const [rating, setRating] = useState(false);
-  const [isRating, setIsRating] = useState<FollowInterface[]>([]);
+  //Part.raingButton
+  const [LIKE, setLIKE] = useState(false);
+  const [cartoonLIKE, setCartoonLIKE] = useState<Toon>();
+  const [LIKED, setLIKED] = useState<{ [key: number]: boolean }>({});
   const handleLikeClick = () => {
-    setLiked(!liked);
-    CreateRating(member?.ID, cartoon?.ID);
+    setLIKE(!LIKE);
+    
+    if (LIKE) {
+      console.log(LIKE);
+      DeleteRating(member?.ID, cartoonLIKE?.ID);
+    } else {
+      console.log(LIKE);
+      console.log(member?.ID);
+      console.log(cartoonLIKE?.ID);
+      CreateRating(member?.ID, cartoonLIKE?.ID);
+    };
   };
 
-  console.log(follow);
   return (
     <>
       <Layout>
@@ -237,9 +258,9 @@ function Cartoon() {
 
                     <div className="showlike"></div>
                     <div className="blankspace"></div>
-
+                    <div className="followNlikeButton">
                     {/* Button_Follow-Start */}
-
+                    
                     <div>
                       {/* Apply the "liked" class when the button is liked */}
                       <div
@@ -251,19 +272,15 @@ function Cartoon() {
                     </div>
                     {/* Button_Follow-End */}
 
-                    <div>
-                      {/* Apply the "liked" class when the button is liked */}
+                    <div className="likebutton">
                       <div
                         onClick={handleLikeClick}
-                        className={liked ? "liked" : "like"}
+                        className={LIKE ? "liked" : "LIKE"}
                       >
-                        {liked ? "💖 LIKED" : "🤍 LIKE"}
+                        {LIKE ? "💖 LIKED" : "🤍 LIKE"}
                       </div>
                     </div>
-
-                    {/* <button className="likeicontop">
-                            <p className="sumlike">2.3M</p>
-                        </button> */}
+                    </div>
                   </div>
                 </div>
 
@@ -294,7 +311,7 @@ function Cartoon() {
                                 <div>
                                   <div
                                     style={{ color: "white" }}
-                                    onClick={() => onClick(p.ID)}
+                                    onClick={() => onClick(p.ID,member?.ID,p.ID)}
                                   >
                                     สินค้าถูกซื้อแล้ว!
                                   </div>
