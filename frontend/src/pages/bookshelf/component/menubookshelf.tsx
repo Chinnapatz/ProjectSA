@@ -23,6 +23,18 @@ function Menubookshelf() {
           การ์ตูนที่ติดตาม
         </span>
       </Link>
+      <Link to="/Bookshelf/History">
+        <span
+          style={{
+            paddingRight: "7vw",
+            paddingLeft: "7vw",
+            color: "white",
+            fontSize: "18px",
+          }}
+        >
+          ประวัติการอ่าน
+        </span>
+      </Link>
       <Link to="/Bookshelf/Bought">
         <span
           style={{

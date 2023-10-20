@@ -1,6 +1,6 @@
 import { UsersInterface } from "./IUser";
 export interface SeriesInterface {
-    ID ?:            			Number;  
+    ID ?:            			number;  
     title ?:	            	string; 
 	summary	?:			    	string; 
 	square_thumbnail ?:			any; 

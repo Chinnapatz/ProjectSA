@@ -11,19 +11,31 @@ import "./style/followButton.css";
 import Topmenu from "../component/topmenu";
 import "./style/style.css";
 
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 //https request
 import {
   GetCartoonByID_API,
   GetEpisodesByID_API,
   GetUsersByUsernameAPI,
+
   //payment
   getPayment,
   UpdatePaymentEp,
 } from "../../services/https";
 
-import { CreateFollow,DeleteFollow,CheckCartoonFollowByID } from "../../services/https/Bookshelf/bookshelf_follow";
+import { 
+  //bookshelf/follow
+  CreateFollow,
+  DeleteFollow,
+  CheckCartoonFollowByID 
+} from "../../services/https/Bookshelf/bookshelf_follow";
+
+import { 
+  //bookshelf/history
+  CreateHistory 
+} from "../../services/https/Bookshelf/bookshelf_history";
+//ratting
 import { CreateRating,DeleteRating,CheckCartoonRatingByID } from "../../services/https/Cartoon/rating";
 
 //interface
@@ -72,7 +84,6 @@ function Cartoon() {
   const GetCartoonByID = async () => {
     let res = await GetCartoonByID_API(id);
     if (res) {
-      console.log(res);
       setCartoon(res);
       setCartoonLIKE(res);
       const titles = res.Horizontal_Thumbnail;
@@ -90,7 +101,6 @@ function Cartoon() {
   const GetUsersByUsername = async () => {
     let res = await GetUsersByUsernameAPI(username);
     if (res) {
-      console.log(res);
       setMember(res);
     }
   };
@@ -161,25 +171,21 @@ function Cartoon() {
   const [follow, setFollow] = useState(false);
   const [cartoon, setCartoon] = useState<Toon>();
   const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
+  
   const handleFollowButtonClick = () => {
-    setFollow(!follow);
-    
+    setFollow(!follow);  
     if (follow) {
       console.log(follow);
-      // ถ้ากดปุ่มและเป็น follow, ให้เรียก DeleteFollow
       DeleteFollow(member?.ID, cartoon?.ID);
     } else {
       console.log(follow);
-      // ถ้ากดปุ่มและไม่เป็น follow, ให้เรียก CreateFollow
       console.log(member?.ID);
       console.log(cartoon?.ID);
       CreateFollow(member?.ID, cartoon?.ID);
     };
   };
-
-
-  
-  const onClick = (ID: Number | undefined) => {
+  const onClick = (ID: Number | undefined, MemberID:Number| undefined , cartoonID:number) => {
+    CreateHistory(MemberID,cartoonID);
     const idEpValues = `${ID}`;
     Cookies.set("ID_ep", idEpValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
     const id = Cookies.get("ID_ep");
@@ -308,7 +314,7 @@ function Cartoon() {
                                 <div>
                                   <div
                                     style={{ color: "white" }}
-                                    onClick={() => onClick(p.ID)}
+                                    onClick={() => onClick(p.ID,member?.ID,p.ID)}
                                   >
                                     สินค้าถูกซื้อแล้ว!
                                   </div>
