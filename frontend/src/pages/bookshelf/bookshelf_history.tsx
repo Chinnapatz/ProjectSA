@@ -117,7 +117,7 @@ function Bookshelf_history() {
                   <div className="text-infobox">
                     <h1>{cartoon.Title}</h1>
                     <br></br>
-                    <h3>{dayjs(cartoon.Datetime).format("DD/MM/YYYY")}</h3>
+                    <h3>สร้างเมื่อ : {dayjs(cartoon.Datetime).format("DD/MM/YYYY")}</h3>
                   </div>
                   <div className="EpisodeNumber-infobox">
                     <h1></h1>

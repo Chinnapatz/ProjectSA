@@ -46,7 +46,7 @@ import { SeriesInterface } from "../../interfaces/ISeries";
 const { Header, Content } = Layout;
 
 interface Toon {
-  ID: number;
+  ID: number ;
   Epnumber: number;
   Thumbnail: string;
   Title: string;
@@ -64,7 +64,7 @@ function Cartoon() {
   const [title, setTitle] = useState<Toons>();
   const [products, setProducts] = useState<Toon[]>([]);
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
-
+  // const [cartoon,setCartoon]=useState<SeriesInterface[]>([]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -87,7 +87,7 @@ function Cartoon() {
     let res = await GetCartoonByID_API(id);
     if (res) {
       setCartoon(res);
-      setCartoonLIKE(res);
+      setCartoonLIKE(res); 
       setTitle(res);
     }
   };
@@ -171,7 +171,6 @@ function Cartoon() {
   //Part.followButton
   const [follow, setFollow] = useState(false);
   const [cartoon, setCartoon] = useState<Toon>();
-  const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
   
   const handleFollowButtonClick = () => {
     setFollow(!follow);
@@ -182,11 +181,11 @@ function Cartoon() {
     } else {
       console.log(follow);
       console.log(member?.ID);
-      console.log(cartoon?.ID);
+      console.log("cartoon:",cartoon);
       CreateFollow(member?.ID, cartoon?.ID);
     };
   };
-  const onClick = (ID: Number | undefined, MemberID:Number| undefined , cartoonID:number) => {
+  const onClick = (ID: Number , MemberID:Number| undefined , cartoonID:number| undefined) => {
     CreateHistory(MemberID,cartoonID);
     const idEpValues = `${ID}`;
     Cookies.set("ID_ep", idEpValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
@@ -311,7 +310,7 @@ function Cartoon() {
                                 <div>
                                   <div
                                     style={{ color: "white" }}
-                                    onClick={() => onClick(p.ID,member?.ID,p.ID)}
+                                    onClick={() => onClick(p.ID,member?.ID,cartoon?.ID)}
                                   >
                                     สินค้าถูกซื้อแล้ว!
                                   </div>

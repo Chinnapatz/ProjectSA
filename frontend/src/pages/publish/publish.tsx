@@ -8,11 +8,12 @@ import Cookies from "js-cookie"; //npm install js-cookie
 import { GetUsersByUsernameAPI } from "../../services/https";
 import { UsersInterface } from "../../interfaces/IUser";
 import { GetCartoon } from "../../services/https/Publish/publish";
+import dayjs from "dayjs";
 interface Toon {
   ID: number;
   Square_Thumbnail: string;
   Title: string;
-  Datetime: string;
+  CreatedAt: string;
 }
 
 
@@ -106,7 +107,7 @@ function Publish() {
 
                   <div className="Publish-text">
                     <div className="Publish-text-name">{t.Title}</div>
-                    <div className="Publish-text-date">{t.Datetime}</div>
+                    <div className="Publish-text-date">{dayjs(t.CreatedAt).format("DD/MM/YYYY-h:mm A")}</div>
                   </div>
                 </div>
                 <div className="Publish-button">

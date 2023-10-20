@@ -11,15 +11,15 @@ import { GetUsersByUsernameAPI } from "../../services/https";
 import { GetCartoonPaymentEpisodesByID } from "../../services/https/Bookshelf/bookshelf_bought";
 const { Header,  Content } = Layout;
 
-interface cartoon {
+interface Episodes {
   ID:               number;
-  Thumbnail: string;
+  Thumbnail:        string;
   Title:            string;
   Datetime:         string;
 }
 function Bookshelf_bought() {
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
-  const [products, setProducts] = useState<cartoon[]>([]);
+  const [products, setProducts] = useState<Episodes[]>([]);
   const username = Cookies.get('username');
   const navigate = useNavigate();
   const GetUsersByUsername = async () => {
@@ -47,13 +47,13 @@ function Bookshelf_bought() {
     }
   }, [member]);
 
-  const onClick = (ID: Number | undefined) => {
-    const idValues = `${ID}`;
-    Cookies.set("ID", idValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
-    const id = Cookies.get("ID");
-    console.log(id);
-    navigate("/Home/cartoon");
+  const onClick = (ID_ep: Number | undefined) => {
+    const idValues = `${ID_ep}`;
+    Cookies.set("ID_ep", idValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
+    const id = Cookies.get("ID_ep");
+    navigate("/Home/cartoon/episodes");
   };
+  console.log(products);
   return (
     <>
       <Layout>
@@ -109,7 +109,6 @@ function Bookshelf_bought() {
                   <div className="text-infobox">
                     <h1>{cartoon.Title}</h1>
                     <br></br>
-                    <h3>Update:06/09/2023</h3>
                   </div>
                   <div className="EpisodeNumber-infobox">
                     <h1></h1>

@@ -17,9 +17,9 @@ const { Header, Content } = Layout;
 
 interface Cartoon {
   ID: Number;
+  CreatedAt : string;
   Square_Thumbnail: string;
   Title: string;
-  Datetime: string;
 }
 
 function Bookshelf_followed() {
@@ -63,6 +63,7 @@ function Bookshelf_followed() {
     if (member?.ID) {
       getCartoonFollowByID(member.ID);
     }
+    
   }, [member]);
   console.log(products);
   return (
@@ -121,7 +122,7 @@ function Bookshelf_followed() {
                   <div className="text-infobox">
                     <h1>{cartoon.Title}</h1>
                     <br></br>
-                    <h3>{dayjs(cartoon.Datetime).format("DD/MM/YYYY")}</h3>
+                    <h3>สร้างเมื่อ : {dayjs(cartoon.CreatedAt).format("DD/MM/YYYY")}</h3>
                   </div>
                   <div className="EpisodeNumber-infobox">
                     <h1></h1>
