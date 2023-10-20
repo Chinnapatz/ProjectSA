@@ -64,9 +64,7 @@ func main() {
 	r.GET("/bookshelf/history/:memberID",controller.GetCartoonHistoryByID)
 	r.GET("/bookshelf/history/:memberID/:cartoonID",controller.CreateHistory)
 
-	//Page.rating
-	r.GET("/cartoon/ratings/:mem4RatingID/:toon4RatingID",controller.CreateRating)
-	// r.GET("/cartoon/rating/:cartonID",controller.GetCartoonRatingByID)
+
 	
 
 	// Run the server
