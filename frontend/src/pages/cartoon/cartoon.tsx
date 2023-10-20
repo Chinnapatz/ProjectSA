@@ -24,11 +24,12 @@ import {
 } from "../../services/https";
 
 import { CreateFollow,DeleteFollow,CheckCartoonFollowByID } from "../../services/https/Bookshelf/bookshelf_follow";
-import { CreateRating } from "../../services/https/Cartoon/rating";
+import { CreateRating,DeleteRating,CheckCartoonRatingByID } from "../../services/https/Cartoon/rating";
 
 //interface
 import { UsersInterface } from "../../interfaces/IUser";
 import { FollowInterface } from "../../interfaces/IFollow";
+
 
 const { Header, Content } = Layout;
 
@@ -51,7 +52,7 @@ function Cartoon() {
   const [title, setTitle] = useState<any | null>(null);
   const [products, setProducts] = useState<Toon[]>([]);
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
-  const [liked, setLiked] = useState(false);
+
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -73,6 +74,7 @@ function Cartoon() {
     if (res) {
       console.log(res);
       setCartoon(res);
+      setCartoonLIKE(res);
       const titles = res.Horizontal_Thumbnail;
       setTitle(titles);
     }
@@ -113,6 +115,9 @@ function Cartoon() {
     CheckCartoonFollowByID(member?.ID, cartoon?.ID).then((isFollowed) => {
     setFollow(isFollowed);
     });
+    CheckCartoonRatingByID(member?.ID, cartoon?.ID).then((LIKED) => {
+      setLIKE(LIKED);
+      });
   }, [products, isBoughtMap, member?.ID]);
 
   //status
@@ -171,6 +176,9 @@ function Cartoon() {
       CreateFollow(member?.ID, cartoon?.ID);
     };
   };
+
+
+  
   const onClick = (ID: Number | undefined) => {
     const idEpValues = `${ID}`;
     Cookies.set("ID_ep", idEpValues, { expires: 7 }); //setCookie(name, value, {วันหมดอายุ})
@@ -180,17 +188,24 @@ function Cartoon() {
   };
 
 
-
-
-  //Part.rating
-  const [rating, setRating] = useState(false);
-  const [isRating, setIsRating] = useState<FollowInterface[]>([]);
+  //Part.raingButton
+  const [LIKE, setLIKE] = useState(false);
+  const [cartoonLIKE, setCartoonLIKE] = useState<Toon>();
+  const [LIKED, setLIKED] = useState<{ [key: number]: boolean }>({});
   const handleLikeClick = () => {
-    setLiked(!liked);
-    CreateRating(member?.ID, cartoon?.ID);
+    setLIKE(!LIKE);
+    
+    if (LIKE) {
+      console.log(LIKE);
+      DeleteRating(member?.ID, cartoonLIKE?.ID);
+    } else {
+      console.log(LIKE);
+      console.log(member?.ID);
+      console.log(cartoonLIKE?.ID);
+      CreateRating(member?.ID, cartoonLIKE?.ID);
+    };
   };
 
-  console.log(follow);
   return (
     <>
       <Layout>
@@ -241,9 +256,8 @@ function Cartoon() {
              
                     <div className="showlike"></div>
                     <div className="blankspace"></div>
-                    
+                    <div className="followNlikeButton">
                     {/* Button_Follow-Start */}
-                    
                     <div>
                       {/* Apply the "liked" class when the button is liked */}
                       <div
@@ -255,19 +269,15 @@ function Cartoon() {
                     </div>
                     {/* Button_Follow-End */}
 
-                    <div>
-                      {/* Apply the "liked" class when the button is liked */}
+                    <div className="likebutton">
                       <div
                         onClick={handleLikeClick}
-                        className={liked ? "liked" : "like"}
+                        className={LIKE ? "liked" : "LIKE"}
                       >
-                        {liked ? "💖 LIKED" : "🤍 LIKE"}
+                        {LIKE ? "💖 LIKED" : "🤍 LIKE"}
                       </div>
                     </div>
-
-                    {/* <button className="likeicontop">
-                                            <p className="sumlike">2.3M</p>
-                                        </button> */}
+                    </div>
                   </div>
                 </div>
                                     

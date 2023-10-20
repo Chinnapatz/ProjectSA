@@ -267,3 +267,11 @@
   width: 900px;
   object-fit: cover;
 }
+
+.followNlikeButton{
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  left: -10px;
+}
+

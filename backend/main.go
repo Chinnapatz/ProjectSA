@@ -41,15 +41,20 @@ func main() {
 	r.POST("/comments",controller.CreateComment)
 	//Page.Bookshelf/follow
 	r.GET("/bookshelf/follow/:ID",controller.GetCartoonFollowByID)
+
+	r.GET("/bookshelf/follows/:memberID/:cartoonID",controller.CreateFollow)
+	r.GET("/bookshelf/followsCheck/:memberID/:cartoonID",controller.CheckCartoonFollowByID)
+	r.DELETE("/bookshelf/follows/:memberID/:cartoonID",controller.DeleteFollow)
+
+	//Page.rating
+	r.GET("/cartoon/ratings/:mem4RatingID/:toon4RatingID",controller.CreateRating)
+	r.GET("/cartoon/ratingCheck/:mem4RatingID/:toon4RatingID",controller.CheckCartoonRatingByID)
+	r.DELETE("/cartoon/ratingDEL/:mem4RatingID/:toon4RatingID",controller.DeleteRating)
+
 	r.GET("/cartoon/rating",controller.GetCartoonRating1stID)
 	r.GET("/cartoon/ratings2nd",controller.GetCartoonRating2ndID)
 	r.GET("/cartoon/ratings3th",controller.GetCartoonRating3thID)
-	r.GET("/bookshelf/follows/:memberID/:cartoonID",controller.CreateFollow)
-	r.GET("/bookshelf/followsCheck/:memberID/:cartoonID",controller.CheckCartoonFollowByID)
 	
-	r.DELETE("/bookshelf/follows/:memberID/:cartoonID",controller.DeleteFollow)
-	//Page.rating
-	r.GET("/cartoon/ratings/:mem4RatingID/:toon4RatingID",controller.CreateRating)
 	
 	//Page.Bookshelf/paymentEpisodes
 	r.GET("/bookshelf/paymentEpisodes",controller.ListPaymentEpisode)

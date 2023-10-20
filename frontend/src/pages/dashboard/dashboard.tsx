@@ -367,7 +367,7 @@ function Dashboard() {
                 <div className="row">
                   <div className="cartoon">
                     <div className="ratingbox">
-                      <div className="ratingtoptoon1">
+                      <div className="ratingtoptoon1" onClick={() => onClick(cartoon1st?.ID)}>
                         <div className="coverpagetoprating">
                         <img className="imgforrating" src={cartoon1st?.Square_Thumbnail}/>
                         </div>
@@ -375,11 +375,11 @@ function Dashboard() {
                           <h1 className="rank1">#1🥇</h1>
                           <h2 className="toptoonname">{cartoon1st?.Title}</h2>
                         </div>
-                      </div>
+                      </div> 
                     </div>
 
                     <div className="ratingbox">
-                      <div className="ratingtoptoon2">
+                      <div className="ratingtoptoon2" onClick={() => onClick(cartoon2nd?.ID)}>
                         <div className="coverpagetoprating">
                         <img className="imgforrating" src={cartoon2nd?.Square_Thumbnail}/>
                         </div>
@@ -391,7 +391,7 @@ function Dashboard() {
                     </div>
 
                     <div className="ratingbox">
-                      <div className="ratingtoptoon3">
+                      <div className="ratingtoptoon3"onClick={() => onClick(cartoon3th?.ID)}>
                         <div className="coverpagetoprating">
                         <img className="imgforrating" src={cartoon3th?.Square_Thumbnail}/>
                         </div>

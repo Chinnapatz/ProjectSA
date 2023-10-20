@@ -24,7 +24,7 @@ const headerStyle: React.CSSProperties = {
 function Topmenu() {
   const navigate = useNavigate();
   const homeButton = () => navigate("/Home");
-  const bookshelf = () => navigate("Bookshelf/Followed");
+  const bookshelf = () => navigate("/Bookshelf/Followed");
   const publish = () => navigate("/Publish");
   const buycoin = () => navigate("/Buycoin");
   useEffect(() => {

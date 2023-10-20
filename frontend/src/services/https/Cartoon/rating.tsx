@@ -24,6 +24,42 @@ async function CreateRating(mem4RatingID: Number | undefined,toon4RatingID: numb
     return res;
   }
 
+    async function CheckCartoonRatingByID(mem4RatingID: Number | undefined,ID_C: Number| undefined):Promise<any> {
+      const requestOptions ={
+        medthod: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      let res = await fetch(`${apiUrl}/cartoon/ratingCheck/${mem4RatingID}/${ID_C}`, requestOptions)
+      .then((response) => response.json())
+      .then((res) =>{
+        if(res.data){
+          return res.data;
+        }else{
+          return false;
+        }
+      });
+      return res;
+    }
+
+    async function DeleteRating(mem4RatingID: Number | undefined,toon4RatingID: number | undefined) {
+      const requestOptions = {
+        method: "DELETE"
+      };
+      let res = await fetch(`${apiUrl}/cartoon/ratingDEL/${mem4RatingID}/${toon4RatingID}`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.data) {
+            return res.data;
+          } else {
+            return false;
+          }
+        });
+    
+      return res;
+      }
+
 
   async function GetCartoonRating1stID() {
     const requestOptions ={
@@ -86,6 +122,9 @@ async function GetCartoonRating3thID() {
   export{
   
     CreateRating,
+    CheckCartoonRatingByID,
+    DeleteRating,
+  
     GetCartoonRating1stID,
     GetCartoonRating2ndID,
     GetCartoonRating3thID,
