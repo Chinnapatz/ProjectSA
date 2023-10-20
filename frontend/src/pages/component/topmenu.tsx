@@ -24,7 +24,7 @@ const headerStyle: React.CSSProperties = {
 function Topmenu() {
   const navigate = useNavigate();
   const homeButton = () => navigate("/Home");
-  const bookshelf = () => navigate("Bookshelf/Followed");
+  const bookshelf = () => navigate("/Bookshelf/Followed");
   const publish = () => navigate("/Publish");
   const buycoin = () => navigate("/Buycoin");
   useEffect(() => {
@@ -120,7 +120,7 @@ function Topmenu() {
                 Publish
               </Button>
               <div className="box2">
-                <div className="burger">
+                <div className="burger" onClick={() => navigate("/")}>
                   <div className="rectangle" />
                   <div className="div" />
                   <div className="rectangle-2" />

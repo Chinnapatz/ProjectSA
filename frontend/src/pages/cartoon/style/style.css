@@ -103,7 +103,8 @@
   color: #b276ff;
 }
 .detailinfo {
-  top: -45px;
+  top: -20px;
+  width: 95%;
   position: relative;
   height: 290px;
   color: aliceblue;

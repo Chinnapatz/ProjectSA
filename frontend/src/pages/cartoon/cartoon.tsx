@@ -23,12 +23,13 @@ import {
   UpdatePaymentEp,
 } from "../../services/https";
 
-import { CreateFollow,DeleteFollow,CheckCartoonFollowByID } from "../../services/https/Bookshelf/bookshelf_follow";
+import { CreateFollow, DeleteFollow, CheckCartoonFollowByID } from "../../services/https/Bookshelf/bookshelf_follow";
 import { CreateRating } from "../../services/https/Cartoon/rating";
 
 //interface
 import { UsersInterface } from "../../interfaces/IUser";
 import { FollowInterface } from "../../interfaces/IFollow";
+import { SeriesInterface } from "../../interfaces/ISeries";
 
 const { Header, Content } = Layout;
 
@@ -40,15 +41,15 @@ interface Toon {
   Price: string;
   Datetime: string;
 }
-  
+
 interface Toons {
-  ID:            number;
-  title:	       string; 
-	summary:			 string; 
+  Title: string;
+  Summary: string;
+  Horizontal_Thumbnail: string;
 }
 
 function Cartoon() {
-  const [title, setTitle] = useState<any | null>(null);
+  const [title, setTitle] = useState<Toons>();
   const [products, setProducts] = useState<Toon[]>([]);
   const [member, setMember] = useState<UsersInterface | undefined>(undefined);
   const [liked, setLiked] = useState(false);
@@ -62,7 +63,9 @@ function Cartoon() {
     GetUsersByUsername();
   }, []);
 
-  useEffect(() => {}, [title]);
+  useEffect(() => { 
+    console.log(cartoon)
+    console.log(title)}, [title]);
 
   const navigate = useNavigate();
   const id = Cookies.get("ID");
@@ -73,8 +76,7 @@ function Cartoon() {
     if (res) {
       console.log(res);
       setCartoon(res);
-      const titles = res.Horizontal_Thumbnail;
-      setTitle(titles);
+      setTitle(res);
     }
   };
 
@@ -111,12 +113,12 @@ function Cartoon() {
       }
     });
     CheckCartoonFollowByID(member?.ID, cartoon?.ID).then((isFollowed) => {
-    setFollow(isFollowed);
+      setFollow(isFollowed);
     });
   }, [products, isBoughtMap, member?.ID]);
 
   //status
-  const checkBought = async (ID_E: number | undefined,member_ID: Number | undefined): Promise<React.ReactNode> => {
+  const checkBought = async (ID_E: number | undefined, member_ID: Number | undefined): Promise<React.ReactNode> => {
     let res = await getPayment(ID_E, member_ID);
     setIsBoughtMap((prevIsBoughtMap) => {
       const updatedIsBoughtMap = { ...prevIsBoughtMap };
@@ -158,7 +160,7 @@ function Cartoon() {
   const [isFollowed, setIsFollowed] = useState<{ [key: number]: boolean }>({});
   const handleFollowButtonClick = () => {
     setFollow(!follow);
-    
+
     if (follow) {
       console.log(follow);
       // ถ้ากดปุ่มและเป็น follow, ให้เรียก DeleteFollow
@@ -212,38 +214,32 @@ function Cartoon() {
         >
           <div className="dashboardbackgroud">
             <div className="all">
-          
               <div className="top">
+
                 <div className="imageshowInCartoon">
-                  <img
-                    className="imageshowimage"
-                    src={title}
-                    alt="search--v1"
-                  />
+                    <img
+                      className="imageshowimage"
+                      src={title?.Horizontal_Thumbnail}
+                      alt="search--v1"
+                    />
                 </div>
-              </div>
-              <div className="below">
+
+              </div><div className="below">
                 <div className="infobox">
                   <div className="info">
-                
-                    <h1 className="toonname">toonname</h1><br></br><div className="detailinfo">
+
+                    <h1 className="toonname">{title?.Title}</h1><br></br><div className="detailinfo">
                       <br></br>
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Nesciunt, maiores qui. Explicabo magni maiores officia
-                        non dolorum dolore harum cum inventore quibusdam?
-                        Laborum nobis fugit ullam voluptatibus repellendus
-                        dolores recusandae, dolore culpa corrupti veritatis
-                        consectetur et enim itaque porro perferendis ipsum
-                        placeat magnam maiores ab.
+                        {title?.Summary}
                       </p>
                     </div>
-             
+
                     <div className="showlike"></div>
                     <div className="blankspace"></div>
-                    
+
                     {/* Button_Follow-Start */}
-                    
+
                     <div>
                       {/* Apply the "liked" class when the button is liked */}
                       <div
@@ -266,11 +262,11 @@ function Cartoon() {
                     </div>
 
                     {/* <button className="likeicontop">
-                                            <p className="sumlike">2.3M</p>
-                                        </button> */}
+                            <p className="sumlike">2.3M</p>
+                        </button> */}
                   </div>
                 </div>
-                                    
+
                 <div className="eplist">
                   <div className="blankspaceep"></div>
                   <div className="listzone">
@@ -325,7 +321,7 @@ function Cartoon() {
             </div>
           </div>
         </Content>
-      </Layout>
+      </Layout >
     </>
   );
 }
